@@ -1,0 +1,1248 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+
+/* ============================================
+   GLOBAL RESET & VARIABLES
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --theme-black: #000000;
+    --theme-blue: #2563eb;
+    --theme-light-blue: #eff6ff;
+    --theme-orange: #f97316;
+    --text-dark: #0f172a;
+    --footer-bg: #111827;
+    --gray-bg: #f8fafc;
+    --border-light: #f1f5f9;
+    --border-medium: #eef2f6;
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 20px 40px -15px rgba(0, 0, 0, 0.15);
+    --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
+    --shadow-blue: 0 25px 50px -12px rgba(37, 99, 235, 0.15);
+    --transition-smooth: all 0.3s ease;
+    --transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    overflow-x: hidden;
+    background-color: #ffffff;
+    scroll-behavior: smooth;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+.bg-theme-black { background-color: var(--theme-black); }
+.text-theme-black { color: var(--theme-black); }
+.bg-theme-blue { background-color: var(--theme-blue); }
+.text-theme-blue { color: var(--theme-blue); }
+.border-theme-blue { border-color: var(--theme-blue); }
+
+.input-focus:focus {
+    outline: none;
+    border-color: var(--theme-blue);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+/* ============================================
+   SECTION 1: WHY CHOOSE US (FEATURE CARDS)
+   ============================================ */
+.feature-slider-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1.5rem;
+    padding: 1rem 0 3rem 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.feature-slider-container::-webkit-scrollbar {
+    display: none;
+}
+
+.feature-card {
+    background: #ffffff;
+    border-radius: 1.5rem;
+    padding: 2.5rem 2rem;
+    min-width: 310px;
+    max-width: 310px;
+    border: 1px solid var(--border-medium);
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    transition: var(--transition-bounce);
+    box-shadow: var(--shadow-sm);
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--theme-blue);
+    box-shadow: var(--shadow-blue);
+}
+
+@media (min-width: 1024px) {
+    .sticky-header-content {
+        position: sticky;
+        top: 100px;
+    }
+}
+
+/* ============================================
+   SECTION 2: ROADMAP
+   ============================================ */
+.roadmap-container {
+    position: relative;
+    background-color: #1a1a1a;
+    padding: 100px 0 160px 0;
+    color: white;
+}
+
+.roadmap-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.svg-road-container {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    transform: translateY(-50%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.roadmap-grid {
+    position: relative;
+    z-index: 10;
+    display: grid;
+    gap: 20px;
+    padding: 0 20px;
+
+    /* Mobile (default) */
+    grid-template-columns: 1fr;
+}
+
+/* Small devices (phones landscape) */
+@media (min-width: 480px) {
+    .roadmap-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Tablets */
+@media (min-width: 768px) {
+    .roadmap-grid {
+        grid-template-columns: repeat(3, 1fr);
+        padding: 0 30px;
+    }
+}
+
+/* Small laptops */
+@media (min-width: 1024px) {
+    .roadmap-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Desktop */
+@media (min-width: 1100px) {
+    .roadmap-grid {
+        grid-template-columns: repeat(6, 1fr);
+        padding: 0 40px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .roadmap-item:nth-child(odd) { margin-bottom: 260px; }
+    .roadmap-item:nth-child(even) { margin-top: 260px; }
+}
+
+.roadmap-card {
+    background: white;
+    color: black;
+    border-radius: 12px;
+    padding: 24px;
+    width: 100%;
+    min-height: 260px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-light);
+}
+
+.step-number {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #000;
+    line-height: 1;
+}
+
+.card-icon-img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--gray-bg);
+    border: 1px solid #e2e8f0;
+}
+
+.road-label {
+    position: absolute;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    background: rgba(132, 204, 22, 0.1);
+    padding: 4px 12px;
+    border-radius: 99px;
+    border: 1px solid rgba(132, 204, 22, 0.3);
+}
+
+/* ============================================
+   SECTION 3: PREMIUM MENTORS (GLASS EFFECT)
+   ============================================ */
+.premium-mentor-section {
+    padding: 160px 0;
+    background: #ffffff;
+    position: relative;
+}
+
+.section-bg-blur {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: rgba(37, 99, 235, 0.03);
+    filter: blur(120px);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.mentor-grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 100px 32px;
+    max-width: 1240px;
+    margin: 120px auto 0;
+    position: relative;
+    z-index: 10;
+}
+
+.mentor-pro-card {
+    background: #ffffff;
+    border: 1px solid var(--border-light);
+    border-radius: 40px;
+    padding: 40px;
+    position: relative;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.03);
+}
+
+.mentor-pro-card:hover {
+    transform: translateY(-10px);
+    border-color: #dbeafe;
+    box-shadow: 0 40px 80px -20px rgba(37, 99, 235, 0.12);
+}
+
+.mentor-float-box {
+    position: absolute;
+    top: -70px;
+    right: 40px;
+    width: 150px;
+    height: 180px;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
+    border: 6px solid #ffffff;
+    z-index: 20;
+    transition: all 0.5s ease;
+}
+
+.mentor-pro-card:hover .mentor-float-box {
+    transform: scale(1.08) translateY(-10px) rotate(3deg);
+    box-shadow: 0 35px 60px -12px rgba(37, 99, 235, 0.3);
+}
+
+.mentor-float-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mentor-title-area {
+    margin-top: 0;
+    padding-right: 140px;
+    min-height: 80px;
+}
+
+.mentor-name-text {
+    font-size: 26px;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.1;
+    margin-bottom: 6px;
+}
+
+.mentor-job-text {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--theme-blue);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.mentor-stats-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 25px 0;
+}
+
+.stat-chip {
+    background: var(--gray-bg);
+    padding: 8px 16px;
+    border-radius: 14px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #475569;
+    border: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stat-chip i {
+    color: var(--theme-blue);
+    font-size: 14px;
+}
+
+.mentor-desc {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.brand-footer {
+    padding-top: 25px;
+    border-top: 1px solid var(--gray-bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand-label {
+    font-size: 9px;
+    font-weight: 800;
+    color: #cbd5e1;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.brand-box-mini {
+    background: #ffffff;
+    padding: 10px 15px;
+    border-radius: 16px;
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+}
+
+.uni-bold {
+    font-size: 13px;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+@media (max-width: 768px) {
+    .mentor-grid-layout { margin-top: 140px; }
+    .mentor-title-area {
+        padding-right: 0;
+        margin-top: 100px;
+        text-align: center;
+    }
+    .mentor-float-box {
+        left: 50%;
+        transform: translateX(-50%);
+        top: -110px;
+    }
+    .mentor-stats-row { justify-content: center; }
+    .mentor-desc { text-align: center; }
+    .brand-footer { flex-direction: column; gap: 20px; text-align: center; }
+}
+
+/* ============================================
+   SECTION 4: PLACEMENT SLIDER
+   ============================================ */
+.placement-section {
+    padding: 60px 0 40px;
+    background-color: #ffffff;
+}
+
+.placement-slider {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    padding: 20px 10px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.placement-slider::-webkit-scrollbar { display: none; }
+
+.student-card-v3 {
+    min-width: 260px;
+    background: #ffffff;
+    border: 1px solid var(--border-light);
+    border-radius: 24px;
+    padding: 35px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.03);
+}
+
+@media (min-width: 768px) {
+    .student-card-v3 {
+        min-width: 280px;
+        padding: 45px 20px;
+    }
+    .placement-slider {
+        gap: 24px;
+        padding: 40px 10px;
+    }
+}
+
+.student-card-v3:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px -15px rgba(37, 99, 235, 0.15);
+    border-color: var(--theme-blue);
+}
+
+.diagonal-ribbon {
+    position: absolute;
+    top: 18px;
+    left: -35px;
+    background: var(--theme-blue);
+    color: white;
+    padding: 6px 45px;
+    font-size: 9px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transform: rotate(-45deg);
+    z-index: 5;
+}
+
+.student-photo-wrapper-v3 {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    padding: 4px;
+    border: 2px solid var(--theme-light-blue);
+    position: relative;
+}
+
+@media (min-width: 768px) {
+    .student-photo-wrapper-v3 {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 20px;
+    }
+}
+
+.student-photo-wrapper-v3 img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #fff;
+}
+
+.batch-tag-v3 {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--theme-blue);
+    background: var(--theme-light-blue);
+    padding: 4px 12px;
+    border-radius: 99px;
+    display: inline-block;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.blue-underline-header {
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.blue-underline-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 4px;
+    background: var(--theme-blue);
+    border-radius: 10px;
+}
+
+.view-all-btn-v3 {
+    border: 2px solid var(--theme-blue);
+    color: var(--theme-blue);
+    padding: 8px 20px;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 12px;
+    transition: var(--transition-smooth);
+}
+
+@media (min-width: 768px) {
+    .view-all-btn-v3 {
+        padding: 10px 24px;
+        border-radius: 12px;
+        font-size: 13px;
+    }
+}
+
+.view-all-btn-v3:hover {
+    background: var(--theme-blue);
+    color: white;
+}
+
+/* ============================================
+   SECTION 5: RECRUITER SECTION
+   ============================================ */
+.recruiter-section {
+    padding: 40px 0;
+    background-color: var(--gray-bg);
+    border-top: 1px solid var(--border-light);
+}
+
+.logo-scroll {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 10px 0;
+}
+
+@media (min-width: 768px) {
+    .logo-scroll {
+        gap: 50px;
+        padding: 20px 0;
+    }
+}
+
+.logo-scroll::-webkit-scrollbar { display: none; }
+
+.company-logo {
+    min-width: 120px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: var(--transition-smooth);
+}
+
+.company-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* ============================================
+   SECTION 6: FAQ SECTION
+   ============================================ */
+.faq-section {
+    padding: 50px 0;
+    background-color: #ffffff;
+}
+
+@media (min-width: 768px) {
+    .faq-section { padding: 100px 0; }
+}
+
+.faq-item {
+    border-bottom: 1px dashed #e2e8f0;
+    padding: 18px 0;
+    cursor: pointer;
+}
+
+.faq-item:last-child { border-bottom: none; }
+
+.faq-number {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    min-width: 35px;
+}
+
+.faq-question {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    flex: 1;
+    padding-right: 10px;
+}
+
+@media (min-width: 768px) {
+    .faq-question { font-size: 0.95rem; }
+}
+
+.faq-icon {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    transition: transform 0.3s ease;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0, 1, 0, 1);
+    color: #64748b;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    padding-left: 45px;
+}
+
+@media (min-width: 768px) {
+    .faq-answer { font-size: 0.9rem; }
+}
+
+.faq-item.active .faq-answer {
+    max-height: 500px;
+    padding-top: 12px;
+    padding-bottom: 5px;
+    transition: all 0.3s cubic-bezier(1, 0, 1, 0);
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+    color: var(--theme-blue);
+}
+
+.hidden-faq { display: none; }
+
+.cool-image-container {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================
+   SECTION 7: BRANCH SECTION
+   ============================================ */
+.branch-section {
+    padding: 60px 0 80px;
+    background-color: #ffffff;
+}
+
+.branch-card {
+    background: #fff;
+    border-radius: 40px;
+    box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    border: 1px solid var(--border-light);
+}
+
+.map-frame {
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+.slider-container {
+    position: relative;
+    height: 350px;
+    border-radius: 30px;
+    overflow: hidden;
+    border: 4px solid white;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.thumb-btn {
+    cursor: pointer;
+    filter: grayscale(100%);
+    transition: var(--transition-smooth);
+}
+
+.thumb-btn.active {
+    filter: grayscale(0%);
+    border: 2px solid var(--theme-blue);
+}
+
+/* ============================================
+   SECTION 8: FOOTER
+   ============================================ */
+footer {
+    background-color: var(--footer-bg);
+    color: #d1d5db;
+}
+
+.footer-heading {
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-heading::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 30px;
+    height: 2px;
+    background: var(--theme-blue);
+}
+
+.footer-link {
+    transition: var(--transition-smooth);
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
+.footer-link:hover {
+    color: var(--theme-blue);
+    transform: translateX(5px);
+}
+
+.social-icon {
+    width: 35px;
+    height: 35px;
+    background: #1f2937;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition-smooth);
+}
+
+.social-icon:hover {
+    background: var(--theme-blue);
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* ============================================
+   FLOATING ELEMENTS (WhatsApp + Review Tab)
+   ============================================ */
+.google-review-tab {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    transform-origin: left bottom;
+    background: white;
+    padding: 12px 20px;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    z-index: 50;
+    font-weight: 800;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #e5e7eb;
+}
+
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: #25d366;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+    z-index: 100;
+    transition: var(--transition-smooth);
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+}
+
+/* ============================================
+   ADDITIONAL COMPONENTS (Course Card, Image Stack)
+   ============================================ */
+.course-card {
+    transition: var(--transition-smooth);
+    border: 1px solid #f3f4f6;
+}
+
+.course-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--theme-blue);
+}
+
+.image-stack {
+    position: relative;
+    height: 480px;
+}
+
+.img-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 24px;
+    z-index: 1;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+.img-bottom {
+    position: absolute;
+    bottom: 20px;
+    right: 0;
+    width: 70%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 24px;
+    border: 10px solid white;
+    z-index: 2;
+    box-shadow: var(--shadow-xl);
+}
+
+.screenshot-card {
+    transition: all 0.4s ease;
+}
+
+.screenshot-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+
+
+
+ 
+
+        /* ========== EXPLORE COURSES DROPDOWN ========== */
+        .dropdown-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .explore-btn {
+            background: #1e293b;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .explore-btn:hover {
+            background: #0f172a;
+            transform: translateY(-2px);
+        }
+
+        /* Dropdown menu - hidden by default, appears on hover */
+        .courses-dropdown {
+            position: absolute;
+            top: calc(100% + 15px);
+            left: 0;
+            width: 380px;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.25);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.25s ease;
+            z-index: 100;
+            border: 1px solid #eef2f6;
+        }
+
+        .dropdown-wrapper:hover .courses-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Course list styling - exactly as in the image */
+        .course-list {
+            padding: 20px 20px;
+            gap: 5px;
+        }
+
+        .course-item {
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            background: white;
+            border: 1px solid rgb(239, 237, 237);
+            border-radius: 10px;
+            justify-content: space-between;
+            border-bottom: 1px solid #f1f5f9;
+            transition: background 0.2s;
+        }
+
+        .course-item:last-child {
+            border-bottom: none;
+        }
+
+        .course-item:hover {
+            background: #f8fafc;
+        }
+
+        .course-name {
+            font-weight: 500;
+            font-size: 0.8rem;
+            color: #0f172a;
+            margin-bottom: 6px;
+        }
+
+        .course-duration {
+            font-size: 0.7rem;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .blue-dot {
+            color: #2563eb;
+            font-size: 0.7rem;
+        }
+
+        /* Call to action section inside dropdown (Looking for Guidance?) */
+        .dropdown-cta {
+            background: #f8fafc;
+            border-top: 1px solid #eef2f6;
+            padding: 16px 24px;
+            border-radius: 0 0 24px 24px;
+            text-align: center;
+        }
+
+        .guidance-text {
+            font-weight: 800;
+            font-size: 0.9rem;
+            color: #0f172a;
+            margin-bottom: 12px;
+        }
+
+        .callback-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .callback-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Small arrow on top of dropdown */
+        .courses-dropdown::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 30px;
+            width: 16px;
+            height: 16px;
+            background: white;
+            transform: rotate(45deg);
+            border-left: 1px solid #eef2f6;
+            border-top: 1px solid #eef2f6;
+        }
+
+        /* Responsive */
+        @media (max-width: 500px) {
+            .courses-dropdown {
+                width: calc(100vw - 40px);
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .dropdown-wrapper:hover .courses-dropdown {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            .courses-dropdown::before {
+                left: 50%;
+                transform: translateX(-50%) rotate(45deg);
+            }
+        }
+
+        /* Optional: separate "Request A Call Back" button outside dropdown */
+        .external-callback {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .external-btn {
+            background: #2563eb;
+            color: white;
+            padding: 12px 32px;
+            border-radius: 40px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+  
+        
+
+      
+       
+
+        /* ========== EXPLORE COURSES DROPDOWN (from your code) ========== */
+        .dropdown-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .courses-dropdown {
+            position: absolute;
+            top: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: white;
+            width: 420px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s ease;
+            z-index: 100;
+            border: 1px solid #eef2f6;
+        }
+
+        .dropdown-wrapper:hover .courses-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .course-list {
+            padding: 12px 12px;
+        }
+
+        .course-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .course-item:hover {
+            background: #f8fafc;
+        }
+
+        .course-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
+        .course-duration {
+            font-size: 0.75rem;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .blue-dot i {
+            color: #2563eb;
+            font-size: 0.7rem;
+        }
+
+        .dropdown-cta {
+            background: #f8fafc;
+            border-top: 1px solid #eef2f6;
+            padding: 16px 20px;
+            border-radius: 0 0 24px 24px;
+            text-align: center;
+        }
+
+        .guidance-text {
+            font-weight: 800;
+            font-size: 0.9rem;
+            color: #0f172a;
+            margin-bottom: 10px;
+        }
+
+        .callback-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .callback-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .courses-dropdown::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-left: 1px solid #eef2f6;
+            border-top: 1px solid #eef2f6;
+        }
+
+        @media (max-width: 640px) {
+            .courses-dropdown {
+                width: calc(100vw - 40px);
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .dropdown-wrapper:hover .courses-dropdown {
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        /* ========== SIDEBAR STYLES (right drawer) ========== */
+        .sidebar-transition {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .sidebar-open {
+            transform: translateX(0) !important;
+        }
+
+        .sidebar-closed {
+            transform: translateX(100%) !important;
+        }
+
+        .overlay-transition {
+            transition: opacity 0.3s ease;
+        }
+
+        body.no-scroll {
+            overflow: hidden;
+        }
+
+        /* Submenu toggle */
+        .menu-child {
+            display: none;
+            list-style: none;
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .menu-child.show {
+            display: block;
+        }
+
+        .menu-item.has-collapsible>a .menu-rotate {
+            transition: transform 0.2s ease;
+        }
+
+        .menu-item.has-collapsible.active>a .menu-rotate {
+            transform: rotate(90deg);
+        }
+
+        .talk-expert-menu {
+            background: #f3f4f6;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        .talk-button {
+            display: inline-block;
+            background-color: #2563eb;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-top: 0.75rem;
+            text-align: center;
+        }
+  
+        

@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Hindtech Learning Point | Hire Talent</title>
+    <!-- Tailwind CSS (lightweight) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome 6 (optional but used heavily) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/main-style.css">
+    <!-- Lucide Icons (lightweight) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* Tailwind custom config */
+        .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fcfdfe;
+            background-image: radial-gradient(#e2e8f0 0.6px, transparent 0.6px);
+            background-size: 20px 20px;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+        }
+
+        .thumb-active {
+            border-color: #233fff;
+            opacity: 1;
+            transform: scale(1.02);
+        }
+
+        .thumb-inactive {
+            border-color: transparent;
+            opacity: 0.6;
+        }
+
+        .dot-active {
+            background-color: #233fff;
+            width: 2rem;
+        }
+
+        .dot-inactive {
+            background-color: rgba(255, 255, 255, 0.5);
+            width: 0.5rem;
+        }
+
+        .fade-image {
+            transition: opacity 0.25s ease-in-out;
+        }
+
+        .tech-tab {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tech-tab-active {
+            background-color: #233fff !important;
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(35, 63, 255, 0.3);
+        }
+
+        .glass-stat {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(35, 63, 255, 0.1);
+        }
+
+        @keyframes float-slow {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes spin-slow {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .animate-float-slow {
+            animation: float-slow 6s ease-in-out infinite;
+        }
+
+        .animate-spin-slow {
+            animation: spin-slow 25s linear infinite;
+        }
+
+        .sidebar-transition {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.1em;
+        }
+
+        .footer-link {
+            display: block;
+            margin-bottom: 0.75rem;
+            color: #94a3b8;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: #3b82f6;
+        }
+
+        .footer-heading {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: white;
+            letter-spacing: 0.05em;
+        }
+
+        .social-icon {
+            width: 2rem;
+            height: 2rem;
+            background: #1e293b;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            color: #94a3b8;
+            transition: all 0.2s;
+        }
+
+        .social-icon:hover {
+            background: #233fff;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 40;
+            transition: 0.2s;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.05);
+            background: #20b358;
+        }
+
+        .google-review-tab {
+            position: fixed;
+            left: -50px;
+            top: 50%;
+            transform: rotate(-90deg) translateY(-50%);
+            background: #233fff;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px 20px 0 0;
+            font-weight: bold;
+            font-size: 12px;
+            z-index: 40;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body class="font-poppins">
+
+    <!-- ========== HEADER (exactly as provided, with sidebar integration) ========== -->
+    <header class="w-full bg-white shadow-sm fixed top-0 z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-3 cursor-pointer">
+                <div class="relative w-9 h-11 flex items-center justify-center border-[3.5px] border-theme-black">
+                    <div class="absolute w-full h-1 bg-white"></div>
+                    <div class="absolute w-1 h-full bg-theme-black"></div>
+                </div>
+                <a href="/" class="flex flex-col justify-center mt-1">
+                    <span
+                        class="text-2xl sm:text-3xl font-extrabold tracking-tight text-theme-black leading-none uppercase">HINDTECH</span>
+                    <span
+                        class="text-[0.60rem] sm:text-xs font-bold tracking-[0.25em] text-theme-black mt-1 uppercase">Learning
+                        Point</span>
+                </a>
+            </div>
+            <div class="flex items-center gap-6 sm:gap-8">
+                <!-- EXPLORE COURSES DROPDOWN (hover) -->
+                <div class="demo-container hidden lg:block">
+                    <div class="dropdown-wrapper">
+                        <button
+                            class="lg:flex items-center gap-2 text-theme-black font-bold hover:text-theme-blue transition-colors">
+                            <i class="fa-solid fa-book-open-reader text-lg"></i>
+                            <span>Explore Courses</span>
+                        </button>
+                        <div class="courses-dropdown">
+                            <div class="course-list">
+                                <a href="/courses/mern-full-stack-development" class="course-item">
+                                    <div>
+                                        <div class="course-name">MERN Full Stack Development</div>
+                                        <div class="course-duration"><span class="blue-dot"><i
+                                                    class="fa-regular fa-clock"></i></span> Duration: 6 Months</div>
+                                    </div>
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                                <a href="/courses/flutter-hybrid-app-development" class="course-item">
+                                    <div>
+                                        <div class="course-name">Flutter Hybrid App Development
+                                        </div>
+                                        <div class="course-duration"><span class="blue-dot"><i
+                                                    class="fa-regular fa-clock"></i></span> Duration: 8-10 Months</div>
+                                    </div>
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                                <a href="/courses/mastering-generative-AI" class="course-item">
+                                    <div>
+                                        <div class="course-name">Mastering Generative AI</div>
+                                        <div class="course-duration"><span class="blue-dot"><i
+                                                    class="fa-regular fa-clock"></i></span> Duration: 8-10 Months</div>
+                                    </div>
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+
+                                <a href="/courses/php" class="course-item">
+                                    <div>
+                                        <div class="course-name">Mastering PHP LaravelI</div>
+                                        <div class="course-duration"><span class="blue-dot"><i
+                                                    class="fa-regular fa-clock"></i></span> Duration: 8-10 Months</div>
+                                    </div>
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                            </div>
+                            <div class="dropdown-cta">
+                                <div class="guidance-text">Looking for Guidance ?</div>
+                                <button class="callback-btn" id="callbackDropdownBtn">Request A Call Back <i
+                                        class="fa-solid fa-phone"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Get Career Guidance Button -->
+                <button
+                    class="hidden sm:flex items-center gap-3 bg-theme-blue text-white px-7 py-2.5 rounded-full font-bold shadow-md hover:shadow-lg transition-all">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Get Career Guidance</span>
+                </button>
+
+                <!-- HAMBURGER BUTTON (opens sidebar) -->
+                <button id="openSidebarBtn"
+                    class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-transparent text-theme-black hover:border-theme-black">
+                    <i class="fa-solid fa-bars-staggered text-xl"></i>
+                </button>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== SIDEBAR (right drawer) ========== -->
+    <div id="overlay"
+        class="fixed inset-0 bg-black bg-opacity-50 z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+    </div>
+
+
+
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar"
+        class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform translate-x-full transition-all duration-300 ease-out flex flex-col">
+
+        <!-- HEADER -->
+        <div class="flex items-center justify-between px-6 py-5 border-b border-gray-100">
+            <h2 class="text-xl font-bold text-[#233fff]">Menu</h2>
+            <button id="closeSidebarBtn" class="py-1 px-3  bg-gray-50 hover:bg-red-50 hover:text-red-500 rounded-full">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- MENU -->
+        <div class="flex-1 overflow-y-auto py-4 px-4">
+
+            <!-- ALL COURSES -->
+            <div class="mb-2">
+
+                <!-- Toggle -->
+                <button id="coursesToggle"
+                    class="w-full px-4 py-3.5 flex items-center justify-between rounded-xl hover:bg-blue-50 group text-[#233fff]">
+
+                    <div class="flex items-center gap-3 font-semibold">
+                        <i class="fas fa-book-open"></i>
+                        <span>All Courses</span>
+                    </div>
+
+                    <i id="coursesArrow" class="fas fa-chevron-down transition-transform duration-300"></i>
+                </button>
+
+                <!-- CHILD MENU -->
+                <div id="coursesMenu"
+                    class="mt-1 mb-3 ml-6 pl-5 border-l-2 border-gray-100 space-y-1 overflow-hidden transition-all duration-300 max-h-[500px]">
+
+                    <a href="/courses/mern-full-stack-development"
+                        class="group flex items-center gap-3 py-2.5 px-3 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-[#233fff]">
+                        <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div>
+                        <i class="fas fa-code text-gray-400 group-hover:text-[#233fff]"></i>
+                        MERN Full Stack Development
+                    </a>
+
+                    <a href="/courses/flutter-hybrid-app-development"
+                        class="group flex items-center gap-3 py-2.5 px-3 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-[#233fff]">
+                        <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div>
+                        <i class="fas fa-mobile-alt text-gray-400 group-hover:text-[#233fff]"></i>
+                        Flutter Hybrid App Development
+                    </a>
+
+                    <a href="/courses/mastering-generative-AI"
+                        class="group flex items-center gap-3 py-2.5 px-3 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-[#233fff]">
+                        <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div>
+                        <i class="fas fa-robot text-gray-400 group-hover:text-[#233fff]"></i>
+                        Mastering Generative AI
+                    </a>
+
+                    <a href="/courses/php"
+                        class="group flex items-center gap-3 py-2.5 px-3 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-[#233fff]">
+                        <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div>
+                        <i class="fas fa-database text-gray-400 group-hover:text-[#233fff]"></i>
+                        PHP
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- OTHER MENU -->
+            <a href="/placements"
+                class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
+                <i class="fas fa-briefcase text-gray-400 group-hover:text-[#233fff]"></i>
+                Placements
+            </a>
+
+            <a href="/hire-from-us"
+                class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
+                <i class="fas fa-user-plus text-gray-400 group-hover:text-[#233fff]"></i>
+                Hire From Us
+            </a>
+
+            <a href="/carporate-training"
+                class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
+                <i class="fas fa-building text-gray-400 group-hover:text-[#233fff]"></i>
+                Corporate Training
+            </a>
+
+            <a href="campus-training"
+                class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
+                <i class="fas fa-graduation-cap text-gray-400 group-hover:text-[#233fff]"></i>
+                Campus Training
+            </a>
+
+            <a href="/contact"
+                class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
+                <i class="fas fa-phone text-gray-400 group-hover:text-[#233fff]"></i>
+                Contact Us
+            </a>
+            <a href="/about"
+                class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
+                <i class="fas fa-circle-info text-gray-400 group-hover:text-[#233fff]"></i>
+                About Us
+            </a>
+
+        </div>
+    </aside>
+
+    <!-- JS -->
+    <script id="sidebar-js-01">
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+        const openBtn = document.getElementById("openSidebarBtn");
+        const closeBtn = document.getElementById("closeSidebarBtn");
+
+        const toggleBtn = document.getElementById("coursesToggle");
+        const menu = document.getElementById("coursesMenu");
+        const arrow = document.getElementById("coursesArrow");
+
+        let isOpen = true;
+
+        // Sidebar open
+        openBtn.onclick = () => {
+            sidebar.classList.remove("translate-x-full");
+            overlay.classList.remove("hidden");
+        };
+
+        // Sidebar close
+        function closeSidebar() {
+            sidebar.classList.add("translate-x-full");
+            overlay.classList.add("hidden");
+        }
+
+        closeBtn.onclick = closeSidebar;
+        overlay.onclick = closeSidebar;
+
+        // Collapse toggle
+        toggleBtn.onclick = () => {
+            isOpen = !isOpen;
+
+            if (isOpen) {
+                menu.classList.remove("max-h-0");
+                menu.classList.add("max-h-[500px]");
+                arrow.classList.remove("rotate-180");
+            } else {
+                menu.classList.remove("max-h-[500px]");
+                menu.classList.add("max-h-0");
+                arrow.classList.add("rotate-180");
+            }
+        };
+    </script>
+
+   
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16 mt-16">
+        
+        <!-- Hero Section -->
+        <div class="flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-16 mb-24">
+            
+            <!-- Form Side -->
+            <div class="w-full lg:w-5/12 flex flex-col z-10">
+                <div class="mb-10 text-center lg:text-left">
+                    <h1 class="text-4xl lg:text-5xl w-full font-extrabold leading-[1.2] mb-5 text-gray-900 tracking-tight">
+                        Looking For <span class="text-primary">Talented Pros</span> To Join Your Team?
+                    </h1>
+                    <p class="text-gray-600 text-lg">
+                        Hire the best <span class="text-primary font-bold">job-ready talent</span> with zero hassle.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-[1.5rem] shadow-soft p-6 sm:p-10 border border-gray-100">
+                    <form action="#" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 uppercase mb-1.5 ml-1">Full Name</label>
+                                <input type="text" placeholder="Full Name" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-sm" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 uppercase mb-1.5 ml-1">Mobile Number</label>
+                                <input type="tel" placeholder="Mobile Number" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-sm" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1.5 ml-1">Company Email</label>
+                            <input type="email" placeholder="hr@company.com" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-sm" required>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 uppercase mb-1.5 ml-1">Company Name</label>
+                                <input type="text" placeholder="Company Name" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-sm" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 uppercase mb-1.5 ml-1">Designation</label>
+                                <input type="text" placeholder="Your Designation" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-sm" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1.5 ml-1">I am looking for</label>
+                            <select class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-sm text-gray-600 cursor-pointer" required>
+                                <option value="" disabled selected>Select Your Interest</option>
+                                <option value="software">Software Engineers</option>
+                                <option value="data">Data Scientists</option>
+                                <option value="design">UI/UX Designers</option>
+                            </select>
+                        </div>
+                        <div class="pt-4">
+                            <button type="submit" class="w-full bg-primary hover:bg-primaryHover text-white text-base font-bold py-4 rounded-xl shadow-lg shadow-primary/25 transition-all">
+                                Submit Request
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Visual Side -->
+            <div class="w-full lg:w-7/12 relative flex flex-col items-center pt-12 lg:pt-20">
+                <div class="relative w-full aspect-square max-w-[500px] flex items-center justify-center">
+                    <div class="absolute inset-0 bg-primaryLight/40 rounded-full scale-95 z-0"></div>
+                    <div class="absolute inset-0 border border-primary/10 rounded-full border-dashed animate-spin-slow z-0"></div>
+                    <div class="relative z-10 w-4/5 h-4/5 rounded-full overflow-hidden border-[10px] border-white shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80" alt="Hiring" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="absolute top-10 -right-4 glass-stat px-6 py-3 rounded-2xl shadow-floating z-20 animate-float-fast">
+                        <p class="font-extrabold text-primary text-sm flex items-center gap-2">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+                            Recruitment Live
+                        </p>
+                    </div>
+                </div>
+
+                <div class="w-full -mt-12 lg:-mt-16 z-30 grid grid-cols-1 sm:grid-cols-3 gap-4 px-4 max-w-[600px]">
+                    <div class="glass-stat p-6 rounded-2xl shadow-stat flex flex-col items-center text-center group hover:bg-primary transition-all duration-300">
+                        <span class="text-[10px] font-black text-gray-400 group-hover:text-white/70 uppercase tracking-widest mb-1">Passout Year</span>
+                        <h4 class="text-2xl font-black text-primary group-hover:text-white">2024-25</h4>
+                        <p class="text-[10px] font-bold text-gray-500 group-hover:text-white/80 leading-tight">Job Ready</p>
+                    </div>
+                    <div class="glass-stat p-6 rounded-2xl shadow-stat flex flex-col items-center text-center group hover:bg-primary transition-all duration-300">
+                        <span class="text-[10px] font-black text-gray-400 group-hover:text-white/70 uppercase tracking-widest mb-1">Total Pool</span>
+                        <h4 class="text-2xl font-black text-blue-500 group-hover:text-white">8,652+</h4>
+                        <p class="text-[10px] font-bold text-gray-500 group-hover:text-white/80 leading-tight">Learners</p>
+                    </div>
+                    <div class="glass-stat p-6 rounded-2xl shadow-stat flex flex-col items-center text-center group hover:bg-primary transition-all duration-300">
+                        <span class="text-[10px] font-black text-gray-400 group-hover:text-white/70 uppercase tracking-widest mb-1">Efficiency</span>
+                        <h4 class="text-2xl font-black text-orange-500 group-hover:text-white">Fast</h4>
+                        <p class="text-[10px] font-bold text-gray-500 group-hover:text-white/80 leading-tight">Turnaround</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why Choose Us Section -->
+        <div class="mb-32">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-black text-gray-900 mb-4">Why <span class="text-primary underline decoration-primary/20 underline-offset-8">Choose Us?</span></h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+                <!-- Card 1 -->
+                <div class="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all group text-center">
+                    <div class="w-14 h-14 bg-primaryLight rounded-2xl flex items-center justify-center text-primary mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-2">24/7 Dedicated Support</h3>
+                    <p class="text-xs text-gray-500 font-medium">Always here to help you hire.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all group text-center">
+                    <div class="w-14 h-14 bg-primaryLight rounded-2xl flex items-center justify-center text-primary mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2"/></svg>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-2">Zero Cost Hiring</h3>
+                    <p class="text-xs text-gray-500 font-medium">No onboarding fees required.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all group text-center">
+                    <div class="w-14 h-14 bg-primaryLight rounded-2xl flex items-center justify-center text-primary mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-2">Agile Hiring Process</h3>
+                    <p class="text-xs text-gray-500 font-medium">Speed up your recruitment cycles.</p>
+                </div>
+                <!-- Card 4 -->
+                <div class="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all group text-center">
+                    <div class="w-14 h-14 bg-primaryLight rounded-2xl flex items-center justify-center text-primary mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857"/></svg>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-2">Handpicked Candidates</h3>
+                    <p class="text-xs text-gray-500 font-medium">Top 1% talent for your team.</p>
+                </div>
+                <!-- Card 5 -->
+                <div class="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all group text-center">
+                    <div class="w-14 h-14 bg-primaryLight rounded-2xl flex items-center justify-center text-primary mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673"/></svg>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-2">Trained By Professionals</h3>
+                    <p class="text-xs text-gray-500 font-medium">Mentored by industry veterans.</p>
+                </div>
+                <!-- Card 6 -->
+                <div class="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all group text-center">
+                    <div class="w-14 h-14 bg-primaryLight rounded-2xl flex items-center justify-center text-primary mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16"/></svg>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-2">Customized Training</h3>
+                    <p class="text-xs text-gray-500 font-medium">Trained specifically for your roles.</p>
+                </div>
+                <!-- Card 7 -->
+                <div class="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all group text-center">
+                    <div class="w-14 h-14 bg-primaryLight rounded-2xl flex items-center justify-center text-primary mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5"/></svg>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-2">Diverse Tech Stack</h3>
+                    <p class="text-xs text-gray-500 font-medium">Full-stack, Data, Cloud experts.</p>
+                </div>
+                <!-- Card 8 -->
+                <div class="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all group text-center">
+                    <div class="w-14 h-14 bg-primaryLight rounded-2xl flex items-center justify-center text-primary mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition-all">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292"/></svg>
+                    </div>
+                    <h3 class="font-bold text-gray-800 mb-2">Dedicated Hiring Space</h3>
+                    <p class="text-xs text-gray-500 font-medium">Your own dashboard for talent.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- REFINED SECTION: Our Learners Pool (Interactive Chart) -->
+        <div class="mt-20 bg-white rounded-[2.5rem] shadow-soft p-6 lg:p-12 border border-gray-100">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl lg:text-4xl font-black text-gray-900 mb-2">Our <span class="text-primary">Learners Pool</span></h2>
+                <p class="text-gray-500 text-sm">Real-time availability of job-ready talent across technologies</p>
+                <div class="w-16 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Technology Tabs Navigation -->
+            <div class="flex items-center justify-between overflow-x-auto no-scrollbar gap-2 mb-12 bg-gray-50 p-2 rounded-2xl border border-gray-100" id="techTabs">
+                <button onclick="updateChart('Data Analytics')" class="tech-tab flex-shrink-0 px-8 py-3 rounded-xl text-gray-600 font-semibold tech-tab-active">Data Analytics</button>
+                <button onclick="updateChart('Full Stack Java')" class="tech-tab flex-shrink-0 px-8 py-3 rounded-xl text-gray-600 font-semibold hover:bg-white">Full Stack Java</button>
+                <button onclick="updateChart('Full Stack Python')" class="tech-tab flex-shrink-0 px-8 py-3 rounded-xl text-gray-600 font-semibold hover:bg-white">Full Stack Python</button>
+                <button onclick="updateChart('Software Testing')" class="tech-tab flex-shrink-0 px-8 py-3 rounded-xl text-gray-600 font-semibold hover:bg-white">Software Testing</button>
+            </div>
+
+            <!-- Content Area (Chart + Tech Breakdown) -->
+            <div class="bg-primaryLight/30 border border-primary/5 rounded-3xl p-6 lg:p-10 flex flex-col lg:flex-row items-center gap-12">
+                
+                <!-- Donut Chart Container -->
+                <div class="w-full lg:w-1/2 flex justify-center relative">
+                    <div class="w-64 h-64 sm:w-80 sm:h-80 relative">
+                        <canvas id="poolChart"></canvas>
+                        <!-- Center Text -->
+                        <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none text-center">
+                            <span class="text-4xl font-black text-primary block" id="centerCount">2,427</span>
+                            <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest block px-4 leading-tight" id="centerLabel">Data Analytics Talent</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Breakdown by Roles -->
+                <div class="w-full lg:w-1/2">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="statsGrid">
+                        <!-- Stats will be injected here via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let poolChart;
+        const techData = {
+            'Data Analytics': {
+                total: 2427,
+                breakdown: [
+                    { label: 'Power BI / Tableau', count: 850, color: '#233fff', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z' },
+                    { label: 'SQL & Database', count: 720, color: '#3b82f6', icon: 'M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4' },
+                    { label: 'Python for Data', count: 540, color: '#60a5fa', icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4' },
+                    { label: 'Advanced Excel', count: 317, color: '#93c5fd', icon: 'M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2' }
+                ]
+            },
+            'Full Stack Java': {
+                total: 1840,
+                breakdown: [
+                    { label: 'Core Java', count: 600, color: '#233fff', icon: 'M13 10V3L4 14h7v7l9-11h-7z' },
+                    { label: 'Spring Boot', count: 520, color: '#3b82f6', icon: 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z' },
+                    { label: 'Hibernate / JPA', count: 400, color: '#60a5fa', icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10' },
+                    { label: 'React Frontend', count: 320, color: '#93c5fd', icon: 'M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5' }
+                ]
+            },
+            'Full Stack Python': {
+                total: 2105,
+                breakdown: [
+                    { label: 'Django Framework', count: 700, color: '#233fff', icon: 'M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' },
+                    { label: 'Flask API', count: 600, color: '#3b82f6', icon: 'M11 4a2 2 0 114 0v1a2 2 0 11-4 0V4zM7 8a2 2 0 114 0v1a2 2 0 11-4 0V8zM17 4.144V4M13.5 10V9m-4.5 5v-1m4.5 5v-1m-4.5 5v-1' },
+                    { label: 'Automation Scripts', count: 500, color: '#60a5fa', icon: 'M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4' },
+                    { label: 'Next.js UI', count: 305, color: '#93c5fd', icon: 'M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9' }
+                ]
+            },
+            'Software Testing': {
+                total: 1210,
+                breakdown: [
+                    { label: 'Selenium Automation', count: 450, color: '#233fff', icon: 'M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z' },
+                    { label: 'Manual Testing', count: 350, color: '#3b82f6', icon: 'M15 12a3 3 0 11-6 0 3 3 0 016 0z' },
+                    { label: 'API (Postman)', count: 250, color: '#60a5fa', icon: 'M7 11.5V14m0-2.5v-6a1 1 0 011-1h6a1 1 0 011 1v6m-4 2.5V14a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1v-7z' },
+                    { label: 'Performance (JMeter)', count: 160, color: '#93c5fd', icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6' }
+                ]
+            }
+        };
+
+        function updateChart(techName) {
+            const data = techData[techName];
+            
+            // Update UI Labels
+            document.getElementById('centerCount').innerText = data.total.toLocaleString();
+            document.getElementById('centerLabel').innerText = techName + ' Talent';
+
+            // Update Tabs
+            const tabs = document.querySelectorAll('.tech-tab');
+            tabs.forEach(tab => {
+                if (tab.innerText === techName) {
+                    tab.classList.add('tech-tab-active');
+                } else {
+                    tab.classList.remove('tech-tab-active');
+                }
+            });
+
+            // Update Chart Data
+            poolChart.data.labels = data.breakdown.map(b => b.label);
+            poolChart.data.datasets[0].data = data.breakdown.map(b => b.count);
+            poolChart.data.datasets[0].backgroundColor = data.breakdown.map(b => b.color);
+            poolChart.update();
+
+            // Update Stats Grid with Icons
+            const grid = document.getElementById('statsGrid');
+            grid.innerHTML = '';
+            data.breakdown.forEach(item => {
+                const card = `
+                    <div class="flex items-center gap-4 bg-white p-4 rounded-2xl border border-primary/10 hover:border-primary/40 transition-all cursor-default group shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-primaryLight flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${item.icon}" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h5 class="text-gray-800 font-bold text-sm group-hover:text-primary transition-colors">${item.label}</h5>
+                            <p class="text-primary font-black text-xs">${item.count} Candidates</p>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += card;
+            });
+        }
+
+        window.onload = function() {
+            const ctx = document.getElementById('poolChart').getContext('2d');
+            poolChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: [],
+                        borderWidth: 0,
+                        hoverOffset: 15,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    cutout: '80%',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { 
+                            enabled: true,
+                            backgroundColor: '#111827',
+                            padding: 12,
+                            cornerRadius: 10
+                        }
+                    }
+                }
+            });
+
+            // Init with first tech
+            updateChart('Data Analytics');
+        };
+    </script>
+   <div class="w-full min-h-screen">
+        
+        <!-- SECTION 1: Placement Drives Carousel (Dynamic) -->
+        <section class="py-20 px-4 md:px-8 lg:px-16 overflow-hidden">
+            <div class="max-w-7xl mx-auto">
+                
+                <!-- Header & Stats -->
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
+                        Recent <span style="color: #233fff;" id="themeColorText">Placement Drives</span>
+                    </h2>
+                    <div class="flex flex-col md:flex-row justify-center items-center gap-4">
+                        <div class="text-6xl md:text-8xl font-black tracking-tighter" style="color: #233fff;">1,245</div>
+                        <div class="text-left">
+                            <p class="text-xl md:text-2xl font-semibold text-slate-800">Candidates Hired</p>
+                            <p class="text-slate-500 font-medium">In 2024 - 2025</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Display Area -->
+                <div class="flex flex-col lg:flex-row gap-10 items-start bg-white rounded-[2.5rem] p-4 md:p-8 border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
+                    
+                    <!-- LEFT: Interactive Image Slider with Thumbnails -->
+                    <div class="w-full lg:w-[55%] group relative">
+                        <div class="relative aspect-[16/10] w-full overflow-hidden rounded-3xl bg-slate-100 shadow-inner">
+                            <img id="mainCarouselImage" src="" alt="Drive showcase" class="w-full h-full object-cover image-transition">
+                            
+                            <!-- Image Navigation Controls (Prev/Next) -->
+                            <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 px-4 flex justify-between opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button id="imagePrevBtn" class="img-nav-btn w-10 h-10 rounded-full bg-white/90 shadow-lg flex items-center justify-center text-slate-900 hover:bg-white transition-all">
+                                    <i class="fas fa-chevron-left text-xl"></i>
+                                </button>
+                                <button id="imageNextBtn" class="img-nav-btn w-10 h-10 rounded-full bg-white/90 shadow-lg flex items-center justify-center text-slate-900 hover:bg-white transition-all">
+                                    <i class="fas fa-chevron-right text-xl"></i>
+                                </button>
+                            </div>
+
+                            <!-- Progress Indicators for Images (Dots) -->
+                            <div id="imageDotsContainer" class="absolute bottom-6 inset-x-0 flex justify-center gap-2">
+                                <!-- dynamic dots injected via JS -->
+                            </div>
+                        </div>
+                        
+                        <!-- Thumbnail Strip -->
+                        <div id="thumbnailStrip" class="flex gap-3 mt-4 overflow-x-auto pb-2 scrollbar-hide">
+                            <!-- dynamic thumbnails injected via JS -->
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: Company Information -->
+                    <div class="w-full lg:w-[45%] flex flex-col h-full pt-4">
+                        <div class="flex items-start gap-5 mb-8">
+                            <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white border border-slate-100 shadow-sm p-3 flex items-center justify-center">
+                                <img id="companyLogo" src="" alt="Company Logo" class="max-w-full max-h-full object-contain">
+                            </div>
+                            <div>
+                                <h3 id="companyName" class="text-2xl md:text-3xl font-bold text-slate-900 leading-tight">TechNova Solutions Pvt. Ltd.</h3>
+                                <div class="flex flex-wrap gap-3 mt-3">
+                                    <span class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500">
+                                        <i class="fas fa-calendar-alt text-xs" style="color: #233fff;"></i> 
+                                        <span id="driveDate">12 August 2025</span>
+                                    </span>
+                                    <span class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500">
+                                        <i class="fas fa-map-marker-alt text-xs" style="color: #233fff;"></i> 
+                                        <span id="driveLocation">Noida, UP</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6 mb-10">
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                    <i class="fas fa-briefcase text-sm"></i> Roles Hired
+                                </h4>
+                                <div id="rolesContainer" class="flex flex-wrap gap-2">
+                                    <!-- dynamic roles pills -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Main Carousel Controls (switch companies) -->
+                        <div class="mt-auto flex items-center justify-between border-t border-slate-100 pt-8">
+                            <div class="flex items-center gap-2">
+                                <button id="prevDriveBtn" class="w-12 h-12 rounded-2xl flex items-center justify-center border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all">
+                                    <i class="fas fa-chevron-left text-2xl"></i>
+                                </button>
+                                <button id="nextDriveBtn" class="w-12 h-12 rounded-2xl flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all" style="background-color: #233fff; box-shadow: 0 10px 20px #233fff30;">
+                                    <i class="fas fa-chevron-right text-2xl"></i>
+                                </button>
+                            </div>
+                            <div class="text-right">
+                                <span id="driveCounterDisplay" class="block text-2xl font-black text-slate-900">01</span>
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Company Drive</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: Testimonials (Static, exactly as original) -->
+        <section class="py-24 px-4 md:px-8 lg:px-16 bg-slate-50/50">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
+                        Companies Say They Got <span style="color: #233fff;">10X Growth</span>
+                    </h2>
+                    <p class="text-lg text-slate-500 max-w-2xl mx-auto">
+                        Industry leaders share their experience of hiring talent from our campus drives.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <!-- Testimonial 1 -->
+                    <div class="group bg-white rounded-3xl p-8 shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-slate-100 relative transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] hover:-translate-y-2">
+                        <div class="w-20 h-20 rounded-2xl border-4 border-white shadow-xl overflow-hidden absolute -top-10 left-8">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80" alt="Aditi Sharma" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute top-6 right-8 text-slate-100 group-hover:text-blue-50 transition-colors">
+                            <i class="fas fa-quote-left text-5xl" style="fill: currentColor;"></i>
+                        </div>
+                        <div class="pt-10">
+                            <h3 class="text-xl font-bold text-slate-900">Aditi Sharma</h3>
+                            <p class="text-sm font-medium text-slate-500 mb-6 flex items-center gap-1.5">
+                                HR Manager @ <span class="text-slate-900 font-extrabold">Syntellect</span>
+                            </p>
+                            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-green-50 text-green-700 text-[10px] font-black uppercase tracking-widest mb-6">
+                                <i class="fas fa-award text-xs"></i> 8 Candidates Hired
+                            </div>
+                            <p class="text-slate-600 leading-relaxed italic text-sm md:text-base">
+                                "Our experience hiring from here was exceptional. The candidates were technically sound and culturally fit. We managed to close multiple critical positions in a single drive. Highly recommended for quality talent!"
+                            </p>
+                        </div>
+                        <div class="absolute bottom-0 left-8 right-8 h-1 rounded-t-full transition-all group-hover:h-1.5" style="background-color: #233fff;"></div>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="group bg-white rounded-3xl p-8 shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-slate-100 relative transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] hover:-translate-y-2">
+                        <div class="w-20 h-20 rounded-2xl border-4 border-white shadow-xl overflow-hidden absolute -top-10 left-8">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&q=80" alt="Rohan Desai" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute top-6 right-8 text-slate-100 group-hover:text-blue-50 transition-colors">
+                            <i class="fas fa-quote-left text-5xl"></i>
+                        </div>
+                        <div class="pt-10">
+                            <h3 class="text-xl font-bold text-slate-900">Rohan Desai</h3>
+                            <p class="text-sm font-medium text-slate-500 mb-6 flex items-center gap-1.5">
+                                Talent Acquisition Head @ <span class="text-slate-900 font-extrabold">Mobitrail</span>
+                            </p>
+                            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-green-50 text-green-700 text-[10px] font-black uppercase tracking-widest mb-6">
+                                <i class="fas fa-award text-xs"></i> 12 Candidates Hired
+                            </div>
+                            <p class="text-slate-600 leading-relaxed italic text-sm md:text-base">
+                                "The management and coordination during the placement drive were top-notch. The students were well-prepared, professional, and possessed the exact skill sets we were looking for. Looking forward to more drives."
+                            </p>
+                        </div>
+                        <div class="absolute bottom-0 left-8 right-8 h-1 rounded-t-full transition-all group-hover:h-1.5" style="background-color: #233fff;"></div>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="group bg-white rounded-3xl p-8 shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-slate-100 relative transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] hover:-translate-y-2">
+                        <div class="w-20 h-20 rounded-2xl border-4 border-white shadow-xl overflow-hidden absolute -top-10 left-8">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&q=80" alt="Neha Gupta" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute top-6 right-8 text-slate-100 group-hover:text-blue-50 transition-colors">
+                            <i class="fas fa-quote-left text-5xl"></i>
+                        </div>
+                        <div class="pt-10">
+                            <h3 class="text-xl font-bold text-slate-900">Neha Gupta</h3>
+                            <p class="text-sm font-medium text-slate-500 mb-6 flex items-center gap-1.5">
+                                VP of Engineering @ <span class="text-slate-900 font-extrabold">TechNova</span>
+                            </p>
+                            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-green-50 text-green-700 text-[10px] font-black uppercase tracking-widest mb-6">
+                                <i class="fas fa-award text-xs"></i> 5 Candidates Hired
+                            </div>
+                            <p class="text-slate-600 leading-relaxed italic text-sm md:text-base">
+                                "We were amazed by the practical knowledge these candidates brought to the table. They were able to clear our rigorous technical rounds with ease. Truly a great hub for finding 10X developers."
+                            </p>
+                        </div>
+                        <div class="absolute bottom-0 left-8 right-8 h-1 rounded-t-full transition-all group-hover:h-1.5" style="background-color: #233fff;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // ---------- PLACEMENT DRIVES DATA (exactly from React) ----------
+        const placementDrives = [
+            {
+                id: 1,
+                companyName: "TechNova Solutions Pvt. Ltd.",
+                logoUrl: "https://cdn-icons-png.flaticon.com/512/3665/3665923.png",
+                date: "12 August 2025",
+                location: "Noida, UP",
+                roles: ["Software Developer", "Data Analyst", "UI/UX Designer"],
+                images: [
+                    "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80",
+                    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80",
+                    "https://images.unsplash.com/photo-1515169067868-5387ec356754?w=800&q=80",
+                    "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80"
+                ]
+            },
+            {
+                id: 2,
+                companyName: "GlobalTech Systems",
+                logoUrl: "https://cdn-icons-png.flaticon.com/512/281/281764.png",
+                date: "25 September 2025",
+                location: "Pune, MH",
+                roles: ["Cloud Engineer", "Backend Developer"],
+                images: [
+                    "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
+                    "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&q=80",
+                    "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80",
+                    "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80"
+                ]
+            },
+            {
+                id: 3,
+                companyName: "Innovate Digital Ltd.",
+                logoUrl: "https://cdn-icons-png.flaticon.com/512/2111/2111432.png",
+                date: "10 October 2025",
+                location: "Bangalore, KA",
+                roles: ["Frontend React Developer", "QA Automation"],
+                images: [
+                    "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80",
+                    "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=800&q=80",
+                    "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80",
+                    "https://images.unsplash.com/photo-1573164713988-8665fc963095?w=800&q=80"
+                ]
+            }
+        ];
+
+        // ---------- GLOBAL STATE ----------
+        let currentCompanyIdx = 0;          // 0-based
+        let currentImageIdx = 0;
+
+        // DOM elements
+        const mainImageEl = document.getElementById("mainCarouselImage");
+        const thumbnailContainer = document.getElementById("thumbnailStrip");
+        const dotsContainer = document.getElementById("imageDotsContainer");
+        const companyLogoEl = document.getElementById("companyLogo");
+        const companyNameEl = document.getElementById("companyName");
+        const driveDateEl = document.getElementById("driveDate");
+        const driveLocationEl = document.getElementById("driveLocation");
+        const rolesContainer = document.getElementById("rolesContainer");
+        const driveCounterSpan = document.getElementById("driveCounterDisplay");
+        
+        // Buttons
+        const prevDriveBtn = document.getElementById("prevDriveBtn");
+        const nextDriveBtn = document.getElementById("nextDriveBtn");
+        const imagePrevBtn = document.getElementById("imagePrevBtn");
+        const imageNextBtn = document.getElementById("imageNextBtn");
+
+        // Helper: get current drive object
+        function getCurrentDrive() {
+            return placementDrives[currentCompanyIdx];
+        }
+
+        // Update main image + highlight active thumbnail + active dot based on currentImageIdx
+        function updateImageDisplay() {
+            const drive = getCurrentDrive();
+            if (!drive) return;
+            const imagesArray = drive.images;
+            if (imagesArray.length === 0) return;
+            // update main image
+            mainImageEl.src = imagesArray[currentImageIdx];
+            mainImageEl.alt = `${drive.companyName} drive image ${currentImageIdx+1}`;
+            
+            // update thumbnail active state (highlight selected)
+            const allThumbs = document.querySelectorAll('.thumbnail-item');
+            allThumbs.forEach((thumb, idx) => {
+                if (idx === currentImageIdx) {
+                    thumb.classList.add('border-[#233fff]', 'scale-105', 'opacity-100');
+                    thumb.classList.remove('border-transparent', 'opacity-60');
+                } else {
+                    thumb.classList.remove('border-[#233fff]', 'scale-105');
+                    thumb.classList.add('border-transparent', 'opacity-60');
+                }
+            });
+            
+            // update dots active style
+            const dots = dotsContainer.querySelectorAll('.dot-indicator');
+            dots.forEach((dot, idx) => {
+                if (idx === currentImageIdx) {
+                    dot.style.backgroundColor = "#233fff";
+                    dot.classList.remove('bg-white/50');
+                    dot.classList.add('w-8');
+                } else {
+                    dot.style.backgroundColor = "rgba(255,255,255,0.5)";
+                    dot.classList.remove('w-8');
+                    dot.classList.add('w-2');
+                }
+            });
+        }
+
+        // rebuild thumbnails + dots based on current drive, then reset image index to 0
+        function rebuildThumbnailsAndDots() {
+            const drive = getCurrentDrive();
+            if (!drive) return;
+            const images = drive.images;
+            
+            // Build thumbnails HTML
+            let thumbHtml = '';
+            images.forEach((img, idx) => {
+                thumbHtml += `
+                    <button class="thumbnail-item flex-shrink-0 w-24 h-16 rounded-xl overflow-hidden border-2 transition-all border-transparent opacity-60" data-img-index="${idx}">
+                        <img src="${img}" class="w-full h-full object-cover" alt="thumb ${idx}" />
+                    </button>
+                `;
+            });
+            thumbnailContainer.innerHTML = thumbHtml;
+            
+            // Build dots HTML (progress indicators)
+            let dotsHtml = '';
+            images.forEach((_, idx) => {
+                const isActive = (idx === currentImageIdx);
+                const widthClass = isActive ? 'w-8' : 'w-2';
+                dotsHtml += `<div class="dot-indicator h-1.5 transition-all duration-300 rounded-full ${widthClass}" style="background-color: ${isActive ? '#233fff' : 'rgba(255,255,255,0.5)'};"></div>`;
+            });
+            dotsContainer.innerHTML = dotsHtml;
+            
+            // Attach click events to each thumbnail
+            const thumbButtons = document.querySelectorAll('.thumbnail-item');
+            thumbButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const idx = parseInt(btn.getAttribute('data-img-index'), 10);
+                    if (!isNaN(idx) && idx !== currentImageIdx) {
+                        currentImageIdx = idx;
+                        updateImageDisplay();
+                    }
+                });
+            });
+        }
+        
+        // Render company details: name, logo, date, location, roles, and also reset image index to 0
+        function renderCompanyDetails() {
+            const drive = getCurrentDrive();
+            if (!drive) return;
+            companyLogoEl.src = drive.logoUrl;
+            companyNameEl.innerText = drive.companyName;
+            driveDateEl.innerText = drive.date;
+            driveLocationEl.innerText = drive.location;
+            
+            // roles pills
+            let rolesHtml = '';
+            drive.roles.forEach(role => {
+                rolesHtml += `<span class="px-4 py-2 rounded-xl text-sm font-semibold border transition-all" style="border-color: #233fff20; color: #233fff; background-color: #233fff08;">${role}</span>`;
+            });
+            rolesContainer.innerHTML = rolesHtml;
+            
+            // update drive counter display (01, 02, 03)
+            let counterVal = (currentCompanyIdx + 1).toString().padStart(2, '0');
+            driveCounterSpan.innerText = counterVal;
+        }
+        
+        // FULL RENDER: updates everything (company details + thumbnails/dots) and resets image index
+        function renderFullDrive() {
+            renderCompanyDetails();
+            // Reset currentImageIdx to 0 before rebuilding UI
+            currentImageIdx = 0;
+            rebuildThumbnailsAndDots();  // creates thumbnails + dots based on current drive images
+            updateImageDisplay();         // sync main image, active states
+        }
+        
+        // Next company drive
+        function nextDrive() {
+            currentCompanyIdx = (currentCompanyIdx + 1) % placementDrives.length;
+            renderFullDrive();
+        }
+        
+        // Previous company drive
+        function prevDrive() {
+            currentCompanyIdx = (currentCompanyIdx - 1 + placementDrives.length) % placementDrives.length;
+            renderFullDrive();
+        }
+        
+        // Image navigation: next image within current drive
+        function nextImage() {
+            const drive = getCurrentDrive();
+            if (!drive) return;
+            const maxIdx = drive.images.length - 1;
+            currentImageIdx = (currentImageIdx + 1) > maxIdx ? 0 : currentImageIdx + 1;
+            updateImageDisplay();
+        }
+        
+        function prevImage() {
+            const drive = getCurrentDrive();
+            if (!drive) return;
+            const maxIdx = drive.images.length - 1;
+            currentImageIdx = (currentImageIdx - 1) < 0 ? maxIdx : currentImageIdx - 1;
+            updateImageDisplay();
+        }
+        
+        // ---- EVENT LISTENERS ----
+        // Main drive controls
+        prevDriveBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            prevDrive();
+        });
+        nextDriveBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            nextDrive();
+        });
+        
+        // Image slider prev/next (with stopPropagation)
+        imagePrevBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            prevImage();
+        });
+        imageNextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            nextImage();
+        });
+        
+        // Initialize everything on page load
+        function init() {
+            currentCompanyIdx = 0;
+            currentImageIdx = 0;
+            renderFullDrive();
+        }
+        
+        init();
+        
+        // Optional: ensure that when drive changes, thumbnail scroll position doesn't glitch, no extra action needed
+        // Additionally we handle resize gracefully, and also avoid any conflicts.
+    </script>
+
+    <!-- FOOTER SECTION (Based on Screenshot) -->
+    <footer class="pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+                <!-- Col 1: Brand Info -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-2">
+                        <div
+                            class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white">
+                            H</div>
+                        <span class="text-2xl font-black text-white tracking-tighter uppercase">Hindtech</span>
+                    </div>
+                    <div class="space-y-4 text-sm font-medium">
+                        <p class="uppercase text-xs tracking-widest text-blue-500 font-black">Address: Hindtech
+                            Education Lucknow</p>
+                        <p class="leading-relaxed">1st Floor, Mohini Mansion, 1, Naval Kishore Rd, above Baby Hug
+                            Showroom, near Cathedral School, Hazratganj, Lucknow, Uttar Pradesh 226001</p>
+                        <p>Pan India Branches</p>
+                        <p><span class="text-white">EMAIL ID:</span> mail@hindtech.com</p>
+                        <p><span class="text-white">CONTACT:</span> +91 9205004404</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="https://www.facebook.com/HindtechLucknow/?hl=en" target="_blank" class="social-icon"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/hindtechlucknow/?hl=en" target="_blank"
+                            class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/hindtech-lucknow" target="_blank"
+                            class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.youtube.com/@HindtechLucknow" target="_blank" class="social-icon"><i
+                                class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div>
+                    <h3 class="footer-heading">Quick Links</h3>
+
+                    <div class="text-sm font-bold space-y-2">
+
+                        <a href="/placements" class="group footer-link flex items-center gap-2">
+                            <i class="fas fa-briefcase text-gray-400 group-hover:text-[#233fff]"></i>
+                            Placements
+                        </a>
+
+                        <a href="/hire-from-us" class="group footer-link flex items-center gap-2">
+                            <i class="fas fa-user-plus text-gray-400 group-hover:text-[#233fff]"></i>
+                            Hire From Us
+                        </a>
+
+                        <a href="/campus-training" class="group footer-link flex items-center gap-2">
+                            <i class="fas fa-graduation-cap text-gray-400 group-hover:text-[#233fff]"></i>
+                            Campus Training
+                        </a>
+
+                        <a href="/carporate-training" class="group footer-link flex items-center gap-2">
+                            <i class="fas fa-building text-gray-400 group-hover:text-[#233fff]"></i>
+                            Carporate Training
+                        </a>
+
+                        <a href="/contact" class="group footer-link flex items-center gap-2">
+                            <i class="fas fa-phone text-gray-400 group-hover:text-[#233fff]"></i>
+                            Contact Us
+                        </a>
+
+                        <a href="/about" class="group footer-link flex items-center gap-2">
+                            <i class="fas fa-circle-info text-gray-400 group-hover:text-[#233fff]"></i>
+                            About Us
+                        </a>
+
+
+                    </div>
+                </div>
+
+                <!-- Col 3: Our Courses -->
+                <div>
+                    <h3 class="footer-heading">Our Courses</h3>
+                    <div class="text-sm font-bold">
+                        <a href="/courses/mern-full-stack-development" class="footer-link">Mern Full Stack
+                            Development</a>
+                        <a href="/courses/flutter-hybrid-app-development" class="footer-link">Flutter Hybrid App
+                            Development</a>
+                        <a href="/courses/mastering-generative-AI" class="footer-link">Mastering Generative AI</a>
+                        <a href="/courses/php" class="footer-link">Mastering
+                            PHP Laravel</a>
+                    </div>
+                </div>
+
+                <!-- Col 4: India's Leading -->
+                <div class="bg-slate-800/50 p-8 rounded-3xl border border-slate-700/50">
+                    <h3 class="text-xl font-black text-white mb-4">India's Leading and trusted career transforming
+                        institute</h3>
+                    <p class="text-sm mb-8 leading-relaxed">Raise the bar of your career with the certification from one
+                        of the prestigious organizations</p>
+                    <a href="#"
+                        class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-black py-4 px-6 rounded-xl text-sm transition-all group">
+                        Inquire Now <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright -->
+            <div
+                class="pt-8 border-t border-slate-800 text-center text-xs font-bold text-slate-500 uppercase tracking-widest">
+                Copyright © Hindtech Education Pvt. Ltd. 2022-2026 | Terms | Placement | Privacy | Refund
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // ---------- PLACEMENT DRIVES DATA ----------
+        const placementDrives = [
+            { id: 1, companyName: "TechNova Solutions Pvt. Ltd.", logoUrl: "https://cdn-icons-png.flaticon.com/512/3665/3665923.png", date: "12 August 2025", location: "Noida, UP", roles: ["Software Developer", "Data Analyst", "UI/UX Designer"], images: ["https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80", "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80", "https://images.unsplash.com/photo-1515169067868-5387ec356754?w=800&q=80", "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80"] },
+            { id: 2, companyName: "GlobalTech Systems", logoUrl: "https://cdn-icons-png.flaticon.com/512/281/281764.png", date: "25 September 2025", location: "Pune, MH", roles: ["Cloud Engineer", "Backend Developer"], images: ["https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80", "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&q=80", "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80", "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80"] },
+            { id: 3, companyName: "Innovate Digital Ltd.", logoUrl: "https://cdn-icons-png.flaticon.com/512/2111/2111432.png", date: "10 October 2025", location: "Bangalore, KA", roles: ["Frontend React Developer", "QA Automation"], images: ["https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80", "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=800&q=80", "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80", "https://images.unsplash.com/photo-1573164713988-8665fc963095?w=800&q=80"] }
+        ];
+        const testimonials = [
+            { id: 1, name: "Aditi Sharma", role: "HR Manager", company: "Syntellect", hired: 8, avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80", quote: "Exceptional candidates, technically sound and culturally fit. Closed multiple critical positions." },
+            { id: 2, name: "Rohan Desai", role: "Talent Acquisition Head", company: "Mobitrail", hired: 12, avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&q=80", quote: "Top-notch coordination. Students were well-prepared and professional. Looking forward to more drives." },
+            { id: 3, name: "Neha Gupta", role: "VP of Engineering", company: "TechNova", hired: 5, avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&q=80", quote: "Amazed by practical knowledge. They cleared rigorous technical rounds with ease. 10X developers." }
+        ];
+        const THEME = "#233fff";
+        let currentCompanyIndex = 0, currentImageIndex = 0;
+        const leftSliderArea = document.getElementById("leftSliderArea");
+        const rightInfoArea = document.getElementById("rightInfoArea");
+
+        function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, function (m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
+        function renderCompanyInfo() {
+            const c = placementDrives[currentCompanyIndex];
+            if (!rightInfoArea) return;
+            const rolesHtml = c.roles.map(r => `<span class="px-4 py-2 rounded-xl text-sm font-semibold border" style="border-color:${THEME}20; color:${THEME}; background:${THEME}08">${escapeHtml(r)}</span>`).join('');
+            rightInfoArea.innerHTML = `<div class="flex items-start gap-5 mb-8"><div class="w-16 h-16 rounded-2xl bg-white border p-3"><img src="${c.logoUrl}" class="max-w-full max-h-full object-contain"></div><div><h3 class="text-2xl md:text-3xl font-bold">${escapeHtml(c.companyName)}</h3><div class="flex gap-3 mt-3"><span class="flex items-center gap-1 text-xs font-bold"><i data-lucide="calendar" style="color:${THEME}"></i> ${c.date}</span><span class="flex items-center gap-1 text-xs font-bold"><i data-lucide="map-pin" style="color:${THEME}"></i> ${c.location}</span></div></div></div><div class="mb-10"><h4 class="text-sm font-bold text-slate-400 uppercase flex gap-2 mb-4"><i data-lucide="briefcase"></i> Roles Hired</h4><div class="flex flex-wrap gap-2">${rolesHtml}</div></div><div class="mt-auto flex justify-between items-center border-t pt-8"><div class="flex gap-2"><button id="prevCompanyBtn" class="w-12 h-12 rounded-2xl border"><i data-lucide="chevron-left"></i></button><button id="nextCompanyBtn" class="w-12 h-12 rounded-2xl text-white shadow-lg" style="background:${THEME}"><i data-lucide="chevron-right"></i></button></div><div class="text-right"><span class="text-2xl font-black">0${currentCompanyIndex + 1}</span><br><span class="text-xs font-bold">Company Drive</span></div></div>`;
+            document.getElementById("prevCompanyBtn")?.addEventListener("click", () => changeCompany(-1));
+            document.getElementById("nextCompanyBtn")?.addEventListener("click", () => changeCompany(1));
+            lucide.createIcons();
+        }
+        function changeCompany(delta) { let newIdx = (currentCompanyIndex + delta + placementDrives.length) % placementDrives.length; if (newIdx === currentCompanyIndex) return; currentCompanyIndex = newIdx; currentImageIndex = 0; renderCompanyInfo(); renderImageSliderFull(); }
+        function renderImageSliderFull() {
+            const c = placementDrives[currentCompanyIndex];
+            if (!leftSliderArea) return;
+            const thumbsHtml = c.images.map((img, idx) => `<button class="thumbnail-btn flex-shrink-0 w-24 h-16 rounded-xl overflow-hidden border-2 ${idx === currentImageIndex ? 'thumb-active' : 'thumb-inactive'}" data-img-index="${idx}"><img src="${img}" class="w-full h-full object-cover"></button>`).join('');
+            const dotsHtml = c.images.map((_, idx) => `<div class="dot-item h-1.5 rounded-full ${idx === currentImageIndex ? 'dot-active' : 'dot-inactive'}" data-dot-index="${idx}"></div>`).join('');
+            leftSliderArea.innerHTML = `<div class="relative aspect-[16/10] rounded-3xl bg-slate-100 overflow-hidden"><img id="mainCarouselImage" src="${c.images[currentImageIndex]}" class="w-full h-full object-cover fade-image"><div class="absolute inset-x-0 top-1/2 -translate-y-1/2 px-4 flex justify-between opacity-0 group-hover:opacity-100"><button id="prevImgBtn" class="w-10 h-10 rounded-full bg-white/90 shadow-lg"><i data-lucide="chevron-left"></i></button><button id="nextImgBtn" class="w-10 h-10 rounded-full bg-white/90 shadow-lg"><i data-lucide="chevron-right"></i></button></div><div class="absolute bottom-6 inset-x-0 flex justify-center gap-2">${dotsHtml}</div></div><div class="flex gap-3 mt-4 overflow-x-auto scrollbar-hide">${thumbsHtml}</div>`;
+            document.getElementById("prevImgBtn")?.addEventListener("click", () => navigateImage(-1));
+            document.getElementById("nextImgBtn")?.addEventListener("click", () => navigateImage(1));
+            document.querySelectorAll('.thumbnail-btn').forEach(btn => btn.addEventListener('click', () => { let idx = parseInt(btn.dataset.imgIndex); if (!isNaN(idx) && idx !== currentImageIndex) { currentImageIndex = idx; updateImageDisplayOnly(); } }));
+            document.querySelectorAll('.dot-item').forEach(dot => dot.addEventListener('click', () => { let idx = parseInt(dot.dataset.dotIndex); if (!isNaN(idx) && idx !== currentImageIndex) { currentImageIndex = idx; updateImageDisplayOnly(); } }));
+            lucide.createIcons();
+        }
+        function updateImageDisplayOnly() {
+            const images = placementDrives[currentCompanyIndex].images;
+            const mainImg = document.getElementById("mainCarouselImage");
+            if (mainImg) { mainImg.style.opacity = '0.5'; setTimeout(() => { mainImg.src = images[currentImageIndex]; mainImg.onload = () => mainImg.style.opacity = '1'; if (mainImg.complete) mainImg.style.opacity = '1'; }, 50); }
+            document.querySelectorAll('.thumbnail-btn').forEach((btn, i) => { if (i === currentImageIndex) { btn.classList.add('thumb-active'); btn.classList.remove('thumb-inactive'); } else { btn.classList.add('thumb-inactive'); btn.classList.remove('thumb-active'); } });
+            document.querySelectorAll('.dot-item').forEach((dot, i) => { if (i === currentImageIndex) { dot.classList.add('dot-active'); dot.classList.remove('dot-inactive'); } else { dot.classList.add('dot-inactive'); dot.classList.remove('dot-active'); } });
+        }
+        function navigateImage(delta) { let total = placementDrives[currentCompanyIndex].images.length; let newIdx = (currentImageIndex + delta + total) % total; if (newIdx === currentImageIndex) return; currentImageIndex = newIdx; updateImageDisplayOnly(); }
+        function renderTestimonials() {
+            const container = document.getElementById("testimonialsGrid");
+            if (!container) return;
+            container.innerHTML = testimonials.map(t => `<div class="testimonial-card bg-white rounded-3xl p-8 shadow relative"><div class="w-20 h-20 rounded-2xl border-4 border-white shadow-xl overflow-hidden absolute -top-10 left-8"><img src="${t.avatar}" class="w-full h-full object-cover"></div><div class="absolute top-6 right-8 text-slate-100"><i data-lucide="quote" size="48" fill="currentColor"></i></div><div class="pt-10"><h3 class="text-xl font-bold">${escapeHtml(t.name)}</h3><p class="text-sm text-slate-500 mb-4">${escapeHtml(t.role)} @ <span class="font-black">${escapeHtml(t.company)}</span></p><div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-green-50 text-green-700 text-[10px] font-black mb-6"><i data-lucide="award"></i> ${t.hired} Candidates Hired</div><p class="text-slate-600 italic">"${escapeHtml(t.quote)}"</p></div><div class="absolute bottom-0 left-8 right-8 h-1 rounded-t-full" style="background:${THEME}"></div></div>`).join('');
+            lucide.createIcons();
+        }
+        // Learners pool data (no chart.js)
+        const poolData = {
+            data: { total: 2427, items: [{ label: "Power BI / Tableau", count: 850 }, { label: "SQL & Database", count: 720 }, { label: "Python for Data", count: 540 }, { label: "Advanced Excel", count: 317 }] },
+            java: { total: 1840, items: [{ label: "Core Java", count: 600 }, { label: "Spring Boot", count: 520 }, { label: "Hibernate/JPA", count: 400 }, { label: "React Frontend", count: 320 }] },
+            python: { total: 2105, items: [{ label: "Django", count: 700 }, { label: "Flask API", count: 600 }, { label: "Automation", count: 500 }, { label: "Next.js UI", count: 305 }] },
+            testing: { total: 1210, items: [{ label: "Selenium", count: 450 }, { label: "Manual Testing", count: 350 }, { label: "API Postman", count: 250 }, { label: "JMeter", count: 160 }] }
+        };
+        function updatePool(techKey) {
+            const data = poolData[techKey];
+            document.getElementById("totalCount").innerText = data.total;
+            const container = document.getElementById("poolBreakdown");
+            container.innerHTML = data.items.map(item => `<div class="flex items-center gap-3 bg-white p-3 rounded-xl shadow-sm"><div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600"><i class="fas fa-chart-simple"></i></div><div><p class="font-bold">${item.label}</p><p class="text-xs text-blue-600 font-bold">${item.count} candidates</p></div></div>`).join('');
+            document.querySelectorAll('.tech-tab').forEach(tab => { if (tab.dataset.tech === techKey) tab.classList.add('tech-tab-active'); else tab.classList.remove('tech-tab-active'); });
+        }
+        // Sidebar logic
+        document.getElementById("hamburgerBtn")?.addEventListener("click", () => { document.getElementById("sidebar").classList.remove("translate-x-full"); document.getElementById("overlay").classList.remove("opacity-0", "pointer-events-none"); document.getElementById("overlay").classList.add("opacity-100", "pointer-events-auto"); });
+        document.getElementById("closeSidebarBtn")?.addEventListener("click", () => { document.getElementById("sidebar").classList.add("translate-x-full"); document.getElementById("overlay").classList.add("opacity-0", "pointer-events-none"); document.getElementById("overlay").classList.remove("opacity-100", "pointer-events-auto"); });
+        document.getElementById("overlay")?.addEventListener("click", () => { document.getElementById("sidebar").classList.add("translate-x-full"); document.getElementById("overlay").classList.add("opacity-0", "pointer-events-none"); document.getElementById("overlay").classList.remove("opacity-100", "pointer-events-auto"); });
+        // Initialize everything
+        window.addEventListener("DOMContentLoaded", () => {
+            renderCompanyInfo(); renderImageSliderFull(); renderTestimonials();
+            document.getElementById("carouselRoot")?.classList.add("group");
+            // learners pool tabs
+            document.querySelectorAll(".tech-tab").forEach(btn => { btn.addEventListener("click", () => { updatePool(btn.dataset.tech); }); });
+            updatePool("data");
+            lucide.createIcons();
+        });
+    </script>
+</body>
+
+</html>

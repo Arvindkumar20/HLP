@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Data Analytics with GenAI | NSDC Certified Program</title>
+  <!-- Tailwind CSS v3 + basic utilities -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/main-style.css">
+  <!-- Lucide Icons (latest) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom overrides & animations -->
+  <style>
+    @keyframes spin-slow {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes loading-shimmer {
+      0% {
+        transform: translateX(-100%);
+      }
+
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    .animate-spin-slow {
+      animation: spin-slow 30s linear infinite;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* smooth modal fade */
+    .modal-fade-in {
+      animation: modalFadeIn 0.25s ease-out forwards;
+    }
+
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.96);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-[#f8fafc] text-slate-900 antialiased">
+  <!-- ========== HEADER (exactly as provided, with sidebar integration) ========== -->
+  <header class="w-full bg-white shadow-sm fixed top-0 z-50 border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+      <div class="flex items-center gap-3 cursor-pointer">
+        <div class="relative w-9 h-11 flex items-center justify-center border-[3.5px] border-theme-black">
+          <div class="absolute w-full h-1 bg-white"></div>
+          <div class="absolute w-1 h-full bg-theme-black"></div>
+        </div>
+        <a href="/" class="flex flex-col justify-center mt-1">
+          <span
+            class="text-2xl sm:text-3xl font-extrabold tracking-tight text-theme-black leading-none uppercase">HINDTECH</span>
+          <span class="text-[0.60rem] sm:text-xs font-bold tracking-[0.25em] text-theme-black mt-1 uppercase">Learning
+            Point</span>
+        </a>
+      </div>
+      <div class="flex items-center gap-6 sm:gap-8">
+        <!-- EXPLORE COURSES DROPDOWN (hover) -->
+        <div class="demo-container hidden lg:block">
+          <div class="dropdown-wrapper">
+            <button
+              class="lg:flex items-center gap-2 text-theme-black font-bold hover:text-theme-blue transition-colors">
+              <i class="fa-solid fa-book-open-reader text-lg"></i>
+              <span>Explore Courses</span>
+            </button>
+            <div class="courses-dropdown">
+              <div class="course-list">
+                <a href="/courses/mern-full-stack-development" class="course-item">
+                  <div>
+                    <div class="course-name">MERN Full Stack Development</div>
+                    <div class="course-duration"><span class="blue-dot"><i class="fa-regular fa-clock"></i></span>
+                      Duration: 6 Months</div>
+                  </div>
+                  <i class="fa-solid fa-angle-right"></i>
+                </a>
+                <a href="/courses/flutter-hybrid-app-development" class="course-item">
+                  <div>
+                    <div class="course-name">Flutter Hybrid App Development
+                    </div>
+                    <div class="course-duration"><span class="blue-dot"><i class="fa-regular fa-clock"></i></span>
+                      Duration: 8-10 Months</div>
+                  </div>
+                  <i class="fa-solid fa-angle-right"></i>
+                </a>
+                <a href="/courses/mastering-generative-AI" class="course-item">
+                  <div>
+                    <div class="course-name">Mastering Generative AI</div>
+                    <div class="course-duration"><span class="blue-dot"><i class="fa-regular fa-clock"></i></span>
+                      Duration: 8-10 Months</div>
+                  </div>
+                  <i class="fa-solid fa-angle-right"></i>
+                </a>
+                <a href="/courses/php" class="course-item">
+                  <div>
+                    <div class="course-name">Mastering PHP LaravelI</div>
+                    <div class="course-duration"><span class="blue-dot"><i class="fa-regular fa-clock"></i></span>
+                      Duration: 8-10 Months</div>
+                  </div>
+                  <i class="fa-solid fa-angle-right"></i>
+                </a>
+
+              </div>
+              <div class="dropdown-cta">
+                <div class="guidance-text">Looking for Guidance ?</div>
+                <button class="callback-btn" id="callbackDropdownBtn">Request A Call Back <i
+                    class="fa-solid fa-phone"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Get Career Guidance Button -->
+        <button
+          class="hidden sm:flex items-center gap-3 bg-theme-blue text-white px-7 py-2.5 rounded-full font-bold shadow-md hover:shadow-lg transition-all">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>Get Career Guidance</span>
+        </button>
+
+        <!-- HAMBURGER BUTTON (opens sidebar) -->
+        <button id="openSidebarBtn"
+          class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-transparent text-theme-black hover:border-theme-black">
+          <i class="fa-solid fa-bars-staggered text-xl"></i>
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== SIDEBAR (right drawer) ========== -->
+  <div id="overlay"
+    class="fixed inset-0 bg-black bg-opacity-50 z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+  </div>
+
+
+
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar"
+    class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform translate-x-full transition-all duration-300 ease-out flex flex-col">
+
+    <!-- HEADER -->
+    <div class="flex items-center justify-between px-6 py-5 border-b border-gray-100">
+      <h2 class="text-xl font-bold text-[#233fff]">Menu</h2>
+      <button id="closeSidebarBtn" class="py-1 px-3  bg-gray-50 hover:bg-red-50 hover:text-red-500 rounded-full">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- MENU -->
+    <div class="flex-1 overflow-y-auto py-4 px-4">
+
+      <!-- ALL COURSES -->
+      <div class="mb-2">
+
+        <!-- Toggle -->
+        <button id="coursesToggle"
+          class="w-full px-4 py-3.5 flex items-center justify-between rounded-xl hover:bg-blue-50 group text-[#233fff]">
+
+          <div class="flex items-center gap-3 font-semibold">
+            <i class="fas fa-book-open"></i>
+            <span>All Courses</span>
+          </div>
+
+          <i id="coursesArrow" class="fas fa-chevron-down transition-transform duration-300"></i>
+        </button>
+
+        <!-- CHILD MENU -->
+        <div id="coursesMenu"
+          class="mt-1 mb-3 ml-6 pl-5 border-l-2 border-gray-100 space-y-1 overflow-hidden transition-all duration-300 max-h-[500px]">
+
+          <a href="/courses/mern-full-stack-development"
+            class="group flex items-center gap-3 py-2.5 px-3 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-[#233fff]">
+            <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div>
+            <i class="fas fa-code text-gray-400 group-hover:text-[#233fff]"></i>
+            MERN Full Stack Development
+          </a>
+
+          <a href="/courses/flutter-hybrid-app-development"
+            class="group flex items-center gap-3 py-2.5 px-3 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-[#233fff]">
+            <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div>
+            <i class="fas fa-mobile-alt text-gray-400 group-hover:text-[#233fff]"></i>
+            Flutter Hybrid App Development
+          </a>
+
+          <a href="/courses/mastering-generative-AI"
+            class="group flex items-center gap-3 py-2.5 px-3 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-[#233fff]">
+            <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div>
+            <i class="fas fa-robot text-gray-400 group-hover:text-[#233fff]"></i>
+            Mastering Generative AI
+          </a>
+
+          <a href="/courses/php"
+            class="group flex items-center gap-3 py-2.5 px-3 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-[#233fff]">
+            <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div>
+            <i class="fas fa-database text-gray-400 group-hover:text-[#233fff]"></i>
+            PHP
+          </a>
+
+        </div>
+      </div>
+
+      <!-- OTHER MENU -->
+      <a href="/placements"
+        class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
+        <i class="fas fa-briefcase text-gray-400 group-hover:text-[#233fff]"></i>
+        Placements
+      </a>
+
+      <a href="/hire-from-us"
+        class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
+        <i class="fas fa-user-plus text-gray-400 group-hover:text-[#233fff]"></i>
+        Hire From Us
+      </a>
+
+      <a href="/carporate-training"
+        class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
+        <i class="fas fa-building text-gray-400 group-hover:text-[#233fff]"></i>
+        Corporate Training
+      </a>
+
+      <a href="campus-training"
+        class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
+        <i class="fas fa-graduation-cap text-gray-400 group-hover:text-[#233fff]"></i>
+        Campus Training
+      </a>
+
+      <a href="/contact"
+        class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
+        <i class="fas fa-phone text-gray-400 group-hover:text-[#233fff]"></i>
+        Contact Us
+      </a>
+      <a href="/about"
+        class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
+        <i class="fas fa-circle-info text-gray-400 group-hover:text-[#233fff]"></i>
+        About Us
+      </a>
+
+    </div>
+  </aside>
+
+  <!-- JS -->
+  <script id="sidebar-js-01">
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+    const openBtn = document.getElementById("openSidebarBtn");
+    const closeBtn = document.getElementById("closeSidebarBtn");
+
+    const toggleBtn = document.getElementById("coursesToggle");
+    const menu = document.getElementById("coursesMenu");
+    const arrow = document.getElementById("coursesArrow");
+
+    let isOpen = true;
+
+    // Sidebar open
+    openBtn.onclick = () => {
+      sidebar.classList.remove("translate-x-full");
+      overlay.classList.remove("hidden");
+    };
+
+    // Sidebar close
+    function closeSidebar() {
+      sidebar.classList.add("translate-x-full");
+      overlay.classList.add("hidden");
+    }
+
+    closeBtn.onclick = closeSidebar;
+    overlay.onclick = closeSidebar;
+
+    // Collapse toggle
+    toggleBtn.onclick = () => {
+      isOpen = !isOpen;
+
+      if (isOpen) {
+        menu.classList.remove("max-h-0");
+        menu.classList.add("max-h-[500px]");
+        arrow.classList.remove("rotate-180");
+      } else {
+        menu.classList.remove("max-h-[500px]");
+        menu.classList.add("max-h-0");
+        arrow.classList.add("rotate-180");
+      }
+    };
+  </script>
+  <!-- ======================= MODAL (DOWNLOAD SYLLABUS) ======================= -->
+  <div id="syllabusModal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden">
+    <div id="modalOverlay" class="absolute inset-0 bg-slate-900/60 backdrop-blur-md"></div>
+    <div class="relative bg-white w-full max-w-md rounded-[2.5rem] shadow-2xl overflow-hidden modal-fade-in">
+      <button id="closeModalBtn"
+        class="absolute top-6 right-6 p-2 rounded-full hover:bg-slate-100 text-slate-400 transition-colors z-10">
+        <i data-lucide="x" size="20"></i>
+      </button>
+      <div class="p-10">
+        <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mb-6">
+          <i data-lucide="download" size="32"></i>
+        </div>
+        <h3 class="text-2xl font-black text-slate-900 mb-2 italic uppercase tracking-tight">Download <span
+            class="text-blue-600">Curriculum</span></h3>
+        <p class="text-slate-500 font-medium text-sm mb-8">Data Analytics & GenAI training program syllabus.</p>
+        <div class="space-y-4">
+          <button data-syllabus="summer"
+            class="downloadOption w-full p-6 rounded-2xl border-2 border-slate-100 hover:border-blue-600 hover:bg-blue-50/50 transition-all flex items-center justify-between group text-left">
+            <div>
+              <div class="font-black text-slate-800 uppercase text-xs tracking-widest mb-1">Option 01</div>
+              <div class="font-bold text-lg text-slate-900">Summer Training</div>
+            </div>
+            <i data-lucide="download" size="20" class="text-slate-300 group-hover:text-blue-600 transition-colors"></i>
+          </button>
+          <button data-syllabus="internship"
+            class="downloadOption w-full p-6 rounded-2xl border-2 border-slate-100 hover:border-blue-600 hover:bg-blue-50/50 transition-all flex items-center justify-between group text-left">
+            <div>
+              <div class="font-black text-slate-800 uppercase text-xs tracking-widest mb-1">Option 02</div>
+              <div class="font-bold text-lg text-slate-900">Advanced Internship</div>
+            </div>
+            <i data-lucide="download" size="20" class="text-slate-300 group-hover:text-blue-600 transition-colors"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================= HERO SECTION ======================= -->
+  <section
+    class="relative min-h-[95vh] flex items-center px-6 lg:px-20 pt-28 overflow-hidden bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:30px_30px]">
+    <div class="absolute top-0 right-0 w-[50%] h-[50%] bg-blue-100/30 blur-[120px] rounded-full"></div>
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center w-full relative z-10">
+      <div class="space-y-8">
+        <div class="inline-flex items-center gap-3 px-4 py-2 rounded-2xl bg-white border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2 pr-3 border-r border-slate-200">
+            <i data-lucide="brain-circuit" size="16" class="text-blue-600"></i>
+            <span class="text-[10px] font-bold text-slate-600 uppercase tracking-widest">GenAI Integration</span>
+          </div>
+          <span class="text-[10px] font-bold tracking-widest uppercase text-blue-600">Future-Ready Data Skills</span>
+        </div>
+        <h1 class="text-5xl lg:text-7xl font-black leading-[1.1] tracking-tight text-slate-900">
+          Data Analytics <br />
+          <span class="text-blue-600">With Gen AI</span>
+        </h1>
+        <p class="text-xl text-slate-600 max-w-xl leading-relaxed font-medium">
+          Don't just analyze data—predict it. Master <span
+            class="text-slate-900 font-bold underline decoration-blue-600 decoration-2">Modern AI Tools</span> to
+          automate insights and build intelligent business models.
+        </p>
+        <div class="flex flex-wrap gap-5 pt-4">
+          <button id="startLearningBtn"
+            class="group relative px-10 py-5 rounded-2xl font-bold text-white shadow-[0_20px_40px_rgba(37,99,235,0.2)] transition-all hover:scale-105 active:scale-95 flex items-center gap-2 overflow-hidden bg-blue-600">
+            Start Learning <i data-lucide="arrow-right" size="20"
+              class="group-hover:translate-x-1 transition-transform"></i>
+          </button>
+          <button id="heroViewSyllabusBtn"
+            class="px-10 py-5 rounded-2xl font-bold border-2 border-slate-200 hover:border-blue-600 hover:bg-blue-50/5 transition-all flex items-center gap-3 bg-white shadow-sm text-slate-700">
+            <i data-lucide="download" size="20" class="text-blue-600"></i> View Syllabus
+          </button>
+        </div>
+        <div class="flex items-center gap-6 pt-6 border-t border-slate-200">
+          <div class="flex -space-x-3">
+            <div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden shadow-sm"><img
+                src="https://i.pravatar.cc/100?img=11" class="w-full h-full object-cover"></div>
+            <div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden shadow-sm"><img
+                src="https://i.pravatar.cc/100?img=12" class="w-full h-full object-cover"></div>
+            <div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden shadow-sm"><img
+                src="https://i.pravatar.cc/100?img=13" class="w-full h-full object-cover"></div>
+            <div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden shadow-sm"><img
+                src="https://i.pravatar.cc/100?img=14" class="w-full h-full object-cover"></div>
+          </div>
+          <p class="text-sm font-bold text-slate-500 italic">Upskilling 4,000+ AI Specialists</p>
+        </div>
+      </div>
+
+      <!-- AI & DATA VECTOR / VISUAL -->
+      <div class="relative flex justify-center items-center h-[600px] w-full">
+        <div class="relative w-full max-w-[440px] h-[480px]">
+          <div
+            class="absolute top-0 right-0 w-[85%] h-[340px] bg-[#020617] rounded-[2.5rem] border border-blue-500/30 shadow-2xl overflow-hidden z-0 transform translate-x-4 -translate-y-4">
+            <div
+              class="flex items-center justify-between px-6 py-4 border-b border-white/5 bg-white/5 backdrop-blur-xl">
+              <div class="flex gap-2">
+                <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                <div class="w-3 h-3 rounded-full bg-blue-400"></div>
+              </div>
+              <span
+                class="text-[10px] text-blue-400 font-mono font-bold tracking-[0.2em] uppercase">AI_ENGINE_PROMPT</span>
+            </div>
+            <div class="p-8 space-y-4 font-mono text-xs">
+              <p class="text-blue-400/60">&gt; Initializing Gemini 2.5 Flash...</p>
+              <p class="text-white">&gt; Analyzing <span class="text-blue-400 underline italic">dataset_v2.csv</span>
+              </p>
+              <div class="grid grid-cols-6 gap-2 h-20 items-end py-4">
+                <div style="height:60%" class="bg-blue-600 rounded-sm animate-pulse"></div>
+                <div style="height:40%" class="bg-blue-600 rounded-sm animate-pulse"></div>
+                <div style="height:90%" class="bg-blue-600 rounded-sm animate-pulse"></div>
+                <div style="height:30%" class="bg-blue-600 rounded-sm animate-pulse"></div>
+                <div style="height:70%" class="bg-blue-600 rounded-sm animate-pulse"></div>
+                <div style="height:50%" class="bg-blue-600 rounded-sm animate-pulse"></div>
+              </div>
+              <p class="text-emerald-400">&gt; Insights ready: 12 Key Trends found.</p>
+              <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                <div class="w-2/3 h-full bg-blue-600 animate-[loading-shimmer_2s_ease-in-out_infinite]"></div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="absolute bottom-0 left-0 w-[90%] h-[360px] bg-white rounded-[2.5rem] shadow-[0_40px_80px_rgba(0,0,0,0.12)] border border-slate-100 overflow-hidden z-10 p-8 flex flex-col">
+            <div class="flex justify-between items-center mb-8">
+              <div>
+                <h4 class="font-black text-xl text-slate-900 tracking-tighter">Market Pulse</h4>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">AI Assisted Analytics</p>
+              </div>
+              <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600"><i
+                  data-lucide="pie-chart" size="24"></i></div>
+            </div>
+            <div class="flex-1 space-y-6">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="h-24 bg-slate-50 rounded-3xl border border-slate-100 p-4 relative overflow-hidden group">
+                  <span class="text-[10px] font-bold text-slate-400 block mb-1">ACCURACY</span><span
+                    class="text-2xl font-black text-blue-600">99.8%</span><i data-lucide="zap" size="48"
+                    class="absolute -right-2 -bottom-2 text-blue-100 group-hover:text-blue-200 transition-colors"></i>
+                </div>
+                <div class="h-24 bg-slate-50 rounded-3xl border border-slate-100 p-4"><span
+                    class="text-[10px] font-bold text-slate-400 block mb-1">PREDICTION</span><span
+                    class="text-2xl font-black text-emerald-600">+24%</span></div>
+              </div>
+              <div id="generateReportBtn"
+                class="h-16 w-full bg-blue-600 rounded-2xl flex items-center justify-center gap-3 shadow-lg shadow-blue-200 cursor-pointer hover:bg-blue-700 transition-all">
+                <i data-lucide="sparkles" size="18" class="text-white"></i><span
+                  class="text-white font-bold text-sm tracking-tight">Generate AI Report</span></div>
+            </div>
+          </div>
+          <div
+            class="absolute -right-8 top-[40%] z-20 w-16 h-16 bg-white rounded-2xl shadow-2xl flex items-center justify-center border-2 border-slate-50 animate-bounce">
+            <i data-lucide="search" size="24" class="text-blue-600"></i></div>
+        </div>
+        <div class="absolute w-[500px] h-[500px] border border-blue-50 rounded-full animate-spin-slow opacity-50"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS SECTION -->
+  <section class="py-20 px-6 relative">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6">
+      <div
+        class="group p-10 rounded-[2.5rem] bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 text-center">
+        <div
+          class="inline-flex p-4 rounded-2xl bg-blue-50 text-blue-600 mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
+          <i data-lucide="users" size="28"></i></div>
+        <div class="text-3xl font-black mb-2 text-slate-800 tracking-tight">4K+</div>
+        <div class="text-slate-400 uppercase text-[10px] tracking-[0.2em] font-bold">Data Analysts</div>
+      </div>
+      <div
+        class="group p-10 rounded-[2.5rem] bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 text-center">
+        <div
+          class="inline-flex p-4 rounded-2xl bg-blue-50 text-blue-600 mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
+          <i data-lucide="brain-circuit" size="28"></i></div>
+        <div class="text-3xl font-black mb-2 text-slate-800 tracking-tight">AI Ready</div>
+        <div class="text-slate-400 uppercase text-[10px] tracking-[0.2em] font-bold">Elite Curriculum</div>
+      </div>
+      <div
+        class="group p-10 rounded-[2.5rem] bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 text-center">
+        <div
+          class="inline-flex p-4 rounded-2xl bg-blue-50 text-blue-600 mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
+          <i data-lucide="code" size="28"></i></div>
+        <div class="text-3xl font-black mb-2 text-slate-800 tracking-tight">SQL/GenAI</div>
+        <div class="text-slate-400 uppercase text-[10px] tracking-[0.2em] font-bold">Hybrid Mastery</div>
+      </div>
+      <div
+        class="group p-10 rounded-[2.5rem] bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 text-center">
+        <div
+          class="inline-flex p-4 rounded-2xl bg-blue-50 text-blue-600 mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
+          <i data-lucide="award" size="28"></i></div>
+        <div class="text-3xl font-black mb-2 text-slate-800 tracking-tight">Global</div>
+        <div class="text-slate-400 uppercase text-[10px] tracking-[0.2em] font-bold">Certifications</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAINING PROGRAMS (VERTICALS) -->
+  <section class="py-32 px-6 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-5xl font-black mb-4 tracking-tight italic uppercase">Training <span
+            class="text-blue-600">Verticals</span></h2>
+        <div class="w-24 h-1.5 bg-blue-600 mx-auto rounded-full mb-6"></div>
+        <p class="text-slate-500 font-medium text-lg italic">Build your career at the intersection of Data & Artificial
+          Intelligence.</p>
+      </div>
+      <div class="grid lg:grid-cols-2 gap-10">
+        <!-- Summer Training Card -->
+        <div
+          class="p-12 lg:p-16 rounded-[4rem] bg-white border-2 border-slate-50 hover:border-blue-100 transition-all shadow-sm hover:shadow-2xl group relative overflow-hidden flex flex-col min-h-[700px]">
+          <div class="relative z-10 flex flex-col h-full">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-3xl font-black text-slate-800">Summer Training</h3><span
+                class="px-4 py-1.5 rounded-full bg-slate-100 text-slate-500 text-[10px] font-black uppercase tracking-widest border border-slate-200">6
+                Weeks Intensive</span>
+            </div>
+            <p
+              class="text-blue-600 font-black text-sm mb-6 uppercase tracking-wider bg-blue-50 inline-block px-3 py-1 rounded-lg self-start">
+              Data Visualisation & AI Basics</p>
+            <div class="text-5xl font-black mb-10 text-slate-900">₹12,999</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10 flex-grow">
+              <div class="flex items-center gap-3 text-slate-600 font-semibold text-sm"><i data-lucide="check-circle"
+                  size="18" class="text-blue-500"></i> Advanced Excel for Data</div>
+              <div class="flex items-center gap-3 text-slate-600 font-semibold text-sm"><i data-lucide="check-circle"
+                  size="18" class="text-blue-500"></i> Tableau Visualisation</div>
+              <div class="flex items-center gap-3 text-slate-600 font-semibold text-sm"><i data-lucide="check-circle"
+                  size="18" class="text-blue-500"></i> Prompt Engineering Basics</div>
+              <div class="flex items-center gap-3 text-slate-600 font-semibold text-sm"><i data-lucide="check-circle"
+                  size="18" class="text-blue-500"></i> SQL Query Mastery</div>
+              <div class="flex items-center gap-3 text-slate-600 font-semibold text-sm"><i data-lucide="check-circle"
+                  size="18" class="text-blue-500"></i> Dataset Cleaning with AI</div>
+              <div class="flex items-center gap-3 text-slate-600 font-semibold text-sm"><i data-lucide="check-circle"
+                  size="18" class="text-blue-500"></i> Training Certificate</div>
+              <div class="flex items-center gap-3 text-slate-600 font-semibold text-sm"><i data-lucide="check-circle"
+                  size="18" class="text-blue-500"></i> Final Analytics Project</div>
+              <div class="flex items-center gap-3 text-slate-600 font-semibold text-sm"><i data-lucide="check-circle"
+                  size="18" class="text-blue-500"></i> Expert Mentorship</div>
+            </div><button id="reserveSummerBtn"
+              class="w-full py-5 rounded-2xl bg-slate-900 text-white font-black hover:bg-slate-800 transition-all uppercase tracking-widest text-xs flex items-center justify-center gap-2">Reserve
+              My Seat <i data-lucide="arrow-right" size="16"></i></button>
+          </div>
+        </div>
+        <!-- AI-Data Internship Card (Premium) -->
+        <div
+          class="p-12 lg:p-16 rounded-[4rem] bg-blue-600 text-white relative overflow-hidden shadow-[0_40px_80px_rgba(37,99,235,0.3)] group border-4 border-blue-400/20 transition-all hover:scale-[1.01] flex flex-col min-h-[700px]">
+          <div class="absolute -right-10 top-10 opacity-10 rotate-12"><i data-lucide="trophy" size="200"></i></div>
+          <div class="relative z-10 flex flex-col h-full">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-3xl font-black">AI-Data Internship</h3><span
+                class="px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest border border-white/20">Skill
+                India Certified</span>
+            </div>
+            <p
+              class="text-blue-100 font-black text-sm mb-6 uppercase tracking-wider bg-white/10 inline-block px-3 py-1 rounded-lg backdrop-blur-sm self-start">
+              6 Months Full Career Path</p>
+            <div class="text-5xl font-black mb-10 text-white">₹18,999</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10 flex-grow">
+              <div class="flex items-center gap-3 text-white/90 font-semibold text-sm"><i data-lucide="check-circle-2"
+                  size="18" class="text-blue-200"></i> Python for AI & Data</div>
+              <div class="flex items-center gap-3 text-white/90 font-semibold text-sm"><i data-lucide="check-circle-2"
+                  size="18" class="text-blue-200"></i> Predictive Modeling (ML)</div>
+              <div class="flex items-center gap-3 text-white/90 font-semibold text-sm"><i data-lucide="check-circle-2"
+                  size="18" class="text-blue-200"></i> Generative AI Integration</div>
+              <div class="flex items-center gap-3 text-white/90 font-semibold text-sm"><i data-lucide="check-circle-2"
+                  size="18" class="text-blue-200"></i> Real-world Client Projects</div>
+              <div class="flex items-center gap-3 text-white/90 font-semibold text-sm"><i data-lucide="check-circle-2"
+                  size="18" class="text-blue-200"></i> Placement Support</div>
+              <div class="flex items-center gap-3 text-white/90 font-semibold text-sm"><i data-lucide="check-circle-2"
+                  size="18" class="text-blue-200"></i> Skill India Certification</div>
+              <div class="flex items-center gap-3 text-white/90 font-semibold text-sm"><i data-lucide="check-circle-2"
+                  size="18" class="text-blue-200"></i> Cloud Data Architecture</div>
+              <div class="flex items-center gap-3 text-white/90 font-semibold text-sm"><i data-lucide="check-circle-2"
+                  size="18" class="text-blue-200"></i> Portfolio Building</div>
+            </div><button id="applyInternshipBtn"
+              class="w-full py-5 rounded-2xl bg-white text-blue-600 font-black shadow-xl hover:bg-slate-50 transition-all uppercase tracking-widest text-xs flex items-center justify-center gap-2">Apply
+              for Internship <i data-lucide="arrow-right" size="16"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLAGSHIP MOBILE REELS (AI IMAGE GENERATOR) -->
+  <section class="py-32 px-6 bg-slate-900 text-white rounded-[4rem] mx-6 mb-12 overflow-hidden relative shadow-2xl">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_#2563eb15,_transparent_50%)]"></div>
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="text-center mb-16">
+        <div
+          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-[10px] font-bold uppercase tracking-widest border border-blue-500/20 mb-4">
+          <i data-lucide="smartphone" size="14"></i> Student Project Series</div>
+        <h2 class="text-5xl font-black tracking-tight italic uppercase mb-4">AI Image Generator <span
+            class="text-blue-500">Reels</span></h2>
+        <p class="text-slate-400 font-medium text-lg italic max-w-2xl mx-auto">Watch the development of our flagship AI
+          project in mobile-first format.</p>
+      </div>
+      <div class="flex overflow-x-auto pb-10 gap-8 no-scrollbar snap-x snap-mandatory px-4 lg:px-20">
+        <!-- Reel 1 -->
+        <div
+          class="flex-shrink-0 w-[280px] h-[500px] bg-black rounded-[2.5rem] border-[6px] border-slate-800 shadow-2xl relative overflow-hidden snap-center group">
+          <div class="absolute top-0 left-0 w-full h-8 flex justify-between items-center px-6 z-30"><span
+              class="text-[10px] font-bold">9:41</span>
+            <div class="flex gap-1">
+              <div class="w-3 h-2 bg-white/50 rounded-sm"></div>
+              <div class="w-5 h-2 bg-white rounded-sm"></div>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-blue-500 opacity-40 group-hover:scale-110 transition-transform duration-700">
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/90"></div>
+          <div class="absolute right-3 bottom-24 flex flex-col gap-5 z-20">
+            <div class="flex flex-col items-center gap-1">
+              <div class="p-2 rounded-full bg-white/10 backdrop-blur-md"><i data-lucide="heart" size="20"
+                  class="text-white"></i></div><span class="text-[8px] font-bold">4.2k</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <div class="p-2 rounded-full bg-white/10 backdrop-blur-md"><i data-lucide="message-circle" size="20"
+                  class="text-white"></i></div><span class="text-[8px] font-bold">128</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <div class="p-2 rounded-full bg-white/10 backdrop-blur-md"><i data-lucide="share-2" size="20"
+                  class="text-white"></i></div><span class="text-[8px] font-bold">Share</span>
+            </div>
+          </div>
+          <div class="absolute bottom-6 left-6 right-16 z-20">
+            <div class="flex items-center gap-2 mb-2">
+              <div
+                class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white border border-white/20">
+                <i data-lucide="sparkles" size="16"></i></div><span
+                class="text-xs font-black uppercase tracking-widest">Reel #01</span>
+            </div>
+            <h4 class="text-lg font-black leading-tight mb-1">Prompt Engineering</h4>
+            <p class="text-[10px] text-white/60 font-medium">@Intern_AI_Project • Original Audio</p>
+          </div>
+          <div
+            class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            <div
+              class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-xl flex items-center justify-center border border-white/30">
+              <i data-lucide="play-circle" size="32" class="text-white ml-1"></i></div>
+          </div>
+        </div>
+        <!-- Reel 2 -->
+        <div
+          class="flex-shrink-0 w-[280px] h-[500px] bg-black rounded-[2.5rem] border-[6px] border-slate-800 shadow-2xl relative overflow-hidden snap-center group">
+          <div
+            class="absolute inset-0 bg-purple-500 opacity-40 group-hover:scale-110 transition-transform duration-700">
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/90"></div>
+          <div class="absolute right-3 bottom-24 flex flex-col gap-5 z-20">
+            <div class="flex flex-col items-center gap-1">
+              <div class="p-2 rounded-full bg-white/10 backdrop-blur-md"><i data-lucide="heart" size="20"
+                  class="text-white"></i></div><span class="text-[8px] font-bold">3.1k</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <div class="p-2 rounded-full bg-white/10 backdrop-blur-md"><i data-lucide="message-circle" size="20"
+                  class="text-white"></i></div><span class="text-[8px] font-bold">97</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <div class="p-2 rounded-full bg-white/10 backdrop-blur-md"><i data-lucide="share-2" size="20"
+                  class="text-white"></i></div><span class="text-[8px] font-bold">Share</span>
+            </div>
+          </div>
+          <div class="absolute bottom-6 left-6 right-16 z-20">
+            <div class="flex items-center gap-2 mb-2">
+              <div
+                class="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-white border border-white/20">
+                <i data-lucide="cpu" size="16"></i></div><span class="text-xs font-black uppercase tracking-widest">Reel
+                #02</span>
+            </div>
+            <h4 class="text-lg font-black leading-tight mb-1">Stable Diffusion</h4>
+            <p class="text-[10px] text-white/60 font-medium">@Intern_AI_Project • Original Audio</p>
+          </div>
+          <div
+            class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            <div
+              class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-xl flex items-center justify-center border border-white/30">
+              <i data-lucide="play-circle" size="32" class="text-white ml-1"></i></div>
+          </div>
+        </div>
+        <!-- Reel 3 -->
+        <div
+          class="flex-shrink-0 w-[280px] h-[500px] bg-black rounded-[2.5rem] border-[6px] border-slate-800 shadow-2xl relative overflow-hidden snap-center group">
+          <div class="absolute inset-0 bg-pink-500 opacity-40 group-hover:scale-110 transition-transform duration-700">
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/90"></div>
+          <div class="absolute right-3 bottom-24 flex flex-col gap-5 z-20">
+            <div class="flex flex-col items-center gap-1">
+              <div class="p-2 rounded-full bg-white/10 backdrop-blur-md"><i data-lucide="heart" size="20"
+                  class="text-white"></i></div><span class="text-[8px] font-bold">5.5k</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <div class="p-2 rounded-full bg-white/10 backdrop-blur-md"><i data-lucide="message-circle" size="20"
+                  class="text-white"></i></div><span class="text-[8px] font-bold">210</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <div class="p-2 rounded-full bg-white/10 backdrop-blur-md"><i data-lucide="share-2" size="20"
+                  class="text-white"></i></div><span class="text-[8px] font-bold">Share</span>
+            </div>
+          </div>
+          <div class="absolute bottom-6 left-6 right-16 z-20">
+            <div class="flex items-center gap-2 mb-2">
+              <div
+                class="w-8 h-8 rounded-full bg-pink-600 flex items-center justify-center text-white border border-white/20">
+                <i data-lucide="palette" size="16"></i></div><span
+                class="text-xs font-black uppercase tracking-widest">Reel #03</span>
+            </div>
+            <h4 class="text-lg font-black leading-tight mb-1">Style Logic</h4>
+            <p class="text-[10px] text-white/60 font-medium">@Intern_AI_Project • Original Audio</p>
+          </div>
+          <div
+            class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            <div
+              class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-xl flex items-center justify-center border border-white/30">
+              <i data-lucide="play-circle" size="32" class="text-white ml-1"></i></div>
+          </div>
+        </div>
+        <!-- Reel 4 -->
+        <div
+          class="flex-shrink-0 w-[280px] h-[500px] bg-black rounded-[2.5rem] border-[6px] border-slate-800 shadow-2xl relative overflow-hidden snap-center group">
+          <div
+            class="absolute inset-0 bg-indigo-500 opacity-40 group-hover:scale-110 transition-transform duration-700">
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/90"></div>
+          <div class="absolute right-3 bottom-24 flex flex-col gap-5 z-20">
+            <div class="flex flex-col items-center gap-1">
+              <div class="p-2 rounded-full bg-white/10 backdrop-blur-md"><i data-lucide="heart" size="20"
+                  class="text-white"></i></div><span class="text-[8px] font-bold">2.9k</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <div class="p-2 rounded-full bg-white/10 backdrop-blur-md"><i data-lucide="message-circle" size="20"
+                  class="text-white"></i></div><span class="text-[8px] font-bold">76</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <div class="p-2 rounded-full bg-white/10 backdrop-blur-md"><i data-lucide="share-2" size="20"
+                  class="text-white"></i></div><span class="text-[8px] font-bold">Share</span>
+            </div>
+          </div>
+          <div class="absolute bottom-6 left-6 right-16 z-20">
+            <div class="flex items-center gap-2 mb-2">
+              <div
+                class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white border border-white/20">
+                <i data-lucide="layers" size="16"></i></div><span
+                class="text-xs font-black uppercase tracking-widest">Reel #04</span>
+            </div>
+            <h4 class="text-lg font-black leading-tight mb-1">Upscaling AI</h4>
+            <p class="text-[10px] text-white/60 font-medium">@Intern_AI_Project • Original Audio</p>
+          </div>
+          <div
+            class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            <div
+              class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-xl flex items-center justify-center border border-white/30">
+              <i data-lucide="play-circle" size="32" class="text-white ml-1"></i></div>
+          </div>
+        </div>
+        <!-- Reel 5 -->
+        <div
+          class="flex-shrink-0 w-[280px] h-[500px] bg-black rounded-[2.5rem] border-[6px] border-slate-800 shadow-2xl relative overflow-hidden snap-center group">
+          <div
+            class="absolute inset-0 bg-emerald-500 opacity-40 group-hover:scale-110 transition-transform duration-700">
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/90"></div>
+          <div class="absolute right-3 bottom-24 flex flex-col gap-5 z-20">
+            <div class="flex flex-col items-center gap-1">
+              <div class="p-2 rounded-full bg-white/10 backdrop-blur-md"><i data-lucide="heart" size="20"
+                  class="text-white"></i></div><span class="text-[8px] font-bold">6.7k</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <div class="p-2 rounded-full bg-white/10 backdrop-blur-md"><i data-lucide="message-circle" size="20"
+                  class="text-white"></i></div><span class="text-[8px] font-bold">312</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <div class="p-2 rounded-full bg-white/10 backdrop-blur-md"><i data-lucide="share-2" size="20"
+                  class="text-white"></i></div><span class="text-[8px] font-bold">Share</span>
+            </div>
+          </div>
+          <div class="absolute bottom-6 left-6 right-16 z-20">
+            <div class="flex items-center gap-2 mb-2">
+              <div
+                class="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center text-white border border-white/20">
+                <i data-lucide="smartphone" size="16"></i></div><span
+                class="text-xs font-black uppercase tracking-widest">Reel #05</span>
+            </div>
+            <h4 class="text-lg font-black leading-tight mb-1">Mobile App UI</h4>
+            <p class="text-[10px] text-white/60 font-medium">@Intern_AI_Project • Original Audio</p>
+          </div>
+          <div
+            class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            <div
+              class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-xl flex items-center justify-center border border-white/30">
+              <i data-lucide="play-circle" size="32" class="text-white ml-1"></i></div>
+          </div>
+        </div>
+        <!-- Reel 6 -->
+        <div
+          class="flex-shrink-0 w-[280px] h-[500px] bg-black rounded-[2.5rem] border-[6px] border-slate-800 shadow-2xl relative overflow-hidden snap-center group">
+          <div
+            class="absolute inset-0 bg-orange-500 opacity-40 group-hover:scale-110 transition-transform duration-700">
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/90"></div>
+          <div class="absolute right-3 bottom-24 flex flex-col gap-5 z-20">
+            <div class="flex flex-col items-center gap-1">
+              <div class="p-2 rounded-full bg-white/10 backdrop-blur-md"><i data-lucide="heart" size="20"
+                  class="text-white"></i></div><span class="text-[8px] font-bold">1.8k</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <div class="p-2 rounded-full bg-white/10 backdrop-blur-md"><i data-lucide="message-circle" size="20"
+                  class="text-white"></i></div><span class="text-[8px] font-bold">44</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <div class="p-2 rounded-full bg-white/10 backdrop-blur-md"><i data-lucide="share-2" size="20"
+                  class="text-white"></i></div><span class="text-[8px] font-bold">Share</span>
+            </div>
+          </div>
+          <div class="absolute bottom-6 left-6 right-16 z-20">
+            <div class="flex items-center gap-2 mb-2">
+              <div
+                class="w-8 h-8 rounded-full bg-orange-600 flex items-center justify-center text-white border border-white/20">
+                <i data-lucide="fast-forward" size="16"></i></div><span
+                class="text-xs font-black uppercase tracking-widest">Reel #06</span>
+            </div>
+            <h4 class="text-lg font-black leading-tight mb-1">User History</h4>
+            <p class="text-[10px] text-white/60 font-medium">@Intern_AI_Project • Original Audio</p>
+          </div>
+          <div
+            class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            <div
+              class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-xl flex items-center justify-center border border-white/30">
+              <i data-lucide="play-circle" size="32" class="text-white ml-1"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROADMAP SECTION (AI Evolution) -->
+  <section class="py-32 px-6 bg-white relative overflow-hidden">
+    <div class="max-w-6xl mx-auto relative z-10">
+      <div class="text-center mb-20">
+        <h2 class="text-5xl font-black mb-6 tracking-tight italic">The AI Evolution <span
+            class="text-blue-600">Roadmap</span></h2>
+        <p class="text-slate-500 max-w-2xl mx-auto font-medium text-lg italic">From raw data to intelligent agents—your
+          journey to becoming an AI Data Architect.</p>
+      </div>
+      <div class="relative">
+        <div
+          class="hidden lg:block absolute top-[52px] left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-200 to-transparent">
+        </div>
+        <div class="grid lg:grid-cols-4 gap-8">
+          <div class="relative group text-center lg:text-left">
+            <div
+              class="w-24 h-24 rounded-[2rem] bg-white border-4 border-slate-50 flex items-center justify-center text-blue-600 mb-10 mx-auto lg:mx-0 shadow-xl group-hover:shadow-blue-200/50 transition-all duration-500 group-hover:-rotate-6 group-hover:scale-110">
+              <i data-lucide="database" size="28"></i></div>
+            <div class="space-y-3">
+              <div
+                class="inline-block px-3 py-1 rounded-lg bg-blue-50 text-blue-600 font-black text-[10px] tracking-widest uppercase border border-blue-100">
+                Step 01</div>
+              <h4 class="text-2xl font-bold text-slate-800 tracking-tight">Data Foundations</h4>
+              <p class="text-slate-400 font-bold text-xs uppercase tracking-widest">Python & SQL</p>
+              <p class="text-slate-500 text-sm leading-relaxed">Advanced data structures, complex queries, and data
+                cleaning at scale.</p>
+            </div>
+          </div>
+          <div class="relative group text-center lg:text-left">
+            <div
+              class="w-24 h-24 rounded-[2rem] bg-white border-4 border-slate-50 flex items-center justify-center text-blue-600 mb-10 mx-auto lg:mx-0 shadow-xl group-hover:shadow-blue-200/50 transition-all duration-500 group-hover:-rotate-6 group-hover:scale-110">
+              <i data-lucide="brain-circuit" size="28"></i></div>
+            <div class="space-y-3">
+              <div
+                class="inline-block px-3 py-1 rounded-lg bg-blue-50 text-blue-600 font-black text-[10px] tracking-widest uppercase border border-blue-100">
+                Step 02</div>
+              <h4 class="text-2xl font-bold text-slate-800 tracking-tight">AI Engineering</h4>
+              <p class="text-slate-400 font-bold text-xs uppercase tracking-widest">LLMs & GenAI</p>
+              <p class="text-slate-500 text-sm leading-relaxed">Integrating Gemini, GPT-4, and Llama for automated data
+                insights.</p>
+            </div>
+          </div>
+          <div class="relative group text-center lg:text-left">
+            <div
+              class="w-24 h-24 rounded-[2rem] bg-white border-4 border-slate-50 flex items-center justify-center text-blue-600 mb-10 mx-auto lg:mx-0 shadow-xl group-hover:shadow-blue-200/50 transition-all duration-500 group-hover:-rotate-6 group-hover:scale-110">
+              <i data-lucide="bar-chart-3" size="28"></i></div>
+            <div class="space-y-3">
+              <div
+                class="inline-block px-3 py-1 rounded-lg bg-blue-50 text-blue-600 font-black text-[10px] tracking-widest uppercase border border-blue-100">
+                Step 03</div>
+              <h4 class="text-2xl font-bold text-slate-800 tracking-tight">Visual Analytics</h4>
+              <p class="text-slate-400 font-bold text-xs uppercase tracking-widest">Tableau & PowerBI</p>
+              <p class="text-slate-500 text-sm leading-relaxed">Building intelligent dashboards that predict trends
+                using AI.</p>
+            </div>
+          </div>
+          <div class="relative group text-center lg:text-left">
+            <div
+              class="w-24 h-24 rounded-[2rem] bg-white border-4 border-slate-50 flex items-center justify-center text-blue-600 mb-10 mx-auto lg:mx-0 shadow-xl group-hover:shadow-blue-200/50 transition-all duration-500 group-hover:-rotate-6 group-hover:scale-110">
+              <i data-lucide="globe" size="28"></i></div>
+            <div class="space-y-3">
+              <div
+                class="inline-block px-3 py-1 rounded-lg bg-blue-50 text-blue-600 font-black text-[10px] tracking-widest uppercase border border-blue-100">
+                Step 04</div>
+              <h4 class="text-2xl font-bold text-slate-800 tracking-tight">Deployment</h4>
+              <p class="text-slate-400 font-bold text-xs uppercase tracking-widest">Cloud & MLOps</p>
+              <p class="text-slate-500 text-sm leading-relaxed">Deploying data models and AI agents to production
+                environments.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER SECTION (Based on Screenshot) -->
+  <footer class="pt-20 pb-10">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+        <!-- Col 1: Brand Info -->
+        <div class="space-y-6">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white">
+              H</div>
+            <span class="text-2xl font-black text-white tracking-tighter uppercase">Hindtech</span>
+          </div>
+          <div class="space-y-4 text-sm font-medium">
+            <p class="uppercase text-xs tracking-widest text-blue-500 font-black">Address: Hindtech
+              Education Lucknow</p>
+            <p class="leading-relaxed">1st Floor, Mohini Mansion, 1, Naval Kishore Rd, above Baby Hug
+              Showroom, near Cathedral School, Hazratganj, Lucknow, Uttar Pradesh 226001</p>
+            <p>Pan India Branches</p>
+            <p><span class="text-white">EMAIL ID:</span> mail@hindtech.com</p>
+            <p><span class="text-white">CONTACT:</span> +91 9205004404</p>
+          </div>
+          <div class="flex gap-3">
+            <a href="https://www.facebook.com/HindtechLucknow/?hl=en" target="_blank" class="social-icon"><i
+                class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/hindtechlucknow/?hl=en" target="_blank" class="social-icon"><i
+                class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/hindtech-lucknow" target="_blank" class="social-icon"><i
+                class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.youtube.com/@HindtechLucknow" target="_blank" class="social-icon"><i
+                class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div>
+          <h3 class="footer-heading">Quick Links</h3>
+
+          <div class="text-sm font-bold space-y-2">
+
+            <a href="../placements" class="group footer-link flex items-center gap-2">
+              <i class="fas fa-briefcase text-gray-400 group-hover:text-[#233fff]"></i>
+              Placements
+            </a>
+
+            <a href="../hire-from-us" class="group footer-link flex items-center gap-2">
+              <i class="fas fa-user-plus text-gray-400 group-hover:text-[#233fff]"></i>
+              Hire From Us
+            </a>
+
+            <a href="../campus-training" class="group footer-link flex items-center gap-2">
+              <i class="fas fa-graduation-cap text-gray-400 group-hover:text-[#233fff]"></i>
+              Campus Training
+            </a>
+
+            <a href="../carporate-training" class="group footer-link flex items-center gap-2">
+              <i class="fas fa-building text-gray-400 group-hover:text-[#233fff]"></i>
+              Carporate Training
+            </a>
+
+            <a href="../contact" class="group footer-link flex items-center gap-2">
+              <i class="fas fa-phone text-gray-400 group-hover:text-[#233fff]"></i>
+              Contact Us
+            </a>
+
+            <a href="../about" class="group footer-link flex items-center gap-2">
+              <i class="fas fa-circle-info text-gray-400 group-hover:text-[#233fff]"></i>
+              About Us
+            </a>
+
+
+          </div>
+        </div>
+
+        <!-- Col 3: Our Courses -->
+        <div>
+          <h3 class="footer-heading">Our Courses</h3>
+          <div class="text-sm font-bold">
+            <a href="./mern-full-stack-development" class="footer-link">Mern Full Stack
+              Development</a>
+            <a href="./flutter-hybrid-app-development" class="footer-link">Flutter Hybrid App
+              Development</a>
+            <a href="./mastering-generative-AI" class="footer-link">Mastering Generative AI</a>
+            <a href="./php" class="footer-link">Mastering
+              PHP Laravel</a>
+          </div>
+        </div>
+
+        <!-- Col 4: India's Leading -->
+        <div class="bg-slate-800/50 p-8 rounded-3xl border border-slate-700/50">
+          <h3 class="text-xl font-black text-white mb-4">India's Leading and trusted career transforming
+            institute</h3>
+          <p class="text-sm mb-8 leading-relaxed">Raise the bar of your career with the certification from one
+            of the prestigious organizations</p>
+          <a href="#"
+            class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-black py-4 px-6 rounded-xl text-sm transition-all group">
+            Inquire Now <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Bottom Copyright -->
+      <div
+        class="pt-8 border-t border-slate-800 text-center text-xs font-bold text-slate-500 uppercase tracking-widest">
+        Copyright © Hindtech Education Pvt. Ltd. 2022-2026 | Terms | Placement | Privacy | Refund
+      </div>
+    </div>
+  </footer>
+
+  <!-- LUCIDE + MODAL + ALERTS JS -->
+  <script>
+    // Initialize lucide icons after DOM
+    lucide.createIcons();
+
+    // Modal Handling
+    const modal = document.getElementById('syllabusModal');
+    const openModalBtns = document.querySelectorAll('#heroViewSyllabusBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modalOverlay = document.getElementById('modalOverlay');
+
+    function openModal() {
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModalFunc() {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    openModalBtns.forEach(btn => btn.addEventListener('click', openModal));
+    if (closeModalBtn) closeModalBtn.addEventListener('click', closeModalFunc);
+    if (modalOverlay) modalOverlay.addEventListener('click', closeModalFunc);
+
+    // Download options inside modal
+    const downloadOptions = document.querySelectorAll('.downloadOption');
+    downloadOptions.forEach(opt => {
+      opt.addEventListener('click', (e) => {
+        const type = opt.getAttribute('data-syllabus');
+        if (type === 'summer') alert('📥 Downloading Summer Training Curriculum (Data & AI Basics)');
+        else alert('📥 Downloading Advanced Internship Curriculum (GenAI & MLOps)');
+        closeModalFunc();
+      });
+    });
+
+    // CTA Buttons alerts
+    document.getElementById('startLearningBtn')?.addEventListener('click', () => alert('🚀 Start your AI Data Analytics journey! Course access details will be shared.'));
+    document.getElementById('reserveSummerBtn')?.addEventListener('click', () => alert('✅ Summer Training seat reserved! Our team will contact you within 24 hours.'));
+    document.getElementById('applyInternshipBtn')?.addEventListener('click', () => alert('🎓 Internship application submitted! Get ready for AI placement bootcamp.'));
+    document.getElementById('generateReportBtn')?.addEventListener('click', () => alert('📊 AI-Generated Market Pulse Report: 12 Trends identified. Full report sent to demo email.'));
+
+    // Reels play icon alerts (just for demo)
+    const reelPlayButtons = document.querySelectorAll('.group .rounded-full.bg-white\\/20');
+    reelPlayButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        alert('🎬 Student Project Reel: AI Image Generator Workflow — Coming Soon!');
+      });
+    });
+  </script>
+</body>
+
+</html>

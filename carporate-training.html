@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Placement Drives | Campus Recruitment</title>
+    <!-- Tailwind CSS CDN (v3) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome 6 (free icons) - matches lucide style closely -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Custom overrides for scrollbar hiding and smooth transitions -->
+    <style>
+        /* Hide scrollbar for thumbnail strip while keeping functionality */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Custom smooth transitions & extra polish */
+        .card-hover {
+            transition: all 0.25s ease-in-out;
+        }
+        .image-transition {
+            transition: opacity 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        /* preserve consistent group hover for image arrows */
+        .img-nav-btn {
+            transition: all 0.2s ease;
+        }
+    </style>
+</head>
+<body class="font-sans bg-white antialiased">
+
+    <div class="w-full min-h-screen">
+        
+        <!-- SECTION 1: Placement Drives Carousel (Dynamic) -->
+        <section class="py-20 px-4 md:px-8 lg:px-16 overflow-hidden">
+            <div class="max-w-7xl mx-auto">
+                
+                <!-- Header & Stats -->
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
+                        Recent <span style="color: #233fff;" id="themeColorText">Placement Drives</span>
+                    </h2>
+                    <div class="flex flex-col md:flex-row justify-center items-center gap-4">
+                        <div class="text-6xl md:text-8xl font-black tracking-tighter" style="color: #233fff;">1,245</div>
+                        <div class="text-left">
+                            <p class="text-xl md:text-2xl font-semibold text-slate-800">Candidates Hired</p>
+                            <p class="text-slate-500 font-medium">In 2024 - 2025</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Display Area -->
+                <div class="flex flex-col lg:flex-row gap-10 items-start bg-white rounded-[2.5rem] p-4 md:p-8 border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
+                    
+                    <!-- LEFT: Interactive Image Slider with Thumbnails -->
+                    <div class="w-full lg:w-[55%] group relative">
+                        <div class="relative aspect-[16/10] w-full overflow-hidden rounded-3xl bg-slate-100 shadow-inner">
+                            <img id="mainCarouselImage" src="" alt="Drive showcase" class="w-full h-full object-cover image-transition">
+                            
+                            <!-- Image Navigation Controls (Prev/Next) -->
+                            <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 px-4 flex justify-between opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button id="imagePrevBtn" class="img-nav-btn w-10 h-10 rounded-full bg-white/90 shadow-lg flex items-center justify-center text-slate-900 hover:bg-white transition-all">
+                                    <i class="fas fa-chevron-left text-xl"></i>
+                                </button>
+                                <button id="imageNextBtn" class="img-nav-btn w-10 h-10 rounded-full bg-white/90 shadow-lg flex items-center justify-center text-slate-900 hover:bg-white transition-all">
+                                    <i class="fas fa-chevron-right text-xl"></i>
+                                </button>
+                            </div>
+
+                            <!-- Progress Indicators for Images (Dots) -->
+                            <div id="imageDotsContainer" class="absolute bottom-6 inset-x-0 flex justify-center gap-2">
+                                <!-- dynamic dots injected via JS -->
+                            </div>
+                        </div>
+                        
+                        <!-- Thumbnail Strip -->
+                        <div id="thumbnailStrip" class="flex gap-3 mt-4 overflow-x-auto pb-2 scrollbar-hide">
+                            <!-- dynamic thumbnails injected via JS -->
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: Company Information -->
+                    <div class="w-full lg:w-[45%] flex flex-col h-full pt-4">
+                        <div class="flex items-start gap-5 mb-8">
+                            <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white border border-slate-100 shadow-sm p-3 flex items-center justify-center">
+                                <img id="companyLogo" src="" alt="Company Logo" class="max-w-full max-h-full object-contain">
+                            </div>
+                            <div>
+                                <h3 id="companyName" class="text-2xl md:text-3xl font-bold text-slate-900 leading-tight">TechNova Solutions Pvt. Ltd.</h3>
+                                <div class="flex flex-wrap gap-3 mt-3">
+                                    <span class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500">
+                                        <i class="fas fa-calendar-alt text-xs" style="color: #233fff;"></i> 
+                                        <span id="driveDate">12 August 2025</span>
+                                    </span>
+                                    <span class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500">
+                                        <i class="fas fa-map-marker-alt text-xs" style="color: #233fff;"></i> 
+                                        <span id="driveLocation">Noida, UP</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6 mb-10">
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                    <i class="fas fa-briefcase text-sm"></i> Roles Hired
+                                </h4>
+                                <div id="rolesContainer" class="flex flex-wrap gap-2">
+                                    <!-- dynamic roles pills -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Main Carousel Controls (switch companies) -->
+                        <div class="mt-auto flex items-center justify-between border-t border-slate-100 pt-8">
+                            <div class="flex items-center gap-2">
+                                <button id="prevDriveBtn" class="w-12 h-12 rounded-2xl flex items-center justify-center border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all">
+                                    <i class="fas fa-chevron-left text-2xl"></i>
+                                </button>
+                                <button id="nextDriveBtn" class="w-12 h-12 rounded-2xl flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all" style="background-color: #233fff; box-shadow: 0 10px 20px #233fff30;">
+                                    <i class="fas fa-chevron-right text-2xl"></i>
+                                </button>
+                            </div>
+                            <div class="text-right">
+                                <span id="driveCounterDisplay" class="block text-2xl font-black text-slate-900">01</span>
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Company Drive</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: Testimonials (Static, exactly as original) -->
+        <section class="py-24 px-4 md:px-8 lg:px-16 bg-slate-50/50">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
+                        Companies Say They Got <span style="color: #233fff;">10X Growth</span>
+                    </h2>
+                    <p class="text-lg text-slate-500 max-w-2xl mx-auto">
+                        Industry leaders share their experience of hiring talent from our campus drives.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <!-- Testimonial 1 -->
+                    <div class="group bg-white rounded-3xl p-8 shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-slate-100 relative transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] hover:-translate-y-2">
+                        <div class="w-20 h-20 rounded-2xl border-4 border-white shadow-xl overflow-hidden absolute -top-10 left-8">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80" alt="Aditi Sharma" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute top-6 right-8 text-slate-100 group-hover:text-blue-50 transition-colors">
+                            <i class="fas fa-quote-left text-5xl" style="fill: currentColor;"></i>
+                        </div>
+                        <div class="pt-10">
+                            <h3 class="text-xl font-bold text-slate-900">Aditi Sharma</h3>
+                            <p class="text-sm font-medium text-slate-500 mb-6 flex items-center gap-1.5">
+                                HR Manager @ <span class="text-slate-900 font-extrabold">Syntellect</span>
+                            </p>
+                            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-green-50 text-green-700 text-[10px] font-black uppercase tracking-widest mb-6">
+                                <i class="fas fa-award text-xs"></i> 8 Candidates Hired
+                            </div>
+                            <p class="text-slate-600 leading-relaxed italic text-sm md:text-base">
+                                "Our experience hiring from here was exceptional. The candidates were technically sound and culturally fit. We managed to close multiple critical positions in a single drive. Highly recommended for quality talent!"
+                            </p>
+                        </div>
+                        <div class="absolute bottom-0 left-8 right-8 h-1 rounded-t-full transition-all group-hover:h-1.5" style="background-color: #233fff;"></div>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="group bg-white rounded-3xl p-8 shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-slate-100 relative transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] hover:-translate-y-2">
+                        <div class="w-20 h-20 rounded-2xl border-4 border-white shadow-xl overflow-hidden absolute -top-10 left-8">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&q=80" alt="Rohan Desai" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute top-6 right-8 text-slate-100 group-hover:text-blue-50 transition-colors">
+                            <i class="fas fa-quote-left text-5xl"></i>
+                        </div>
+                        <div class="pt-10">
+                            <h3 class="text-xl font-bold text-slate-900">Rohan Desai</h3>
+                            <p class="text-sm font-medium text-slate-500 mb-6 flex items-center gap-1.5">
+                                Talent Acquisition Head @ <span class="text-slate-900 font-extrabold">Mobitrail</span>
+                            </p>
+                            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-green-50 text-green-700 text-[10px] font-black uppercase tracking-widest mb-6">
+                                <i class="fas fa-award text-xs"></i> 12 Candidates Hired
+                            </div>
+                            <p class="text-slate-600 leading-relaxed italic text-sm md:text-base">
+                                "The management and coordination during the placement drive were top-notch. The students were well-prepared, professional, and possessed the exact skill sets we were looking for. Looking forward to more drives."
+                            </p>
+                        </div>
+                        <div class="absolute bottom-0 left-8 right-8 h-1 rounded-t-full transition-all group-hover:h-1.5" style="background-color: #233fff;"></div>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="group bg-white rounded-3xl p-8 shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-slate-100 relative transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] hover:-translate-y-2">
+                        <div class="w-20 h-20 rounded-2xl border-4 border-white shadow-xl overflow-hidden absolute -top-10 left-8">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&q=80" alt="Neha Gupta" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute top-6 right-8 text-slate-100 group-hover:text-blue-50 transition-colors">
+                            <i class="fas fa-quote-left text-5xl"></i>
+                        </div>
+                        <div class="pt-10">
+                            <h3 class="text-xl font-bold text-slate-900">Neha Gupta</h3>
+                            <p class="text-sm font-medium text-slate-500 mb-6 flex items-center gap-1.5">
+                                VP of Engineering @ <span class="text-slate-900 font-extrabold">TechNova</span>
+                            </p>
+                            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-green-50 text-green-700 text-[10px] font-black uppercase tracking-widest mb-6">
+                                <i class="fas fa-award text-xs"></i> 5 Candidates Hired
+                            </div>
+                            <p class="text-slate-600 leading-relaxed italic text-sm md:text-base">
+                                "We were amazed by the practical knowledge these candidates brought to the table. They were able to clear our rigorous technical rounds with ease. Truly a great hub for finding 10X developers."
+                            </p>
+                        </div>
+                        <div class="absolute bottom-0 left-8 right-8 h-1 rounded-t-full transition-all group-hover:h-1.5" style="background-color: #233fff;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // ---------- PLACEMENT DRIVES DATA (exactly from React) ----------
+        const placementDrives = [
+            {
+                id: 1,
+                companyName: "TechNova Solutions Pvt. Ltd.",
+                logoUrl: "https://cdn-icons-png.flaticon.com/512/3665/3665923.png",
+                date: "12 August 2025",
+                location: "Noida, UP",
+                roles: ["Software Developer", "Data Analyst", "UI/UX Designer"],
+                images: [
+                    "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80",
+                    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80",
+                    "https://images.unsplash.com/photo-1515169067868-5387ec356754?w=800&q=80",
+                    "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80"
+                ]
+            },
+            {
+                id: 2,
+                companyName: "GlobalTech Systems",
+                logoUrl: "https://cdn-icons-png.flaticon.com/512/281/281764.png",
+                date: "25 September 2025",
+                location: "Pune, MH",
+                roles: ["Cloud Engineer", "Backend Developer"],
+                images: [
+                    "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
+                    "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&q=80",
+                    "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80",
+                    "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80"
+                ]
+            },
+            {
+                id: 3,
+                companyName: "Innovate Digital Ltd.",
+                logoUrl: "https://cdn-icons-png.flaticon.com/512/2111/2111432.png",
+                date: "10 October 2025",
+                location: "Bangalore, KA",
+                roles: ["Frontend React Developer", "QA Automation"],
+                images: [
+                    "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80",
+                    "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=800&q=80",
+                    "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80",
+                    "https://images.unsplash.com/photo-1573164713988-8665fc963095?w=800&q=80"
+                ]
+            }
+        ];
+
+        // ---------- GLOBAL STATE ----------
+        let currentCompanyIdx = 0;          // 0-based
+        let currentImageIdx = 0;
+
+        // DOM elements
+        const mainImageEl = document.getElementById("mainCarouselImage");
+        const thumbnailContainer = document.getElementById("thumbnailStrip");
+        const dotsContainer = document.getElementById("imageDotsContainer");
+        const companyLogoEl = document.getElementById("companyLogo");
+        const companyNameEl = document.getElementById("companyName");
+        const driveDateEl = document.getElementById("driveDate");
+        const driveLocationEl = document.getElementById("driveLocation");
+        const rolesContainer = document.getElementById("rolesContainer");
+        const driveCounterSpan = document.getElementById("driveCounterDisplay");
+        
+        // Buttons
+        const prevDriveBtn = document.getElementById("prevDriveBtn");
+        const nextDriveBtn = document.getElementById("nextDriveBtn");
+        const imagePrevBtn = document.getElementById("imagePrevBtn");
+        const imageNextBtn = document.getElementById("imageNextBtn");
+
+        // Helper: get current drive object
+        function getCurrentDrive() {
+            return placementDrives[currentCompanyIdx];
+        }
+
+        // Update main image + highlight active thumbnail + active dot based on currentImageIdx
+        function updateImageDisplay() {
+            const drive = getCurrentDrive();
+            if (!drive) return;
+            const imagesArray = drive.images;
+            if (imagesArray.length === 0) return;
+            // update main image
+            mainImageEl.src = imagesArray[currentImageIdx];
+            mainImageEl.alt = `${drive.companyName} drive image ${currentImageIdx+1}`;
+            
+            // update thumbnail active state (highlight selected)
+            const allThumbs = document.querySelectorAll('.thumbnail-item');
+            allThumbs.forEach((thumb, idx) => {
+                if (idx === currentImageIdx) {
+                    thumb.classList.add('border-[#233fff]', 'scale-105', 'opacity-100');
+                    thumb.classList.remove('border-transparent', 'opacity-60');
+                } else {
+                    thumb.classList.remove('border-[#233fff]', 'scale-105');
+                    thumb.classList.add('border-transparent', 'opacity-60');
+                }
+            });
+            
+            // update dots active style
+            const dots = dotsContainer.querySelectorAll('.dot-indicator');
+            dots.forEach((dot, idx) => {
+                if (idx === currentImageIdx) {
+                    dot.style.backgroundColor = "#233fff";
+                    dot.classList.remove('bg-white/50');
+                    dot.classList.add('w-8');
+                } else {
+                    dot.style.backgroundColor = "rgba(255,255,255,0.5)";
+                    dot.classList.remove('w-8');
+                    dot.classList.add('w-2');
+                }
+            });
+        }
+
+        // rebuild thumbnails + dots based on current drive, then reset image index to 0
+        function rebuildThumbnailsAndDots() {
+            const drive = getCurrentDrive();
+            if (!drive) return;
+            const images = drive.images;
+            
+            // Build thumbnails HTML
+            let thumbHtml = '';
+            images.forEach((img, idx) => {
+                thumbHtml += `
+                    <button class="thumbnail-item flex-shrink-0 w-24 h-16 rounded-xl overflow-hidden border-2 transition-all border-transparent opacity-60" data-img-index="${idx}">
+                        <img src="${img}" class="w-full h-full object-cover" alt="thumb ${idx}" />
+                    </button>
+                `;
+            });
+            thumbnailContainer.innerHTML = thumbHtml;
+            
+            // Build dots HTML (progress indicators)
+            let dotsHtml = '';
+            images.forEach((_, idx) => {
+                const isActive = (idx === currentImageIdx);
+                const widthClass = isActive ? 'w-8' : 'w-2';
+                dotsHtml += `<div class="dot-indicator h-1.5 transition-all duration-300 rounded-full ${widthClass}" style="background-color: ${isActive ? '#233fff' : 'rgba(255,255,255,0.5)'};"></div>`;
+            });
+            dotsContainer.innerHTML = dotsHtml;
+            
+            // Attach click events to each thumbnail
+            const thumbButtons = document.querySelectorAll('.thumbnail-item');
+            thumbButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const idx = parseInt(btn.getAttribute('data-img-index'), 10);
+                    if (!isNaN(idx) && idx !== currentImageIdx) {
+                        currentImageIdx = idx;
+                        updateImageDisplay();
+                    }
+                });
+            });
+        }
+        
+        // Render company details: name, logo, date, location, roles, and also reset image index to 0
+        function renderCompanyDetails() {
+            const drive = getCurrentDrive();
+            if (!drive) return;
+            companyLogoEl.src = drive.logoUrl;
+            companyNameEl.innerText = drive.companyName;
+            driveDateEl.innerText = drive.date;
+            driveLocationEl.innerText = drive.location;
+            
+            // roles pills
+            let rolesHtml = '';
+            drive.roles.forEach(role => {
+                rolesHtml += `<span class="px-4 py-2 rounded-xl text-sm font-semibold border transition-all" style="border-color: #233fff20; color: #233fff; background-color: #233fff08;">${role}</span>`;
+            });
+            rolesContainer.innerHTML = rolesHtml;
+            
+            // update drive counter display (01, 02, 03)
+            let counterVal = (currentCompanyIdx + 1).toString().padStart(2, '0');
+            driveCounterSpan.innerText = counterVal;
+        }
+        
+        // FULL RENDER: updates everything (company details + thumbnails/dots) and resets image index
+        function renderFullDrive() {
+            renderCompanyDetails();
+            // Reset currentImageIdx to 0 before rebuilding UI
+            currentImageIdx = 0;
+            rebuildThumbnailsAndDots();  // creates thumbnails + dots based on current drive images
+            updateImageDisplay();         // sync main image, active states
+        }
+        
+        // Next company drive
+        function nextDrive() {
+            currentCompanyIdx = (currentCompanyIdx + 1) % placementDrives.length;
+            renderFullDrive();
+        }
+        
+        // Previous company drive
+        function prevDrive() {
+            currentCompanyIdx = (currentCompanyIdx - 1 + placementDrives.length) % placementDrives.length;
+            renderFullDrive();
+        }
+        
+        // Image navigation: next image within current drive
+        function nextImage() {
+            const drive = getCurrentDrive();
+            if (!drive) return;
+            const maxIdx = drive.images.length - 1;
+            currentImageIdx = (currentImageIdx + 1) > maxIdx ? 0 : currentImageIdx + 1;
+            updateImageDisplay();
+        }
+        
+        function prevImage() {
+            const drive = getCurrentDrive();
+            if (!drive) return;
+            const maxIdx = drive.images.length - 1;
+            currentImageIdx = (currentImageIdx - 1) < 0 ? maxIdx : currentImageIdx - 1;
+            updateImageDisplay();
+        }
+        
+        // ---- EVENT LISTENERS ----
+        // Main drive controls
+        prevDriveBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            prevDrive();
+        });
+        nextDriveBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            nextDrive();
+        });
+        
+        // Image slider prev/next (with stopPropagation)
+        imagePrevBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            prevImage();
+        });
+        imageNextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            nextImage();
+        });
+        
+        // Initialize everything on page load
+        function init() {
+            currentCompanyIdx = 0;
+            currentImageIdx = 0;
+            renderFullDrive();
+        }
+        
+        init();
+        
+        // Optional: ensure that when drive changes, thumbnail scroll position doesn't glitch, no extra action needed
+        // Additionally we handle resize gracefully, and also avoid any conflicts.
+    </script>
+</body>
+</html>

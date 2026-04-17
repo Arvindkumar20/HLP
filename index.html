@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hindtech Learning Point</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/main-style.css">
+
+</head>
+
+<body class="bg-white">
+
+
+
+    <!-- ========== HEADER (exactly as provided, with sidebar integration) ========== -->
+    <header class="w-full bg-white shadow-sm fixed top-0 z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-3 cursor-pointer">
+                <div class="relative w-9 h-11 flex items-center justify-center border-[3.5px] border-theme-black">
+                    <div class="absolute w-full h-1 bg-white"></div>
+                    <div class="absolute w-1 h-full bg-theme-black"></div>
+                </div>
+                <a href="/" class="flex flex-col justify-center mt-1">
+                    <span
+                        class="text-2xl sm:text-3xl font-extrabold tracking-tight text-theme-black leading-none uppercase">HINDTECH</span>
+                    <span
+                        class="text-[0.60rem] sm:text-xs font-bold tracking-[0.25em] text-theme-black mt-1 uppercase">Learning
+                        Point</span>
+                </a>
+            </div>
+            <div class="flex items-center gap-6 sm:gap-8">
+                <!-- EXPLORE COURSES DROPDOWN (hover) -->
+                <div class="demo-container hidden lg:block">
+                    <div class="dropdown-wrapper">
+                        <button
+                            class="lg:flex items-center gap-2 text-theme-black font-bold hover:text-theme-blue transition-colors">
+                            <i class="fa-solid fa-book-open-reader text-lg"></i>
+                            <span>Explore Courses</span>
+                        </button>
+                        <div class="courses-dropdown">
+                            <div class="course-list">
+                                <a href="/courses/mern-full-stack-development" class="course-item">
+                                    <div>
+                                        <div class="course-name">MERN Full Stack Development</div>
+                                        <div class="course-duration"><span class="blue-dot"><i
+                                                    class="fa-regular fa-clock"></i></span> Duration: 6 Months</div>
+                                    </div>
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                                <a href="/courses/flutter-hybrid-app-development" class="course-item">
+                                    <div>
+                                        <div class="course-name">Flutter Hybrid App Development
+                                        </div>
+                                        <div class="course-duration"><span class="blue-dot"><i
+                                                    class="fa-regular fa-clock"></i></span> Duration: 8-10 Months</div>
+                                    </div>
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                                <a href="/courses/mastering-generative-AI" class="course-item">
+                                    <div>
+                                        <div class="course-name">Mastering Generative AI</div>
+                                        <div class="course-duration"><span class="blue-dot"><i
+                                                    class="fa-regular fa-clock"></i></span> Duration: 8-10 Months</div>
+                                    </div>
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                                 <a href="/courses/php" class="course-item">
+                                    <div>
+                                        <div class="course-name">Mastering PHP LaravelI</div>
+                                        <div class="course-duration"><span class="blue-dot"><i
+                                                    class="fa-regular fa-clock"></i></span> Duration: 8-10 Months</div>
+                                    </div>
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+
+
+                            </div>
+                            <div class="dropdown-cta">
+                                <div class="guidance-text">Looking for Guidance ?</div>
+                                <button class="callback-btn" id="callbackDropdownBtn">Request A Call Back <i
+                                        class="fa-solid fa-phone"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Get Career Guidance Button -->
+                <button
+                    class="hidden sm:flex items-center gap-3 bg-theme-blue text-white px-7 py-2.5 rounded-full font-bold shadow-md hover:shadow-lg transition-all">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Get Career Guidance</span>
+                </button>
+
+                <!-- HAMBURGER BUTTON (opens sidebar) -->
+                <button id="openSidebarBtn"
+                    class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-transparent text-theme-black hover:border-theme-black">
+                    <i class="fa-solid fa-bars-staggered text-xl"></i>
+                </button>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== SIDEBAR (right drawer) ========== -->
+    <div id="overlay"
+        class="fixed inset-0 bg-black bg-opacity-50 z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+    </div>
+
+
+
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar"
+        class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform translate-x-full transition-all duration-300 ease-out flex flex-col">
+
+        <!-- HEADER -->
+        <div class="flex items-center justify-between px-6 py-5 border-b border-gray-100">
+            <h2 class="text-xl font-bold text-[#233fff]">Menu</h2>
+            <button id="closeSidebarBtn" class="py-1 px-3  bg-gray-50 hover:bg-red-50 hover:text-red-500 rounded-full">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- MENU -->
+        <div class="flex-1 overflow-y-auto py-4 px-4">
+
+            <!-- ALL COURSES -->
+            <div class="mb-2">
+
+                <!-- Toggle -->
+                <button id="coursesToggle"
+                    class="w-full px-4 py-3.5 flex items-center justify-between rounded-xl hover:bg-blue-50 group text-[#233fff]">
+
+                    <div class="flex items-center gap-3 font-semibold">
+                        <i class="fas fa-book-open"></i>
+                        <span>All Courses</span>
+                    </div>
+
+                    <i id="coursesArrow" class="fas fa-chevron-down transition-transform duration-300"></i>
+                </button>
+
+                <!-- CHILD MENU -->
+                <div id="coursesMenu"
+                    class="mt-1 mb-3 ml-6 pl-5 border-l-2 border-gray-100 space-y-1 overflow-hidden transition-all duration-300 max-h-[500px]">
+
+                    <a href="/courses/mern-full-stack-development"
+                        class="group flex items-center gap-3 py-2.5 px-3 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-[#233fff]">
+                        <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div>
+                        <i class="fas fa-code text-gray-400 group-hover:text-[#233fff]"></i>
+                        MERN Full Stack Development
+                    </a>
+
+                    <a href="/courses/flutter-hybrid-app-development"
+                        class="group flex items-center gap-3 py-2.5 px-3 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-[#233fff]">
+                        <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div>
+                        <i class="fas fa-mobile-alt text-gray-400 group-hover:text-[#233fff]"></i>
+                        Flutter Hybrid App Development
+                    </a>
+
+                    <a href="/courses/mastering-generative-AI"
+                        class="group flex items-center gap-3 py-2.5 px-3 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-[#233fff]">
+                        <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div>
+                        <i class="fas fa-robot text-gray-400 group-hover:text-[#233fff]"></i>
+                        Mastering Generative AI
+                    </a>
+
+                    <a href="/courses/php"
+                        class="group flex items-center gap-3 py-2.5 px-3 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-[#233fff]">
+                        <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div>
+                        <i class="fas fa-database text-gray-400 group-hover:text-[#233fff]"></i>
+                        PHP
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- OTHER MENU -->
+            <a href="/placements"
+                class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
+                <i class="fas fa-briefcase text-gray-400 group-hover:text-[#233fff]"></i>
+                Placements
+            </a>
+
+            <a href="/hire-from-us"
+                class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
+                <i class="fas fa-user-plus text-gray-400 group-hover:text-[#233fff]"></i>
+                Hire From Us
+            </a>
+
+            <a href="/carporate-training"
+                class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
+                <i class="fas fa-building text-gray-400 group-hover:text-[#233fff]"></i>
+                Corporate Training
+            </a>
+
+            <a href="campus-training"
+                class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
+                <i class="fas fa-graduation-cap text-gray-400 group-hover:text-[#233fff]"></i>
+                Campus Training
+            </a>
+
+            <a href="/contact"
+                class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
+                <i class="fas fa-phone text-gray-400 group-hover:text-[#233fff]"></i>
+                Contact Us
+            </a>
+            <a href="/about"
+                class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
+                <i class="fas fa-circle-info text-gray-400 group-hover:text-[#233fff]"></i>
+                About Us
+            </a>
+
+        </div>
+    </aside>
+
+    <!-- JS -->
+    <script id="sidebar-js-01">
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+        const openBtn = document.getElementById("openSidebarBtn");
+        const closeBtn = document.getElementById("closeSidebarBtn");
+
+        const toggleBtn = document.getElementById("coursesToggle");
+        const menu = document.getElementById("coursesMenu");
+        const arrow = document.getElementById("coursesArrow");
+
+        let isOpen = true;
+
+        // Sidebar open
+        openBtn.onclick = () => {
+            sidebar.classList.remove("translate-x-full");
+            overlay.classList.remove("hidden");
+        };
+
+        // Sidebar close
+        function closeSidebar() {
+            sidebar.classList.add("translate-x-full");
+            overlay.classList.add("hidden");
+        }
+
+        closeBtn.onclick = closeSidebar;
+        overlay.onclick = closeSidebar;
+
+        // Collapse toggle
+        toggleBtn.onclick = () => {
+            isOpen = !isOpen;
+
+            if (isOpen) {
+                menu.classList.remove("max-h-0");
+                menu.classList.add("max-h-[500px]");
+                arrow.classList.remove("rotate-180");
+            } else {
+                menu.classList.remove("max-h-[500px]");
+                menu.classList.add("max-h-0");
+                arrow.classList.add("rotate-180");
+            }
+        };
+    </script>
+
+
+    <!-- 2. Hero Section (STILL ORIGINAL) -->
+    <section class="relative w-full py-32 overflow-hidden bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-theme-black leading-[1.15]">
+                        India’s Leading and <span class="text-theme-blue">Trusted IT Training</span> Institute
+                    </h1>
+                    <p class="text-xl text-gray-600 font-medium">
+                        Offering Classroom & Online Training with 100% Placement Assistance.
+                    </p>
+                    <div class="space-y-4">
+                        <p
+                            class="text-sm font-bold text-gray-500 uppercase tracking-widest border-b-2 border-theme-blue w-fit pb-1">
+                            In association with :</p>
+                        <div class="flex flex-wrap items-center gap-6 grayscale opacity-80">
+                            <div class="flex items-center gap-2"><i
+                                    class="fa-solid fa-graduation-cap text-2xl text-theme-black"></i><span
+                                    class="font-black text-sm">Skill India</span></div>
+                            <div class="flex items-center gap-2 border-l border-gray-300 pl-4"><i
+                                    class="fa-solid fa-building-columns text-2xl text-theme-black"></i><span
+                                    class="font-black text-sm uppercase">NSDC</span></div>
+                            <div class="flex items-center gap-2 border-l border-gray-300 pl-4"><i
+                                    class="fa-solid fa-certificate text-2xl text-theme-black"></i><span
+                                    class="font-black text-sm">ISO Certified</span></div>
+                            <div class="flex items-center gap-2 border-l border-gray-300 pl-4"><i
+                                    class="fa-solid fa-industry text-2xl text-theme-black"></i><span
+                                    class="font-black text-sm">MSME</span></div>
+                        </div>
+                    </div>
+                    <div class="pt-4">
+                        <button
+                            class="bg-theme-blue text-white px-8 py-4 rounded-md font-bold text-lg flex items-center gap-3 shadow-xl hover:bg-blue-700 transition-all group">
+                            Download Brochure <i class="fa-solid fa-file-arrow-down group-hover:animate-bounce"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div
+                        class="bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-gray-100 p-8 md:p-10">
+                        <h3 class="text-2xl font-extrabold text-theme-black mb-6">Let’s talk about your <span
+                                class="text-theme-blue underline decoration-2 underline-offset-4">career growth!</span>
+                        </h3>
+                        <form class="space-y-5">
+                            <input type="text" placeholder="Full Name"
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg input-focus">
+                            <input type="tel" placeholder="Mobile Number"
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg input-focus">
+                            <input type="email" placeholder="Email Address"
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg input-focus">
+                            <button type="submit"
+                                class="w-full bg-theme-blue text-white py-4 rounded-lg font-black text-lg shadow-lg hover:shadow-theme-blue/30 transition-all active:scale-95">Submit
+                                Request</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Partners (STILL ORIGINAL) -->
+    <section class="w-full py-10 bg-gray-50/50 border-y border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-xs font-black text-gray-400 uppercase tracking-[0.3em] mb-10">Our Students are working at</p>
+            <div class="flex flex-wrap justify-center gap-10 md:gap-20 opacity-40 grayscale">
+                <i class="fab fa-google text-4xl"></i><i class="fab fa-amazon text-4xl"></i><i
+                    class="fab fa-microsoft text-4xl"></i><i class="fab fa-apple text-4xl"></i><i
+                    class="fab fa-ibm text-4xl"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Course Section (STILL ORIGINAL) -->
+    <section class="w-full py-16 bg-theme-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">Accelerate Your Career
+                    with <span class="text-theme-blue">Industry-Aligned Courses</span></h2>
+                <div class="w-20 h-1.5 bg-theme-blue mx-auto rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Course Card 1: MERN -->
+                <div class="bg-white rounded-xl overflow-hidden course-card flex flex-col h-full">
+                    <div class="p-6 pb-2 flex-grow">
+                        <div class="flex gap-3 mb-4 opacity-90"><i class="fab fa-react text-xl text-blue-500"></i><i
+                                class="fab fa-node-js text-xl text-green-600"></i><i
+                                class="fab fa-js text-xl text-yellow-400"></i></div>
+                        <h3 class="text-lg font-extrabold text-theme-black mb-2">MERN Full Stack Development</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-4">Master MongoDB, Express, React, and
+                            Node.js wit<i class="fa-solid fa-angle-right"></i>ands-on projects.</p>
+                        <div class="border-t border-gray-50 pt-3 text-[11px] font-bold text-gray-600"><i
+                                class="fa-regular fa-clock text-theme-blue"></i> 8-10 Months Classroom & Online</div>
+                    </div>
+                    <div class="p-5 flex gap-2">
+                        <button
+                            class="flex-1 border border-theme-black py-2 rounded-lg text-[10px] font-black hover:bg-theme-black hover:text-white transition-all">Syllabus</button>
+                        <button
+                            class="flex-1 bg-theme-blue text-white py-2 rounded-lg text-[10px] font-black shadow-md hover:bg-blue-700 transition-all">Know
+                            More</button>
+                    </div>
+                </div>
+                <!-- Course Card 2: Flutter -->
+                <div class="bg-white rounded-xl overflow-hidden course-card flex flex-col h-full">
+                    <div class="p-6 pb-2 flex-grow">
+                        <div class="flex gap-3 mb-4 text-blue-400"><i
+                                class="fa-solid fa-mobile-screen-button text-xl"></i><i
+                                class="fa-solid fa-code text-xl"></i></div>
+                        <h3 class="text-lg font-extrabold text-theme-black mb-2">Flutter Hybrid App Development</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-4">Build high-performance Android and iOS
+                            apps using Dart & Flutter.</p>
+                        <div class="border-t border-gray-50 pt-3 text-[11px] font-bold text-gray-600"><i
+                                class="fa-regular fa-clock text-theme-blue"></i> 6 Months Classroom & Online</div>
+                    </div>
+                    <div class="p-5 flex gap-2">
+                        <button
+                            class="flex-1 border border-theme-black py-2 rounded-lg text-[10px] font-black">Syllabus</button>
+                        <button class="flex-1 bg-theme-blue text-white py-2 rounded-lg text-[10px] font-black">Know
+                            More</button>
+                    </div>
+                </div>
+                <!-- Course Card 3: Gen AI -->
+                <div class="bg-white rounded-xl overflow-hidden course-card flex flex-col h-full">
+                    <div class="p-6 pb-2 flex-grow">
+                        <div class="flex gap-3 mb-4 text-indigo-600"><i class="fa-solid fa-brain text-xl"></i><i
+                                class="fa-solid fa-bolt text-xl text-yellow-500"></i></div>
+                        <h3 class="text-lg font-extrabold text-theme-black mb-2">Mastering Generative AI</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-4">Learn LLMs, Prompt Engineering, and
+                            building AI agents with OpenAI.</p>
+                        <div class="border-t border-gray-50 pt-3 text-[11px] font-bold text-gray-600"><i
+                                class="fa-regular fa-clock text-theme-blue"></i> 4-6 Months Certification Course</div>
+                    </div>
+                    <div class="p-5 flex gap-2">
+                        <button
+                            class="flex-1 border border-theme-black py-2 rounded-lg text-[10px] font-black">Syllabus</button>
+                        <button class="flex-1 bg-theme-blue text-white py-2 rounded-lg text-[10px] font-black">Know
+                            More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Master Skills (STILL ORIGINAL) -->
+    <section class="w-full py-24 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div class="image-stack hidden lg:block">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1000&auto=format&fit=crop"
+                        alt="Student Life" class="img-top shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1000&auto=format&fit=crop"
+                        alt="Team Discussion" class="img-bottom shadow-2xl">
+                    <div class="absolute -top-10 -left-10 w-40 h-40 bg-blue-50 rounded-full -z-10 opacity-60"></div>
+                </div>
+                <div class="space-y-8">
+                    <div>
+                        <span class="text-blue-600 font-bold tracking-widest uppercase text-sm">Empower Your
+                            Career</span>
+                        <h2 class="text-3xl md:text-5xl font-extrabold text-theme-black mt-2 leading-tight">
+                            Master the skills to <span class="text-theme-blue">shape your future</span>
+                        </h2>
+                        <p class="text-gray-600 mt-6 text-lg leading-relaxed">
+                            Join Lucknow's most trusted training ecosystem. We don't just teach code; we build careers
+                            through rigorous industrial training and hands-on internship programs.
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
+                        <div class="flex gap-4">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
+                                <i class="fa-solid fa-certificate text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-theme-black">Certified Programs</h4>
+                                <p class="text-gray-500 text-sm mt-1">Globally recognized certifications to validate
+                                    your expertise.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center">
+                                <i class="fa-solid fa-laptop-code text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-theme-black">Live Projects</h4>
+                                <p class="text-gray-500 text-sm mt-1">Work on real-world industry projects from day one.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center">
+                                <i class="fa-solid fa-users text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-theme-black">Expert Mentors</h4>
+                                <p class="text-gray-500 text-sm mt-1">Learn from professionals working in top tech
+                                    companies.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center">
+                                <i class="fa-solid fa-briefcase text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-theme-black">Job Support</h4>
+                                <p class="text-gray-500 text-sm mt-1">100% placement assistance and interview
+                                    preparation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. LinkedIn Testimonials (STILL ORIGINAL) -->
+    <section class="w-full py-20 bg-slate-50 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-theme-black mb-4 tracking-tight">
+                    Learners Who Choose Growth. <span class="text-theme-blue block mt-2">Stories That Inspire.</span>
+                </h2>
+                <div class="w-24 h-1.5 bg-theme-blue mx-auto rounded-full mt-6"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-3 rounded-2xl shadow-lg border border-gray-100 relative screenshot-card group">
+                    <div
+                        class="absolute top-6 right-6 bg-white rounded-md p-1.5 shadow-md z-10 text-[#0a66c2] group-hover:scale-110 transition-transform">
+                        <i class="fa-brands fa-linkedin text-2xl"></i>
+                    </div>
+                    <div class="w-full h-[450px] bg-gray-100 rounded-xl overflow-hidden"><img
+                            src="https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=800&auto=format&fit=crop"
+                            class="w-full h-full object-cover"></div>
+                </div>
+                <div class="bg-white p-3 rounded-2xl shadow-lg border border-gray-100 relative screenshot-card group">
+                    <div
+                        class="absolute top-6 right-6 bg-white rounded-md p-1.5 shadow-md z-10 text-[#0a66c2] group-hover:scale-110 transition-transform">
+                        <i class="fa-brands fa-linkedin text-2xl"></i>
+                    </div>
+                    <div class="w-full h-[450px] bg-gray-100 rounded-xl overflow-hidden"><img
+                            src="https://images.unsplash.com/photo-1611162616475-46b635cb6868?q=80&w=800&auto=format&fit=crop"
+                            class="w-full h-full object-cover"></div>
+                </div>
+                <div
+                    class="bg-white p-3 rounded-2xl shadow-lg border border-gray-100 relative screenshot-card group hidden lg:block">
+                    <div
+                        class="absolute top-6 right-6 bg-white rounded-md p-1.5 shadow-md z-10 text-[#0a66c2] group-hover:scale-110 transition-transform">
+                        <i class="fa-brands fa-linkedin text-2xl"></i>
+                    </div>
+                    <div class="w-full h-[450px] bg-gray-100 rounded-xl overflow-hidden"><img
+                            src="https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=800&auto=format&fit=crop"
+                            class="w-full h-full object-cover"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. NEW UPDATED: COMPACT Upcoming Batches Section -->
+    <section class="w-full py-20 bg-white border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Section Header -->
+            <div class="flex justify-between items-end mb-10">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-theme-black tracking-tight uppercase">Upcoming
+                        <span class="text-theme-blue">Batches</span>
+                    </h2>
+                    <div class="w-16 h-1.5 bg-theme-blue rounded-full mt-3"></div>
+                </div>
+            </div>
+
+            <!-- Batches Grid (Compact) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Compact Card 1 -->
+                <div
+                    class="bg-white rounded-2xl border border-gray-200 hover:border-theme-blue shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-blue-50 text-theme-blue text-[10px] font-black px-2 py-1 rounded">MERN
+                                STACK</span>
+                            <span class="text-[11px] font-bold text-gray-400"><i class="fa-solid fa-calendar mr-1"></i>
+                                Starts: 25 May</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-theme-black mb-4 leading-tight">Full Stack Web
+                            Development (MERN)</h3>
+
+                        <!-- Seat Progress Area -->
+                        <div class="space-y-2 mb-6">
+                            <div class="flex justify-between items-center text-[11px] font-black">
+                                <span class="text-gray-500 uppercase tracking-tighter">Seat Capacity</span>
+                                <span class="text-theme-blue">14 / 20 Seats Filled</span>
+                            </div>
+                            <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="bg-theme-blue h-full w-[70%]" style="transition: width 1s ease-in-out">
+                                </div>
+                            </div>
+                            <p class="text-[10px] text-red-500 font-bold italic">* Hurry! Only 6 seats left</p>
+                        </div>
+
+                        <!-- Compact Details -->
+                        <div class="grid grid-cols-2 gap-4 mb-6 text-[12px] border-t border-gray-50 pt-4">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-clock text-theme-blue"></i> 8-10
+                                Months</div>
+                            <div class="flex items-center gap-2"><i
+                                    class="fa-solid fa-location-dot text-theme-blue"></i> Online/Offline</div>
+                        </div>
+
+                        <!-- Compact Buttons -->
+                        <div class="flex gap-3">
+                            <button
+                                class="flex-[0.8] border border-gray-200 text-gray-500 hover:text-theme-blue hover:border-theme-blue py-2.5 rounded-lg text-xs font-bold transition-all">Syllabus</button>
+                            <button
+                                class="flex-[1.2] bg-theme-blue text-white py-2.5 rounded-lg text-xs font-bold shadow-md hover:bg-blue-700 transition-all">Enroll
+                                Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compact Card 2 -->
+                <div
+                    class="bg-white rounded-2xl border border-gray-200 hover:border-theme-blue shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-indigo-50 text-indigo-600 text-[10px] font-black px-2 py-1 rounded">DATA
+                                ANALYTICS</span>
+                            <span class="text-[11px] font-bold text-gray-400"><i class="fa-solid fa-calendar mr-1"></i>
+                                Starts: 10 June</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-theme-black mb-4 leading-tight">Data Analytics with
+                            Python & SQL</h3>
+
+                        <!-- Seat Progress Area -->
+                        <div class="space-y-2 mb-6">
+                            <div class="flex justify-between items-center text-[11px] font-black">
+                                <span class="text-gray-500 uppercase tracking-tighter">Seat Capacity</span>
+                                <span class="text-orange-600">18 / 20 Seats Filled</span>
+                            </div>
+                            <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="bg-orange-600 h-full w-[90%] shadow-[0_0_8px_rgba(234,88,12,0.4)]"></div>
+                            </div>
+                            <p class="text-[10px] text-red-600 font-bold animate-pulse uppercase">* Almost Full! Just 2
+                                seats remaining</p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6 text-[12px] border-t border-gray-50 pt-4">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-clock text-theme-blue"></i> 6
+                                Months</div>
+                            <div class="flex items-center gap-2"><i
+                                    class="fa-solid fa-location-dot text-theme-blue"></i> Classroom Only</div>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <button
+                                class="flex-[0.8] border border-gray-200 text-gray-500 hover:text-theme-blue hover:border-theme-blue py-2.5 rounded-lg text-xs font-bold transition-all">Syllabus</button>
+                            <button
+                                class="flex-[1.2] bg-theme-blue text-white py-2.5 rounded-lg text-xs font-bold shadow-md hover:bg-blue-700 transition-all">Enroll
+                                Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compact Card 3 -->
+                <div
+                    class="bg-white rounded-2xl border border-gray-200 hover:border-theme-blue shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <span
+                                class="bg-green-50 text-green-600 text-[10px] font-black px-2 py-1 rounded">FLUTTER</span>
+                            <span class="text-[11px] font-bold text-gray-400"><i class="fa-solid fa-calendar mr-1"></i>
+                                Starts: 05 July</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-theme-black mb-4 leading-tight">Flutter App Development
+                            Hybrid</h3>
+
+                        <!-- Seat Progress Area -->
+                        <div class="space-y-2 mb-6">
+                            <div class="flex justify-between items-center text-[11px] font-black">
+                                <span class="text-gray-500 uppercase tracking-tighter">Seat Capacity</span>
+                                <span class="text-green-600">8 / 25 Seats Filled</span>
+                            </div>
+                            <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="bg-green-500 h-full w-[32%]"></div>
+                            </div>
+                            <p class="text-[10px] text-gray-500 font-bold italic">17 seats available for early birds</p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6 text-[12px] border-t border-gray-50 pt-4">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-clock text-theme-blue"></i> 6
+                                Months</div>
+                            <div class="flex items-center gap-2"><i
+                                    class="fa-solid fa-location-dot text-theme-blue"></i> Online/Offline</div>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <button
+                                class="flex-[0.8] border border-gray-200 text-gray-500 hover:text-theme-blue hover:border-theme-blue py-2.5 rounded-lg text-xs font-bold transition-all">Syllabus</button>
+                            <button
+                                class="flex-[1.2] bg-theme-blue text-white py-2.5 rounded-lg text-xs font-bold shadow-md hover:bg-blue-700 transition-all">Enroll
+                                Now</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 8: Why Learners Choose Us -->
+    <section class="w-full bg-[#fcfdfe] py-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                <div class="lg:col-span-4 sticky-header-content">
+                    <span
+                        class="inline-block px-4 py-1 bg-blue-50 text-blue-600 text-[11px] font-black uppercase tracking-widest rounded-full mb-6">
+                        Unmatched Quality
+                    </span>
+                    <h2 class="text-4xl md:text-5xl font-black text-black leading-[1.1] uppercase tracking-tighter">
+                        Why Learners <br /> Across Domains <br /> <span class="text-blue-600">Choose Us</span>
+                    </h2>
+                    <p class="text-gray-500 mt-8 text-lg font-medium leading-relaxed max-w-sm">
+                        We don't just teach coding; we build careers through a personalized and project-driven approach.
+                    </p>
+                    <div class="mt-10 flex gap-4">
+                        <button
+                            class="w-14 h-14 rounded-full border-2 border-gray-100 flex items-center justify-center text-gray-400 hover:border-blue-600 hover:text-blue-600 transition-all">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                        <button
+                            class="w-14 h-14 rounded-full border-2 border-gray-100 flex items-center justify-center text-gray-400 hover:border-blue-600 hover:text-blue-600 transition-all">
+                            <i class="fa-solid fa-arrow-right text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="lg:col-span-8">
+                    <div class="feature-slider-container">
+                        <div class="feature-card group">
+                            <div
+                                class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 text-3xl mb-10 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                                <i class="fa-solid fa-headset"></i>
+                            </div>
+                            <h4 class="text-2xl font-black text-black mb-4 uppercase leading-tight tracking-tight">
+                                1-on-1 Doubt <br /> Solving</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed font-medium">Dedicated mentors to resolve
+                                your technical queries instantly via live sessions or chat support.</p>
+                        </div>
+                        <div class="feature-card group">
+                            <div
+                                class="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 text-3xl mb-10 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                                <i class="fa-solid fa-briefcase"></i>
+                            </div>
+                            <h4 class="text-2xl font-black text-black mb-4 uppercase leading-tight tracking-tight">
+                                Interview <br /> Training</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed font-medium">Rigorous mock interviews and
+                                communication workshops to clear top-tier company recruitment rounds.</p>
+                        </div>
+                        <div class="feature-card group">
+                            <div
+                                class="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 text-3xl mb-10 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                                <i class="fa-solid fa-id-card"></i>
+                            </div>
+                            <h4 class="text-2xl font-black text-black mb-4 uppercase leading-tight tracking-tight">
+                                Profile <br /> Building</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed font-medium">Optimize your LinkedIn, GitHub,
+                                and Resume with industry keywords to get noticed by top recruiters.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 9: Career Learning Path -->
+    <section class="roadmap-container">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-24">
+                <h2 class="text-3xl md:text-4xl font-black tracking-tight uppercase">
+                    Turn Your Learning Into a Career That You're Proud Of
+                </h2>
+            </div>
+            <div class="roadmap-wrapper">
+                <div class="svg-road-container hidden     xl:block">
+                    <svg width="100%" height="100%" viewBox="0 0 1200 400" preserveAspectRatio="none" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M80 340 C 200 340, 200 60, 300 60 S 400 340, 500 340 S 600 60, 700 60 S 800 340, 900 340 S 1000 60, 1100 60 S 1150 340, 1180 340"
+                            stroke="#84cc16" stroke-width="3" stroke-dasharray="12 12" />
+                        <circle cx="80" cy="340" r="8" fill="#84cc16" />
+                        <circle cx="1190" cy="340" r="8" fill="#84cc16" />
+                    </svg>
+                    <div class="road-label" style="left: 40px; bottom: 20px;">Start with</div>
+                    <div class="road-label" style="right: -80px ; bottom: 20px;">Happy Ending</div>
+                </div>
+                <div class="roadmap-grid">
+                    <div class="roadmap-item">
+                        <div class="roadmap-card"><span class="step-number">01</span>
+                            <div class="card-icon-img"><i class="fa-solid fa-calendar-check text-blue-500 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-extrabold mb-3 uppercase tracking-tighter">Follow 3A</h3>
+                            <p class="text-gray-500 text-[11px] font-bold uppercase">Consistency and success score
+                                tracking.</p>
+                        </div>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="roadmap-card"><span class="step-number">02</span>
+                            <div class="card-icon-img"><i class="fa-solid fa-microchip text-blue-500 text-xl"></i></div>
+                            <h3 class="text-xl font-extrabold mb-3 uppercase tracking-tighter">Industry Skills</h3>
+                            <p class="text-gray-500 text-[11px] font-bold uppercase">Hands-on expertise with top tools.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="roadmap-card"><span class="step-number">03</span>
+                            <div class="card-icon-img"><i class="fa-solid fa-address-card text-blue-500 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-extrabold mb-3 uppercase tracking-tighter">Profile Building</h3>
+                            <p class="text-gray-500 text-[11px] font-bold uppercase">Resume & LinkedIn optimization.</p>
+                        </div>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="roadmap-card"><span class="step-number">04</span>
+                            <div class="card-icon-img"><i class="fa-solid fa-medal text-blue-500 text-xl"></i></div>
+                            <h3 class="text-xl font-extrabold mb-3 uppercase tracking-tighter">Global Certification</h3>
+                            <p class="text-gray-500 text-[11px] font-bold uppercase">NSDC & Industry recognized certs.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="roadmap-card"><span class="step-number">05</span>
+                            <div class="card-icon-img"><i class="fa-solid fa-laptop-code text-blue-500 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-extrabold mb-3 uppercase tracking-tighter">Integrated Internship
+                            </h3>
+                            <p class="text-gray-500 text-[11px] font-bold uppercase">Real-world projects & workplace
+                                prep.</p>
+                        </div>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="roadmap-card"><span class="step-number">06</span>
+                            <div class="card-icon-img"><i class="fa-solid fa-star text-blue-500 text-xl"></i></div>
+                            <h3 class="text-xl font-extrabold mb-3 uppercase tracking-tighter">Happy Ending</h3>
+                            <p class="text-gray-500 text-[11px] font-bold uppercase">Dream career and MNC placement.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW ENHANCED SECTION 10: Premium Mentors -->
+    <section class="premium-mentor-section">
+        <div class="section-bg-blur"></div>
+        <div class="max-w-7xl mx-auto px-4">
+
+            <div class="text-center mb-10">
+                <span
+                    class="inline-block px-4 py-2 bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-[0.3em] rounded-lg mb-4">
+                    Expert Guidance
+                </span>
+                <h2 class="text-4xl md:text-6xl font-black text-slate-900 uppercase tracking-tighter">
+                    Built by <span class="text-blue-600 italic">Professionals</span>
+                </h2>
+            </div>
+
+            <div class="mentor-grid-layout">
+
+                <!-- Mentor 1 -->
+                <div class="mentor-pro-card">
+                    <div class="mentor-float-box">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop"
+                            alt="Ankit Sonkar">
+                    </div>
+                    <div class="mentor-title-area">
+                        <p class="mentor-job-text">Master Coach</p>
+                        <h3 class="mentor-name-text">Ankit Sonkar</h3>
+                    </div>
+                    <div class="mentor-stats-row">
+                        <div class="stat-chip"><i class="fa-solid fa-bolt"></i> 8+ Years</div>
+                        <div class="stat-chip"><i class="fa-solid fa-layer-group"></i> Java Fullstack</div>
+                    </div>
+                    <p class="mentor-desc">
+                        Proven track record of training corporate teams and building production-grade enterprise
+                        applications.
+                    </p>
+                    <div class="brand-footer">
+                        <div class="brand-box-mini">
+                            <span class="brand-label">Previous Impact</span>
+                            <div class="flex items-center gap-4">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Deloitte.svg"
+                                    class="h-4 opacity-80" alt="Deloitte">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Siemens-logo.svg"
+                                    class="h-4 opacity-80" alt="Siemens">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mentor 2 -->
+                <div class="mentor-pro-card">
+                    <div class="mentor-float-box">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop"
+                            alt="Sandeep Singh">
+                    </div>
+                    <div class="mentor-title-area">
+                        <p class="mentor-job-text">AI Specialist</p>
+                        <h3 class="mentor-name-text">Sandeep Singh</h3>
+                    </div>
+                    <div class="mentor-stats-row">
+                        <div class="stat-chip"><i class="fa-solid fa-brain"></i> Gen-AI Lead</div>
+                        <div class="stat-chip"><i class="fa-solid fa-microchip"></i> Data Science</div>
+                    </div>
+                    <p class="mentor-desc">
+                        Deep expertise in LLMs and AI research, bridging the gap between academic theory and industry
+                        application.
+                    </p>
+                    <div class="brand-footer">
+                        <div class="brand-box-mini w-full">
+                            <span class="brand-label">Alumni</span>
+                            <div class="flex flex-col gap-1">
+                                <span class="uni-bold">IIT PATNA <span class="text-gray-300 font-light mx-1">|</span>
+                                    IIM NAGPUR</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mentor 3 -->
+                <div class="mentor-pro-card">
+                    <div class="mentor-float-box">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop"
+                            alt="Abhijit Singh">
+                    </div>
+                    <div class="mentor-title-area">
+                        <p class="mentor-job-text">Technical Mentor</p>
+                        <h3 class="mentor-name-text">Abhijit Singh</h3>
+                    </div>
+                    <div class="mentor-stats-row">
+                        <div class="stat-chip"><i class="fa-solid fa-terminal"></i> DevOps</div>
+                        <div class="stat-chip"><i class="fa-solid fa-shield-halved"></i> Cyber Sec</div>
+                    </div>
+                    <p class="mentor-desc">
+                        Expert in cloud infrastructure and securing large-scale systems within global delivery models.
+                    </p>
+                    <div class="brand-footer">
+                        <div class="brand-box-mini w-full">
+                            <span class="brand-label">Working At</span>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Tata_Consultancy_Services_Logo.svg"
+                                class="h-8 mt-1" alt="TCS Logo">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 11: Recent Placed Students  -->
+    <section class="placement-section">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 md:mb-12">
+                <div>
+                    <h2
+                        class="text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter blue-underline-header">
+                        Recent Placed Students
+                    </h2>
+                    <p class="text-slate-400 font-bold text-[10px] md:text-xs uppercase tracking-widest mt-4 md:mt-6">
+                        Success Stories From Hindtech Academy</p>
+                </div>
+                <a href="#" class="view-all-btn-v3 inline-block text-center">
+                    View All <i class="fas fa-arrow-right ml-2 text-[10px]"></i>
+                </a>
+            </div>
+
+            <div class="placement-slider">
+                <div class="student-card-v3">
+                    <div class="diagonal-ribbon">Placed</div>
+                    <div class="student-photo-wrapper-v3">
+                        <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=200"
+                            alt="Vandana">
+                    </div>
+                    <span class="batch-tag-v3">Fullstack Java</span>
+                    <h3 class="text-xl md:text-2xl font-black text-slate-900 mb-1">Vandana</h3>
+                    <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest">Session: 2025-26</p>
+                </div>
+                <div class="student-card-v3">
+                    <div class="diagonal-ribbon">Placed</div>
+                    <div class="student-photo-wrapper-v3">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200"
+                            alt="Nigam Saxena">
+                    </div>
+                    <span class="batch-tag-v3">Data Science</span>
+                    <h3 class="text-xl md:text-2xl font-black text-slate-900 mb-1">Nigam Saxena</h3>
+                    <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest">Session: 2025-26</p>
+                </div>
+                <div class="student-card-v3">
+                    <div class="diagonal-ribbon">Placed</div>
+                    <div class="student-photo-wrapper-v3">
+                        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200"
+                            alt="Arman Khan">
+                    </div>
+                    <span class="batch-tag-v3">DevOps Engineer</span>
+                    <h3 class="text-xl md:text-2xl font-black text-slate-900 mb-1">Arman Khan</h3>
+                    <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest">Session: 2025-26</p>
+                </div>
+                <div class="student-card-v3">
+                    <div class="diagonal-ribbon">Placed</div>
+                    <div class="student-photo-wrapper-v3">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200"
+                            alt="Shivram Yadav">
+                    </div>
+                    <span class="batch-tag-v3">Python Pro</span>
+                    <h3 class="text-xl md:text-2xl font-black text-slate-900 mb-1">Shivram Yadav</h3>
+                    <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest">Session: 2025-26</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 12: Trusted By 200+ Companies  -->
+    <section class="recruiter-section">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-10">
+                <div class="md:w-1/3 text-center md:text-left">
+                    <h2 class="text-2xl md:text-3xl font-black text-slate-900 leading-tight">
+                        Trusted By 200+ Companies
+                    </h2>
+                    <p class="text-slate-500 font-bold text-[10px] md:text-sm mt-1 md:mt-2 uppercase tracking-wide">
+                        Our Top Recruiting Companies
+                    </p>
+                </div>
+                <div class="md:w-2/3 w-full">
+                    <div class="logo-scroll">
+                        <div class="company-logo"><img
+                                src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Tata_Consultancy_Services_Logo.svg"
+                                alt="TCS"></div>
+                        <div class="company-logo"><img
+                                src="https://upload.wikimedia.org/wikipedia/commons/9/95/Infosys_logo.svg"
+                                alt="Infosys"></div>
+                        <div class="company-logo"><img
+                                src="https://upload.wikimedia.org/wikipedia/commons/a/af/Wipro_Primary_Logo_Color_RGB.svg"
+                                alt="Wipro"></div>
+                        <div class="company-logo"><img
+                                src="https://upload.wikimedia.org/wikipedia/commons/0/01/HCL_Technologies_logo.svg"
+                                alt="HCL"></div>
+                        <div class="company-logo"><img
+                                src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Accenture.svg" alt="Accenture">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 13: FAQ - Responsive Optimized (Support Line Removed) -->
+    <section class="faq-section">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2
+                class="text-center text-2xl md:text-4xl font-black text-slate-900 mb-10 md:mb-16 uppercase tracking-tight">
+                Everything You Need to Know
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+
+                <!-- Left Side: Image (Hidden on Mobile) -->
+                <div class="hidden lg:block">
+                    <div class="cool-image-container">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800"
+                            alt="Students Collaboration" class="w-full h-auto object-cover min-height-[400px]">
+                        <div class="absolute inset-0 bg-blue-600/10 mix-blend-multiply"></div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Accordion FAQ -->
+                <div>
+                    <div class="faq-container">
+                        <div class="faq-item" onclick="toggleFAQ(this)">
+                            <div class="flex items-center gap-3 md:gap-4">
+                                <span class="faq-number">01</span>
+                                <span class="faq-question">How do I arrange a visit to the center?</span>
+                                <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                            </div>
+                            <div class="faq-answer">Visit during 10 AM - 7 PM or book a slot on our website for a guided
+                                tour of our labs.</div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFAQ(this)">
+                            <div class="flex items-center gap-3 md:gap-4">
+                                <span class="faq-number">02</span>
+                                <span class="faq-question">Can I take lectures in hybrid mode?</span>
+                                <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                            </div>
+                            <div class="faq-answer">Yes, attend live offline at the center or access the same lectures
+                                online from home.</div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFAQ(this)">
+                            <div class="flex items-center gap-3 md:gap-4">
+                                <span class="faq-number">03</span>
+                                <span class="faq-question">What companies are invited for placements?</span>
+                                <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                            </div>
+                            <div class="faq-answer">200+ partners including TCS, Wipro, and high-growth tech startups
+                                across India.</div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFAQ(this)">
+                            <div class="flex items-center gap-3 md:gap-4">
+                                <span class="faq-number">04</span>
+                                <span class="faq-question">When can I expect placement calls?</span>
+                                <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                            </div>
+                            <div class="faq-answer">Assistance begins after 70% course completion and clearing internal
+                                assessments.</div>
+                        </div>
+
+                        <!-- initially hidden items -->
+                        <div class="faq-item hidden-faq" onclick="toggleFAQ(this)">
+                            <div class="flex items-center gap-3 md:gap-4">
+                                <span class="faq-number">05</span>
+                                <span class="faq-question">Are computers provided at the Institute?</span>
+                                <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                            </div>
+                            <div class="faq-answer">Labs are fully equipped. However, having a laptop is recommended for
+                                home practice.</div>
+                        </div>
+
+                        <div class="faq-item hidden-faq" onclick="toggleFAQ(this)">
+                            <div class="flex items-center gap-3 md:gap-4">
+                                <span class="faq-number">06</span>
+                                <span class="faq-question">What happens if I miss a session?</span>
+                                <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                            </div>
+                            <div class="faq-answer">All sessions are recorded and uploaded to the portal within 24
+                                hours.</div>
+                        </div>
+
+                        <div class="mt-8 text-center lg:text-left">
+                            <button id="faq-toggle-btn" onclick="toggleMoreFaqs()"
+                                class="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold text-[10px] md:text-xs flex items-center gap-2 hover:bg-blue-600 transition-all mx-auto lg:mx-0">
+                                <span id="btn-text">SHOW MORE QUESTIONS</span>
+                                <i id="btn-icon" class="fas fa-chevron-down text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 14: Explore Branch -->
+    <section class="branch-section">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-blue-600 font-black text-xs uppercase tracking-[0.3em] mb-3 block">Corporate
+                    Headquarter</span>
+                <h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-5 tracking-tighter">Explore Hindtech Branch
+                </h2>
+                <div class="h-1.5 w-24 bg-blue-600 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="branch-card">
+                <div class="bg-slate-50 border-b border-slate-100 px-8 py-5 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <span class="font-black text-slate-800 uppercase tracking-widest text-sm">Lucknow, Uttar
+                            Pradesh</span>
+                    </div>
+                </div>
+
+                <div class="p-6 md:p-14">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                        <div class="order-2 lg:order-1 space-y-8">
+                            <div>
+                                <h3 class="text-2xl font-black text-slate-900 mb-6 flex items-center gap-3">01. Office
+                                    Address</h3>
+                                <div
+                                    class="p-6 bg-slate-50 rounded-3xl border border-slate-100 border-l-4 border-l-blue-600">
+                                    <p class="text-slate-600 font-bold leading-relaxed text-lg">
+                                        Hindtech Academy Main Branch,<br>
+                                        Beside Gomti Nagar Station, Near Janeshwar Mishra Park,<br>
+                                        Gomti Nagar, Lucknow, UP 226010
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="map-frame h-[280px] shadow-lg">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113911.33230870901!2d80.9348924!3d26.848692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bfd991f32b16b%3A0x93ccba8909978be7!2sLucknow%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1712750000000!5m2!1sen!2sin"
+                                    width="100%" height="100%" style="border:0;" allowfullscreen=""
+                                    loading="lazy"></iframe>
+                            </div>
+                            <a href="#"
+                                class="inline-flex items-center gap-4 bg-blue-600 text-white px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-blue-200">
+                                <i class="fas fa-location-arrow"></i> Get Directions on Google Maps
+                            </a>
+                        </div>
+
+                        <div class="order-1 lg:order-2">
+                            <h3 class="text-2xl font-black text-slate-900 mb-6 flex items-center gap-3">02. Campus
+                                Gallery</h3>
+                            <div class="slider-container" id="gallerySlider">
+                                <div class="slide active"><img
+                                        src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200"
+                                        class="w-full h-full object-cover"></div>
+                                <div class="slide"><img
+                                        src="https://images.unsplash.com/photo-1522071823991-b9671f9d7f1f?q=80&w=1200"
+                                        class="w-full h-full object-cover"></div>
+                                <div class="slide"><img
+                                        src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200"
+                                        class="w-full h-full object-cover"></div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4 mt-6">
+                                <div class="thumb-btn active rounded-2xl overflow-hidden h-20" onclick="goToSlide(0)">
+                                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=400"
+                                        class="w-full h-full object-cover">
+                                </div>
+                                <div class="thumb-btn rounded-2xl overflow-hidden h-20" onclick="goToSlide(1)"><img
+                                        src="https://images.unsplash.com/photo-1522071823991-b9671f9d7f1f?q=80&w=400"
+                                        class="w-full h-full object-cover"></div>
+                                <div class="thumb-btn rounded-2xl overflow-hidden h-20" onclick="goToSlide(2)"><img
+                                        src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=400"
+                                        class="w-full h-full object-cover"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER SECTION (Based on Screenshot) -->
+    <footer class="pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+                <!-- Col 1: Brand Info -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-2">
+                        <div
+                            class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white">
+                            H</div>
+                        <span class="text-2xl font-black text-white tracking-tighter uppercase">Hindtech</span>
+                    </div>
+                    <div class="space-y-4 text-sm font-medium">
+                        <p class="uppercase text-xs tracking-widest text-blue-500 font-black">Address: Hindtech
+                            Education Lucknow</p>
+                        <p class="leading-relaxed">1st Floor, Mohini Mansion, 1, Naval Kishore Rd, above Baby Hug
+                            Showroom, near Cathedral School, Hazratganj, Lucknow, Uttar Pradesh 226001</p>
+                        <p>Pan India Branches</p>
+                        <p><span class="text-white">EMAIL ID:</span> mail@hindtech.com</p>
+                        <p><span class="text-white">CONTACT:</span> +91 9205004404</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="https://www.facebook.com/HindtechLucknow/?hl=en" target="_blank" class="social-icon"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/hindtechlucknow/?hl=en" target="_blank" class="social-icon"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/hindtech-lucknow" target="_blank" class="social-icon"><i
+                                class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.youtube.com/@HindtechLucknow" target="_blank" class="social-icon"><i
+                                class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div>
+                    <h3 class="footer-heading">Quick Links</h3>
+
+                    <div class="text-sm font-bold space-y-2">
+
+                        <a href="/placements" target="_blank" class="group footer-link flex items-center gap-2">
+                            <i class="fas fa-briefcase text-gray-400 group-hover:text-[#233fff]"></i>
+                            Placements
+                        </a>
+
+                        <a href="/hire-from-us" target="_blank" class="group footer-link flex items-center gap-2">
+                            <i class="fas fa-user-plus text-gray-400 group-hover:text-[#233fff]"></i>
+                            Hire From Us
+                        </a>
+
+                        <a href="/campus-training" target="_blank" class="group footer-link flex items-center gap-2">
+                            <i class="fas fa-graduation-cap text-gray-400 group-hover:text-[#233fff]"></i>
+                            Campus Training
+                        </a>
+
+                        <a href="/carporate-training" target="_blank" class="group footer-link flex items-center gap-2">
+                            <i class="fas fa-building text-gray-400 group-hover:text-[#233fff]"></i>
+                            Carporate Training
+                        </a>
+
+                        <a href="/contact" target="_blank" class="group footer-link flex items-center gap-2">
+                            <i class="fas fa-phone text-gray-400 group-hover:text-[#233fff]"></i>
+                            Contact Us
+                        </a>
+
+                        <a href="/about" target="_blank" class="group footer-link flex items-center gap-2">
+                            <i class="fas fa-circle-info text-gray-400 group-hover:text-[#233fff]"></i>
+                            About Us
+                        </a>
+
+
+                    </div>
+                </div>
+
+                <!-- Col 3: Our Courses -->
+                <div>
+                    <h3 class="footer-heading">Our Courses</h3>
+                    <div class="text-sm font-bold">
+                        <a href="/courses/mern-full-stack-development" target="_blank" class="footer-link">Mern Full Stack
+                            Development</a>
+                        <a href="/courses/flutter-hybrid-app-development" target="_blank" class="footer-link">Flutter Hybrid App
+                            Development</a>
+                        <a href="/courses/mastering-generative-AI" target="_blank" class="footer-link">Mastering Generative AI</a>
+                        <a href="/courses/php" target="_blank" class="footer-link">Mastering
+                            PHP Laravel</a>
+                    </div>
+                </div>
+
+                <!-- Col 4: India's Leading -->
+                <div class="bg-slate-800/50 p-8 rounded-3xl border border-slate-700/50">
+                    <h3 class="text-xl font-black text-white mb-4">India's Leading and trusted career transforming
+                        institute</h3>
+                    <p class="text-sm mb-8 leading-relaxed">Raise the bar of your career with the certification from one
+                        of the prestigious organizations</p>
+                    <a href="#"
+                        class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-black py-4 px-6 rounded-xl text-sm transition-all group">
+                        Inquire Now <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright -->
+            <div
+                class="pt-8 border-t border-slate-800 text-center text-xs font-bold text-slate-500 uppercase tracking-widest">
+                Copyright © Hindtech Education Pvt. Ltd. 2022-2026 | Terms | Placement | Privacy | Refund
+            </div>
+        </div>
+    </footer>
+
+
+
+    <a href="" class="whatsapp-float whatsapp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="/assets/js/auto-responsive.js"></script>
+    <script src="/assets/js/main.js"></script>
+
+</body>
+
+</html>
