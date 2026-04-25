@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="./assets/css/main-style.css">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="./assets/css/main-style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
         :root {
             --brand-color: #233fff;
@@ -77,11 +79,7 @@
             background-size: 20px 20px;
         }
 
-        .mou-slider-container {
-            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
-            border-radius: 3rem;
-            border: 1px solid #f1f5f9;
-        }
+
 
         /* Reels Styling (9:16 Ratio) */
         .reel-container {
@@ -107,7 +105,62 @@
             align-items: center;
             justify-content: center;
         }
+
+
+        /* custom brand color & transition for smooth slider */
+        .text-brand {
+            color: #233fff;
+        }
+
+        .bg-brand {
+            background-color: #233fff;
+        }
+
+        .border-brand {
+            border-color: #233fff;
+        }
+
+        .mou-card-transition {
+            transition: opacity 0.25s ease-in-out, transform 0.2s ease;
+        }
+
+        .slider-container {
+            min-height: 500px;
+        }
+
+        /* hover enhance for thumbnails */
+        .thumbnail-hover {
+            transition: all 0.2s;
+        }
+
+        .thumbnail-hover:hover {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+
+        /* button hover & brand style */
+        .nav-btn {
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            transform: scale(1.05);
+            background-color: #233fff10;
+            border-color: #233fff;
+        }
+
+        .nav-btn:active:not(:disabled) {
+            transform: scale(0.96);
+        }
+
+        @media (max-width: 640px) {
+            .mou-title-mobile {
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+        }
     </style>
+
 </head>
 
 <body class="bg-white">
@@ -285,11 +338,7 @@
                 Hire From Us
             </a>
 
-            <a href="/carporate-training"
-                class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
-                <i class="fas fa-building text-gray-400 group-hover:text-[#233fff]"></i>
-                Corporate Training
-            </a>
+
 
             <a href="campus-training"
                 class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
@@ -355,7 +404,7 @@
         };
     </script>
     <!-- Section 1: Campus Training (IITK) -->
-    <div class="max-w-7xl mx-auto mb-24 pt-36">
+    <div class="max-w-7xl mx-auto mb-5 pt-36">
         <section class="mb-10 border-b border-gray-100 pb-6">
             <h2 class="text-4xl font-black text-gray-900 tracking-tighter leading-none uppercase">
                 CAMPUS <span class="text-brand">TRAINING</span>
@@ -381,7 +430,7 @@
                 </div>
 
                 <div class="flex items-start gap-6">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a3/IIT_Kanpur_Logo.svg/1200px-IIT_Kanpur_Logo.svg.png"
+                    <img src="https://png.pngtree.com/png-clipart/20211121/original/pngtree-university-logo-png-image_6950962.png"
                         alt="IITK Logo" class="h-16 w-16 flex-shrink-0">
                     <div>
                         <h3 class="text-2xl font-black text-gray-900 tracking-tight leading-tight italic uppercase">AI &
@@ -503,56 +552,103 @@
     </div>
 
     <!-- Section 2: Strategic MOUs -->
-    <div class="max-w-7xl mx-auto mb-24 pt-16 border-t border-gray-100">
-        <header class="mb-10">
-            <h2 class="text-4xl font-black text-gray-900 tracking-tighter leading-none uppercase">
-                STRATEGIC <span class="text-brand">MOUS</span>
-            </h2>
-            <div class="h-1.5 w-16 bg-brand mt-4"></div>
-        </header>
-
-        <div class="mou-slider-container p-8 lg:p-12 relative overflow-hidden shadow-sm">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="space-y-6">
-                    <div class="relative rounded-[2rem] overflow-hidden aspect-[4/3] shadow-2xl border-4 border-white">
-                        <img src="https://images.unsplash.com/photo-1577412647305-991150c7d163?auto=format&fit=crop&q=80&w=1200"
-                            alt="MOU Signing" class="w-full h-full object-cover">
-                    </div>
-                    <div class="grid grid-cols-3 gap-4">
-                        <div class="aspect-video rounded-2xl overflow-hidden border border-white"><img
-                                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=400"
-                                class="w-full h-full object-cover"></div>
-                        <div class="aspect-video rounded-2xl overflow-hidden border border-white"><img
-                                src="https://images.unsplash.com/photo-1541339907198-e08756ebafe3?auto=format&fit=crop&q=80&w=400"
-                                class="w-full h-full object-cover"></div>
-                        <div class="aspect-video rounded-2xl overflow-hidden border border-white"><img
-                                src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&q=80&w=400"
-                                class="w-full h-full object-cover"></div>
-                    </div>
+    <main class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 pt-5 md:py-16">
+        <!-- Strategic MOUs Section with Carousel -->
+        <div class="mb-24 border-0   pt-12 md:pt-16">
+            <!-- Header with buttons - responsive flex wrap -->
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+                <div>
+                    <h2
+                        class="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 tracking-tighter leading-none uppercase">
+                        STRATEGIC <span class="text-brand">MOUS</span>
+                    </h2>
+                    <div class="h-1.5 w-20 bg-brand mt-4 rounded-full"></div>
                 </div>
+                <div class="flex items-center gap-3">
+                    <button id="prevMouBtn"
+                        class="nav-btn w-10 h-10 md:w-12 md:h-12 rounded-full bg-white border border-gray-300 shadow-sm flex items-center justify-center text-gray-700 hover:text-brand transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed">
+                        <i data-lucide="chevron-left" class="w-5 h-5 md:w-6 md:h-6"></i>
+                    </button>
+                    <button id="nextMouBtn"
+                        class="nav-btn w-10 h-10 md:w-12 md:h-12 rounded-full bg-white border border-gray-300 shadow-sm flex items-center justify-center text-gray-700 hover:text-brand transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed">
+                        <i data-lucide="chevron-right" class="w-5 h-5 md:w-6 md:h-6"></i>
+                    </button>
+                </div>
+            </div>
 
-                <div class="lg:pl-8 space-y-8">
-                    <div class="flex items-center justify-between">
-                        <div
-                            class="w-24 h-24 bg-white rounded-3xl shadow-xl p-4 flex items-center justify-center border border-gray-50">
-                            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/3a/Amity_University_logo.png/220px-Amity_University_logo.png"
-                                alt="Amity Logo" class="max-w-full">
+            <!-- Carousel / Slider Container -->
+            <div class="mou-slider-container p-6 md:p-8 lg:p-12 rounded-3xl shadow-sm overflow-hidden">
+
+                <div id="mouContent">
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
+
+                        <!-- LEFT -->
+                        <div class="space-y-6">
+
+                            <!-- Main Image -->
+                            <div
+                                class="relative rounded-[2rem] overflow-hidden aspect-[4/3] shadow-2xl border-4 border-white bg-gray-100">
+                                <img id="mainImage" src="" class="w-full h-full object-cover">
+                            </div>
+
+                            <!-- Thumbnails -->
+                            <div class="grid grid-cols-3 gap-3 md:gap-4">
+                                <div class="aspect-video rounded-2xl overflow-hidden border border-white">
+                                    <img id="thumb1" src="" class="w-full h-full object-cover cursor-pointer">
+                                </div>
+                                <div class="aspect-video rounded-2xl overflow-hidden border border-white">
+                                    <img id="thumb2" src="" class="w-full h-full object-cover cursor-pointer">
+                                </div>
+                                <div class="aspect-video rounded-2xl overflow-hidden border border-white">
+                                    <img id="thumb3" src="" class="w-full h-full object-cover cursor-pointer">
+                                </div>
+                            </div>
+
                         </div>
+
+                        <!-- RIGHT -->
+                        <div class="lg:pl-8 space-y-6 text-center lg:text-left">
+
+                            <!-- Logo -->
+                            <div class="flex justify-center lg:justify-start">
+                                <div
+                                    class="w-20 h-20 md:w-24 md:h-24 bg-white rounded-3xl shadow-xl  flex items-center justify-center border border-gray-100">
+                                    <img id="partnerLogo" src="" class="w-full h-full object-fit">
+                                </div>
+                            </div>
+
+                            <!-- Heading -->
+                            <div class="space-y-3">
+                                <span id="allianceType" class="text-brand font-black uppercase text-xs tracking-widest">
+                                    Academic Alliance
+                                </span>
+
+                                <h3
+                                    class="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-black text-gray-900 tracking-tighter uppercase leading-tight">
+                                    <span id="uniName">Amity</span><br>
+                                    <span id="uniSubtext" class="text-gray-400">University</span>
+                                </h3>
+                            </div>
+
+                            <!-- Description -->
+                            <p id="mouDesc"
+                                class="text-gray-500 text-base md:text-lg leading-relaxed font-medium max-w-xl mx-auto lg:mx-0">
+                                Establishing Center of Excellence for AI and Cloud Computing. Direct industry project
+                                access for students.
+                            </p>
+
+                        </div>
+
                     </div>
-                    <div class="space-y-4">
-                        <span class="text-brand font-black uppercase text-xs tracking-widest">Academic Alliance</span>
-                        <h3 class="text-5xl font-black text-gray-900 tracking-tighter uppercase leading-none">Amity <br>
-                            <span class="text-gray-400">University</span></h3>
-                    </div>
-                    <p class="text-gray-500 text-lg leading-relaxed font-medium">Establishing Center of Excellence for
-                        AI and Cloud Computing. Direct industry project access for students.</p>
+
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- Section 3: Colleges We Have Trained (Reels Format with Direct Logos) -->
-    <div class="max-w-7xl mx-auto pt-16 border-t border-gray-100">
+    <div class="max-w-7xl mx-auto pt-10 border-t border-gray-100">
         <header class="mb-12 text-center">
             <h2 class="text-4xl font-black text-gray-900 tracking-tighter uppercase leading-none">
                 COLLEGES WE HAVE <span class="text-brand">TRAINED</span>
@@ -683,7 +779,7 @@
                             Showroom, near Cathedral School, Hazratganj, Lucknow, Uttar Pradesh 226001</p>
                         <p>Pan India Branches</p>
                         <p><span class="text-white">EMAIL ID:</span> mail@hindtech.com</p>
-                        <p><span class="text-white">CONTACT:</span> +91 9205004404</p>
+                        <p><span class="text-white">CONTACT:</span> +91 9170446729</p>
                     </div>
                     <div class="flex gap-3">
                         <a href="https://www.facebook.com/HindtechLucknow/?hl=en" target="_blank" class="social-icon"><i
@@ -718,10 +814,7 @@
                             Campus Training
                         </a>
 
-                        <a href="/carporate-training" class="group footer-link flex items-center gap-2">
-                            <i class="fas fa-building text-gray-400 group-hover:text-[#233fff]"></i>
-                            Carporate Training
-                        </a>
+
 
                         <a href="/contact" class="group footer-link flex items-center gap-2">
                             <i class="fas fa-phone text-gray-400 group-hover:text-[#233fff]"></i>
@@ -775,13 +868,25 @@
 
 
 
-    <a href="" class="whatsapp-float whatsapp">
+   <button id="e45" class="whatsapp-float callbackBtn">
         <i class="fab fa-whatsapp"></i>
-    </a>
+    </button>
 
     <script src="/assets/js/auto-responsive.js"></script>
-    <script src="/assets/js/main.js"></script>
+    <script src="./assets/js/mousPartnerships.js"></script>
+    <script>
+        // ========== WHATSAPP CALLBACK ==========
+const phoneNumber = "9170446729";
+const callbackButtons = document.querySelectorAll('.callbackBtn');
 
+callbackButtons.forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    const message = "Hello HindTech, I need career guidance. Please call me back.";
+    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
+  });
+});
+    </script>
 </body>
 
 </html>

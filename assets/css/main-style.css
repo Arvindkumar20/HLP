@@ -218,7 +218,7 @@ body {
    SECTION 3: PREMIUM MENTORS (GLASS EFFECT)
    ============================================ */
 .premium-mentor-section {
-    padding: 160px 0;
+    padding: 120px 0 40px 0 ;
     background: #ffffff;
     position: relative;
 }
@@ -384,7 +384,7 @@ body {
     .mentor-float-box {
         left: 50%;
         transform: translateX(-50%);
-        top: -110px;
+        top: -90px;
     }
     .mentor-stats-row { justify-content: center; }
     .mentor-desc { text-align: center; }
@@ -1246,3 +1246,21 @@ footer {
         }
   
         
+
+
+        
+
+  
+.modal-fade-in {
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

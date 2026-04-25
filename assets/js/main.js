@@ -1,174 +1,185 @@
+// ========== SLIDER ==========
 let currentSlideIdx = 0;
 const slides = document.querySelectorAll(".slide");
 const thumbs = document.querySelectorAll(".thumb-btn");
 
 function goToSlide(idx) {
+  if (!slides.length) return;
   currentSlideIdx = idx;
   slides.forEach((slide, i) => slide.classList.toggle("active", i === idx));
   thumbs.forEach((thumb, i) => thumb.classList.toggle("active", i === idx));
 }
 
-setInterval(() => {
-  currentSlideIdx = (currentSlideIdx + 1) % slides.length;
-  goToSlide(currentSlideIdx);
-}, 5000);
+if (slides.length) {
+  setInterval(() => {
+    currentSlideIdx = (currentSlideIdx + 1) % slides.length;
+    goToSlide(currentSlideIdx);
+  }, 5000);
+}
 
+// ========== FAQ TOGGLE ==========
 function toggleFAQ(element) {
+  if (!element) return;
   const isActive = element.classList.contains("active");
-  document
-    .querySelectorAll(".faq-item")
-    .forEach((item) => item.classList.remove("active"));
+  document.querySelectorAll(".faq-item").forEach((item) => item.classList.remove("active"));
   if (!isActive) element.classList.add("active");
 }
 
+// ========== SHOW MORE FAQS ==========
 let isExpanded = false;
 function toggleMoreFaqs() {
   const hiddenItems = document.querySelectorAll(".hidden-faq");
   const btnText = document.getElementById("btn-text");
   const btnIcon = document.getElementById("btn-icon");
-
+  if (!hiddenItems.length) return;
   isExpanded = !isExpanded;
-
   hiddenItems.forEach((item) => {
     item.style.display = isExpanded ? "block" : "none";
   });
 
-  btnText.innerText = isExpanded
-    ? "SHOW LESS QUESTIONS"
-    : "SHOW MORE QUESTIONS";
-  btnIcon.className = isExpanded
-    ? "fas fa-chevron-up text-[10px]"
-    : "fas fa-chevron-down text-[10px]";
+  if (btnText) btnText.innerText = isExpanded ? "SHOW LESS QUESTIONS" : "SHOW MORE QUESTIONS";
+  if (btnIcon) btnIcon.className = isExpanded ? "fas fa-chevron-up text-[10px]" : "fas fa-chevron-down text-[10px]";
 }
 
+// ========== WHATSAPP CALLBACK ==========
+const phoneNumber = "9170446729";
+const callbackButtons = document.querySelectorAll('.callbackBtn');
+
+callbackButtons.forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    const message = "Hello HindTech, I need career guidance. Please call me back.";
+    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
+  });
+});
 
 
+/* ================= CONFIG ================= */
 
+const COURSE_CONFIG = {
+  mern: {
+    title: "MERN Stack",
+    options: {
+      summer: "mern-summer.pdf",
+      internship: "mern-internship.pdf"
+    }
+  },
+  flutter: {
+    title: "Flutter",
+    options: {
+      summer: "flutter-summer.pdf"
+    }
+  },
+  php: {
+    title: "PHP",
+    options: {
+      internship: "php-internship.pdf"
+    }
+  },
+  generative_ai: {
+    title: "Generative AI",
+    options: {
+      summer: "genai-summer.pdf",
+      internship: "genai-internship.pdf"
+    }
+  }
+};
 
-        // ============================================
-        // WHATSAPP INTEGRATION (opens WhatsApp on click)
-        // ============================================
-        (function() {
-            // ⚙️ CONFIGURE YOUR WHATSAPP NUMBER HERE (without '+' sign)
-            const WHATSAPP_NUMBER = "919876543210";  // Replace with your actual number
-            const DEFAULT_MESSAGE = "Hello, I need career guidance. Please call me back.";
+let selectedCourse = null;
 
-            function openWhatsApp(message) {
-                const encodedMsg = encodeURIComponent(message);
-                const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMsg}`;
-                window.open(url, '_blank');
-            }
+/* ================= INIT ================= */
 
-            // Attach to both buttons (inside dropdown and external)
-            const dropdownBtn = document.getElementById('callbackDropdownBtn');
-            const externalBtn = document.getElementById('callbackExternalBtn');
+document.addEventListener("DOMContentLoaded", () => {
+  initModal();
+  if (window.lucide) lucide.createIcons();
+});
 
-            if (dropdownBtn) {
-                dropdownBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();  // prevent dropdown from closing (if any)
-                    openWhatsApp(DEFAULT_MESSAGE);
-                });
-            }
+/* ================= MAIN LOGIC ================= */
 
-            if (externalBtn) {
-                externalBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openWhatsApp(DEFAULT_MESSAGE);
-                });
-            }
+function initModal() {
+  const modal = document.getElementById("syllabusModal");
+  const overlay = document.getElementById("modalOverlay");
+  const closeBtn = document.getElementById("closeModalBtn");
 
-            // Also support any element with class 'request-callback'
-            document.querySelectorAll('.request-callback, [data-callback="whatsapp"], .whatsapp').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const customMsg = this.getAttribute('data-message') || DEFAULT_MESSAGE;
-                    openWhatsApp(customMsg);
-                });
-            });
-        })();
+  // OPEN + DOWNLOAD (single listener ⚡)
+  document.addEventListener("click", (e) => {
 
+    // OPEN
+    const openBtn = e.target.closest(".openSyllabusModal");
+    if (openBtn) {
+      selectedCourse = openBtn.dataset.course;
+      openModal();
+      return;
+    }
 
+    // DOWNLOAD
+    const downloadBtn = e.target.closest(".download-option");
+    if (downloadBtn) {
+      handleDownload(downloadBtn);
+      return;
+    }
+  });
 
-        
-        // Sidebar elements
-        const hamburgerBtn = document.getElementById('hamburgerBtn');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
-        const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+  // CLOSE
+  closeBtn.addEventListener("click", closeModal);
+  overlay.addEventListener("click", closeModal);
 
-        // Open sidebar
-        function openSidebar() {
-            sidebar.classList.remove('sidebar-closed');
-            sidebar.classList.add('sidebar-open');
-            overlay.classList.remove('opacity-0', 'pointer-events-none');
-            overlay.classList.add('opacity-100', 'pointer-events-auto');
-            document.body.classList.add('no-scroll');
-        }
+  function openModal() {
+    renderContent(selectedCourse);
+    modal.classList.remove("hidden");
 
-        // Close sidebar
-        function closeSidebar() {
-            sidebar.classList.remove('sidebar-open');
-            sidebar.classList.add('sidebar-closed');
-            overlay.classList.remove('opacity-100', 'pointer-events-auto');
-            overlay.classList.add('opacity-0', 'pointer-events-none');
-            document.body.classList.remove('no-scroll');
-        }
+    if (window.lucide) lucide.createIcons();
+  }
 
-        // Event listeners
-        hamburgerBtn.addEventListener('click', openSidebar);
-        closeSidebarBtn.addEventListener('click', closeSidebar);
-        overlay.addEventListener('click', closeSidebar);
+  function closeModal() {
+    modal.classList.add("hidden");
+  }
+}
 
-        // Collapsible submenu logic
-        function initCollapsibleMenus() {
-            const collapsibleItems = document.querySelectorAll('.menu-item.has-collapsible');
-            collapsibleItems.forEach(item => {
-                const trigger = item.querySelector('a');
-                const submenu = item.querySelector('.menu-child');
-                const arrow = trigger.querySelector('.menu-rotate');
+/* ================= RENDER ================= */
 
-                if (!submenu) return;
+function renderContent(course) {
+  const config = COURSE_CONFIG[course];
+  if (!config) return;
 
-                // Set initial state
-                if (item.classList.contains('active')) {
-                    submenu.classList.add('show');
-                    if (arrow) arrow.style.transform = 'rotate(90deg)';
-                } else {
-                    submenu.classList.remove('show');
-                    if (arrow) arrow.style.transform = 'rotate(0deg)';
-                }
+  const title = document.getElementById("modalTitle");
+  const container = document.getElementById("optionsContainer");
 
-                trigger.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    item.classList.toggle('active');
-                    const isActive = item.classList.contains('active');
-                    if (isActive) {
-                        submenu.classList.add('show');
-                        if (arrow) arrow.style.transform = 'rotate(90deg)';
-                    } else {
-                        submenu.classList.remove('show');
-                        if (arrow) arrow.style.transform = 'rotate(0deg)';
-                    }
-                });
-            });
-        }
+  title.innerHTML = `Download <span style="color:#233fff">${config.title}</span> Syllabus`;
 
-        initCollapsibleMenus();
+  container.innerHTML = Object.keys(config.options)
+    .map((type, index) => `
+      <button data-type="${type}"
+        class="download-option w-full p-6 rounded-2xl border-2 border-slate-100 hover:border-[#233fff] hover:bg-blue-50/50 transition-all flex items-center justify-between group">
 
-        // Ensure sidebar starts closed
-        sidebar.classList.add('sidebar-closed');
-        sidebar.style.transform = '';
+        <div class="text-left">
+          <div class="font-black text-xs uppercase mb-1">Option ${index + 1}</div>
+          <div class="font-bold text-lg">
+            ${type === "summer" ? "Summer Training" : "Placement Internship"}
+          </div>
+        </div>
 
-        // WhatsApp integration for "Request A Call Back" inside dropdown
-        const callbackBtn = document.getElementById('callbackDropdownBtn');
-        if (callbackBtn) {
-            callbackBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const phoneNumber = "919205004404"; // Replace with your WhatsApp number
-                const message = "Hello HindTech, I need career guidance. Please call me back.";
-                window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
-            });
-        }
-    
-    
+        <i data-lucide="download" class="text-slate-300 group-hover:text-[#233fff]"></i>
+      </button>
+    `)
+    .join("");
+}
+
+/* ================= DOWNLOAD ================= */
+
+function handleDownload(btn) {
+  const type = btn.dataset.type;
+  const file = COURSE_CONFIG[selectedCourse]?.options[type];
+
+  if (!file) {
+    alert("File not available");
+    return;
+  }
+
+  const link = document.createElement("a");
+  link.href = "assets/" + file;
+  link.download = file;
+  link.click();
+
+  document.getElementById("syllabusModal").classList.add("hidden");
+}
