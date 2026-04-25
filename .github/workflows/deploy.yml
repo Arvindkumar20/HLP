@@ -1,0 +1,31 @@
+name: Deploy Static Website
+
+on:
+  push:
+    branches:
+      - main   # ya master agar wo use kar raha hai
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Repo clone karega
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2️⃣ Basic test (check files exist)
+      - name: Validate project structure
+        run: |
+          if [ ! -f index.html ]; then
+            echo "❌ index.html not found!"
+            exit 1
+          fi
+          echo "✅ index.html exists"
+
+      # 3️⃣ Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
