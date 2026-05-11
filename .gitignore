@@ -1,0 +1,14 @@
+node_modules
+dist
+build
+.env
+.DS_Store
+
+# videos
+*.mp4
+*.mov
+*.zip
+*.rar
+
+# large images if needed
+*.psd
