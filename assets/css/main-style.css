@@ -218,7 +218,7 @@ body {
    SECTION 3: PREMIUM MENTORS (GLASS EFFECT)
    ============================================ */
 .premium-mentor-section {
-    padding: 120px 0 40px 0 ;
+    padding: 56px 0 40px 0 ;
     background: #ffffff;
     position: relative;
 }
@@ -388,15 +388,23 @@ body {
     }
     .mentor-stats-row { justify-content: center; }
     .mentor-desc { text-align: center; }
-    .brand-footer { flex-direction: column; gap: 20px; text-align: center; }
+    .brand-footer { flex-direction: column; gap: 10px; text-align: center; }
 }
 
 /* ============================================
    SECTION 4: PLACEMENT SLIDER
    ============================================ */
 .placement-section {
-    padding: 60px 0 40px;
+    padding: 40px 0 20px;
     background-color: #ffffff;
+}
+
+#mouContent{
+    transition: opacity 0.6s ease-in-out;
+}
+
+#mainImage{
+    transition: all 0.6s ease-in-out;
 }
 
 .placement-slider {
@@ -559,33 +567,18 @@ body {
 
 .logo-scroll::-webkit-scrollbar { display: none; }
 
-.company-logo {
-    min-width: 120px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    filter: grayscale(100%);
-    opacity: 0.6;
-    transition: var(--transition-smooth);
-}
 
-.company-logo img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
 
 /* ============================================
    SECTION 6: FAQ SECTION
    ============================================ */
 .faq-section {
-    padding: 50px 0;
+    padding: 56px 0;
     background-color: #ffffff;
 }
 
 @media (min-width: 768px) {
-    .faq-section { padding: 100px 0; }
+    .faq-section { padding: 56px 0; }
 }
 
 .faq-item {
@@ -660,7 +653,7 @@ body {
    SECTION 7: BRANCH SECTION
    ============================================ */
 .branch-section {
-    padding: 60px 0 80px;
+    padding: 56px 0 80px;
     background-color: #ffffff;
 }
 
@@ -840,7 +833,7 @@ footer {
 
 .img-bottom {
     position: absolute;
-    bottom: 20px;
+    bottom: -10px;
     right: 0;
     width: 70%;
     height: 280px;
@@ -849,6 +842,7 @@ footer {
     border: 10px solid white;
     z-index: 2;
     box-shadow: var(--shadow-xl);
+    background: #dedddd;
 }
 
 .screenshot-card {

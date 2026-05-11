@@ -4,12 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>ConnectHub | Lucknow Campus | Career & Learning Center</title>
+  <title>ConnectHub | Hindtech Learning Point | Lucknow Campus</title>
   <!-- Tailwind CSS + Fonts -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="./assets/css/main-style.css">
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Custom overrides for animations and smooth transitions -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+  <!-- refined spacing overrides + minor margin/padding adjustments -->
+
   <style>
     @keyframes floating {
 
@@ -44,7 +46,7 @@
     }
 
     body {
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
     .transition-smooth {
@@ -70,306 +72,380 @@
     .hover-scale:hover {
       transform: scale(1.02);
     }
+
+    /* extra spacing refinements */
+    .section-spacing {
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .container-pad {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      .hero-btn-margin {
+        margin-top: 1rem;
+      }
+    }
+
+    .footer-link {
+      transition: all 0.2s ease;
+    }
+
+    .footer-link:hover {
+      color: #233fff;
+      transform: translateX(4px);
+    }
+
+    .social-icon {
+      width: 2.25rem;
+      height: 2.25rem;
+      background: #1e293b;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9999px;
+      color: #94a3b8;
+      transition: all 0.2s;
+      font-size: 1rem;
+    }
+
+    .social-icon:hover {
+      background: #233fff;
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .footer-heading {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      margin-bottom: 1.25rem;
+      color: white;
+    }
+
+    .callbackBtn {
+      background-color: #233fff;
+      transition: all 0.2s;
+    }
   </style>
+
+  <style>
+    /* smooth overlay transition */
+    .modal-transition {
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    /* custom spinner */
+    .spinner {
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 2px solid white;
+      width: 18px;
+      height: 18px;
+      animation: spin 0.6s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* hide scrollbar when modal open? optional */
+    body.modal-open {
+      overflow: hidden;
+    }
+  </style>
+
 </head>
 
 <body class="bg-[#f8fafc] antialiased">
 
-  <!-- ========== HEADER (exactly as provided, with sidebar integration) ========== -->
+  <!-- ========== HEADER (exactly as provided, sidebar integration) ========== -->
   <header class="w-full bg-white shadow-sm fixed top-0 z-50 border-b border-gray-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 h-20 flex justify-between items-center">
       <div class="flex items-center gap-3 cursor-pointer">
-        <div class="relative w-9 h-11 flex items-center justify-center border-[3.5px] border-theme-black">
-          <div class="absolute w-full h-1 bg-white"></div>
-          <div class="absolute w-1 h-full bg-theme-black"></div>
-        </div>
-        <a href="/" class="flex flex-col justify-center mt-1">
-          <span
-            class="text-2xl sm:text-3xl font-extrabold tracking-tight text-theme-black leading-none uppercase">HINDTECH</span>
-          <span class="text-[0.60rem] sm:text-xs font-bold tracking-[0.25em] text-theme-black mt-1 uppercase">Learning
-            Point</span>
+        <a href="/" class="flex justify-center sm:justify-start mt-1">
+          <div class="w-[40vw] max-w-[260px] min-w-[110px]">
+            <img src="../assets/images/Web_logo.png" alt="Hindtech Learning Point" class="w-full h-auto object-contain">
+          </div>
         </a>
       </div>
       <div class="flex items-center gap-6 sm:gap-8">
-        <!-- EXPLORE COURSES DROPDOWN (hover) -->
-        <div class="demo-container hidden lg:block">
-          <div class="dropdown-wrapper">
+        <!-- EXPLORE COURSES DROPDOWN (preserved) -->
+        <div class="hidden lg:block relative">
+          <div class="dropdown-wrapper group relative">
             <button
               class="lg:flex items-center gap-2 text-theme-black font-bold hover:text-theme-blue transition-colors">
               <i class="fa-solid fa-book-open-reader text-lg"></i>
               <span>Explore Courses</span>
             </button>
-            <div class="courses-dropdown">
-              <div class="course-list">
-                <a href="/courses/mern-full-stack-development" class="course-item">
-                  <div>
-                    <div class="course-name">MERN Full Stack Development</div>
-                    <div class="course-duration"><span class="blue-dot"><i class="fa-regular fa-clock"></i></span>
-                      Duration: 6 Months</div>
-                  </div>
-                  <i class="fa-solid fa-angle-right"></i>
-                </a>
-                <a href="/courses/flutter-hybrid-app-development" class="course-item">
-                  <div>
-                    <div class="course-name">Flutter Hybrid App Development
+            <div
+              class="courses-dropdown absolute top-full -left-20 mt-3 w-80 bg-white rounded-2xl shadow-2xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 translate-y-2 z-50">
+              <div class="course-list p-3 space-y-1.5">
+                <!-- MERN -->
+                <div class="course-item relative group/submenu overflow-visible">
+                  <a href="/courses/mern-full-stack-development"
+                    class="course-link flex items-center justify-between p-2 rounded-xl bg-white hover:bg-green-50/60">
+                    <div class="flex items-start gap-3">
+                      <div class="text-green-600 text-lg w-6"><i class="fab fa-react"></i></div>
+                      <div>
+                        <div class="course-name font-extrabold text-gray-800">Full Stack Web Development (MERN)</div>
+                      </div>
                     </div>
-                    <div class="course-duration"><span class="blue-dot"><i class="fa-regular fa-clock"></i></span>
-                      Duration: 8-10 Months</div>
+                    <i
+                      class="fa-solid fa-angle-right text-gray-400 group-hover/submenu:text-indigo-600 transition-all"></i>
+                  </a>
+                  <div
+                    class="submenu-panel absolute left-full top-0 ml-2 w-64 bg-white rounded-xl shadow-xl border border-indigo-100/70 p-3 z-50 opacity-0 invisible group-hover/submenu:opacity-100 group-hover/submenu:visible transition-all duration-200">
+                    <div class="space-y-3"><a href="/courses/mern-full-stack-development">
+                        <div class="flex items-start gap-3 p-1.5 rounded-lg hover:bg-amber-50">
+                          <div
+                            class="w-7 h-7 rounded-full bg-amber-100 flex items-center justify-center text-amber-600"><i
+                              class="fa-solid fa-sun"></i></div>
+                          <div>
+                            <div class="font-bold text-gray-800 text-sm">Summer Training</div>
+                            <div class="text-xs text-gray-500"><i class="fa-regular fa-calendar-alt"></i> 30-45 days
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                      <a href="/courses/mern-full-stack-development">
+                        <div class="flex items-start gap-3 p-1.5 rounded-lg hover:bg-indigo-50">
+                          <div
+                            class="w-7 h-7 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
+                            <i class="fa-solid fa-briefcase"></i>
+                          </div>
+                          <div>
+                            <div class="font-bold text-gray-800 text-sm">Apprenticeship</div>
+                            <div class="text-xs text-gray-500"><i class="fa-regular fa-clock"></i> 6-8 months</div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
                   </div>
-                  <i class="fa-solid fa-angle-right"></i>
-                </a>
-                <a href="/courses/mastering-generative-AI" class="course-item">
-                  <div>
-                    <div class="course-name">Mastering Generative AI</div>
-                    <div class="course-duration"><span class="blue-dot"><i class="fa-regular fa-clock"></i></span>
-                      Duration: 8-10 Months</div>
+                </div>
+                <!-- Flutter -->
+                <div class="course-item relative group/submenu overflow-visible">
+                  <a href="/courses/flutter-hybrid-app-development"
+                    class="course-link flex items-center justify-between p-2 rounded-xl bg-white hover:bg-blue-50/60">
+                    <div class="flex items-start gap-3">
+                      <div class="text-blue-500 text-lg w-6"><svg xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 640 640" width="20" height="20" fill="blue">
+                          <path
+                            d="M525.5 300.3L387.7 438.1L525.5 576L368 576C331.9 539.9 285.9 493.9 230.1 438.1L368 300.3L525.5 300.3zM368 64L112 320L190.8 398.8L525.5 64L368 64z" />
+                        </svg></div>
+                      <div>
+                        <div class="course-name font-extrabold text-gray-800">Flutter App Development (iOS & Android)
+                        </div>
+                      </div>
+                    </div><i class="fa-solid fa-angle-right text-gray-400 transition-all"></i>
+                  </a>
+                  <div
+                    class="submenu-panel absolute left-full top-0 ml-2 w-64 bg-white rounded-xl shadow-xl border border-indigo-100/70 p-3 z-50 opacity-0 invisible group-hover/submenu:opacity-100 group-hover/submenu:visible transition-all duration-200">
+                    <div class="space-y-3">
+                      <div class="flex items-start gap-3 p-1.5 rounded-lg hover:bg-amber-50">
+                        <div class="w-7 h-7 rounded-full bg-amber-100 flex justify-center items-center"><i
+                            class="fa-solid fa-sun text-amber-600"></i></div>
+                        <div>
+                          <div class="font-bold text-gray-800 text-sm">Summer Training</div>
+                          <div class="text-xs text-gray-500">Duration: 30-45 Days</div>
+                        </div>
+                      </div>
+                      <div class="flex items-start gap-3 p-1.5 rounded-lg hover:bg-indigo-50">
+                        <div class="w-7 h-7 rounded-full bg-indigo-100 flex justify-center items-center"><i
+                            class="fa-solid fa-briefcase text-indigo-600"></i></div>
+                        <div>
+                          <div class="font-bold text-gray-800 text-sm">Apprenticeship</div>
+                          <div class="text-xs text-gray-500">Duration: 6-8 months</div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <i class="fa-solid fa-angle-right"></i>
-                </a>
-
-                <a href="/courses/php" class="course-item">
-                  <div>
-                    <div class="course-name">Mastering PHP LaravelI</div>
-                    <div class="course-duration"><span class="blue-dot"><i class="fa-regular fa-clock"></i></span>
-                      Duration: 8-10 Months</div>
+                </div>
+                <!-- Generative AI -->
+                <div class="course-item relative group/submenu overflow-visible"><a
+                    href="/courses/mastering-generative-AI"
+                    class="course-link flex items-center justify-between p-2 rounded-xl bg-white hover:bg-orange-50/60">
+                    <div class="flex items-start gap-3">
+                      <div class="text-orange-600 text-lg w-6"><i class="fa-solid fa-brain"></i></div>
+                      <div>
+                        <div class="course-name font-extrabold text-gray-800">Data Analytics with Generative AI</div>
+                      </div>
+                    </div><i class="fa-solid fa-angle-right text-gray-400 transition-all"></i>
+                  </a>
+                  <div
+                    class="submenu-panel absolute left-full top-0 ml-2 w-64 bg-white rounded-xl shadow-xl border border-indigo-100/70 p-3 z-50 opacity-0 invisible group-hover/submenu:opacity-100 group-hover/submenu:visible transition-all duration-200">
+                    <div class="space-y-3">
+                      <div class="flex items-start gap-3 p-1.5 rounded-lg hover:bg-amber-50">
+                        <div class="w-7 h-7 rounded-full bg-amber-100 flex justify-center items-center"><i
+                            class="fa-solid fa-sun text-amber-600"></i></div>
+                        <div>
+                          <div class="font-bold text-gray-800 text-sm">Summer Training</div>
+                          <div class="text-xs text-gray-500">Duration: 30-45 Days</div>
+                        </div>
+                      </div>
+                      <div class="flex items-start gap-3 p-1.5 rounded-lg hover:bg-indigo-50">
+                        <div class="w-7 h-7 rounded-full bg-indigo-100 flex justify-center items-center"><i
+                            class="fa-solid fa-briefcase text-indigo-600"></i></div>
+                        <div>
+                          <div class="font-bold text-gray-800 text-sm">Apprenticeship</div>
+                          <div class="text-xs text-gray-500">Duration: 6-8 months</div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <i class="fa-solid fa-angle-right"></i>
-                </a>
+                </div>
+                <!-- PHP -->
+                <div class="course-item relative group/submenu overflow-visible"><a href="/courses/php"
+                    class="course-link flex items-center justify-between p-2 rounded-xl bg-white hover:bg-red-50/60">
+                    <div class="flex items-start gap-3">
+                      <div class="text-red-500 text-lg w-6"><i class="fab fa-php"></i></div>
+                      <div>
+                        <div class="course-name font-extrabold text-gray-800">PHP Web Development with Laravel</div>
+                      </div>
+                    </div><i class="fa-solid fa-angle-right text-gray-400 transition-all"></i>
+                  </a>
+                  <div
+                    class="submenu-panel absolute left-full top-0 ml-2 w-64 bg-white rounded-xl shadow-xl border border-indigo-100/70 p-3 z-50 opacity-0 invisible group-hover/submenu:opacity-100 group-hover/submenu:visible transition-all duration-200">
+                    <div class="space-y-3">
+                      <div class="flex items-start gap-3 p-1.5 rounded-lg hover:bg-amber-50">
+                        <div class="w-7 h-7 rounded-full bg-amber-100 flex justify-center items-center"><i
+                            class="fa-solid fa-sun text-amber-600"></i></div>
+                        <div>
+                          <div class="font-bold text-gray-800 text-sm">Summer Training</div>
+                          <div class="text-xs text-gray-500">30-45 Days</div>
+                        </div>
+                      </div>
+                      <div class="flex items-start gap-3 p-1.5 rounded-lg hover:bg-indigo-50">
+                        <div class="w-7 h-7 rounded-full bg-indigo-100 flex justify-center items-center"><i
+                            class="fa-solid fa-user-graduate text-indigo-600"></i></div>
+                        <div>
+                          <div class="font-bold text-gray-800 text-sm">Apprenticeship</div>
+                          <div class="text-xs text-gray-500">6-8 months</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="dropdown-cta">
-                <div class="guidance-text">Looking for Guidance ?</div>
-                <button class="callback-btn" id="callbackDropdownBtn">Request A Call Back <i
-                    class="fa-solid fa-phone"></i></button>
+              <div
+                class="dropdown-cta border-t border-gray-100 px-4 py-3.5 bg-gray-50/80 rounded-b-2xl flex items-center justify-between flex-wrap gap-2">
+                <div class="guidance-text flex items-center gap-1.5 text-sm font-medium text-gray-700"><i
+                    class="fa-regular fa-message text-blue-500"></i><span>Looking for Guidance ?</span></div><button
+                  class="callback-btn bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded-full shadow-md transition-all flex items-center gap-2"
+                  id="callbackDropdownInnerBtn">Request A Call Back <i class="fa-solid fa-phone"></i></button>
               </div>
             </div>
           </div>
         </div>
-
         <!-- Get Career Guidance Button -->
-        <button
-          class="hidden sm:flex items-center gap-3 bg-theme-blue text-white px-7 py-2.5 rounded-full font-bold shadow-md hover:shadow-lg transition-all">
-          <i class="fa-solid fa-graduation-cap"></i>
-          <span>Get Career Guidance</span>
-        </button>
-
-        <!-- HAMBURGER BUTTON (opens sidebar) -->
+        <button id="headerCallbackBtn"
+          class="open-inquire-btn hidden sm:flex items-center gap-3 bg-theme-blue text-white px-2 sm:px-7 py-2.5 rounded-full font-bold shadow-md hover:shadow-lg transition-all"><i
+            class="fa-solid fa-graduation-cap"></i><span class="text-xs md:text-base">Get Career
+            Guidance</span></button>
+        <!-- HAMBURGER -->
         <button id="openSidebarBtn"
-          class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-transparent text-theme-black hover:border-theme-black">
-          <i class="fa-solid fa-bars-staggered text-xl"></i>
-        </button>
-
+          class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-transparent text-theme-black hover:border-theme-black"><i
+            class="fa-solid fa-bars-staggered text-xl"></i></button>
       </div>
     </div>
   </header>
 
-  <!-- ========== SIDEBAR (right drawer) ========== -->
+  <!-- SIDEBAR (right drawer) - exactly same -->
   <div id="overlay"
     class="fixed inset-0 bg-black bg-opacity-50 z-50 opacity-0 pointer-events-none transition-opacity duration-300">
   </div>
-
-
-
-
-  <!-- SIDEBAR -->
   <aside id="sidebar"
     class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform translate-x-full transition-all duration-300 ease-out flex flex-col">
-
-    <!-- HEADER -->
-    <div class="flex items-center justify-between px-6 py-5 border-b border-gray-100">
-      <h2 class="text-xl font-bold text-[#233fff]">Menu</h2>
-      <button id="closeSidebarBtn" class="py-1 px-3  bg-gray-50 hover:bg-red-50 hover:text-red-500 rounded-full">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-
-    <!-- MENU -->
+    <div class="flex items-center justify-between px-6 py-5 border-b border-gray-100"><a href="/">
+        <h2 class="text-xl font-bold text-[#233fff]"><i class="fas fa-home"></i></h2>
+      </a><button id="closeSidebarBtn" class="py-1 px-3 bg-gray-50 hover:bg-red-50 hover:text-red-500 rounded-full"><i
+          class="fas fa-times"></i></button></div>
     <div class="flex-1 overflow-y-auto py-4 px-4">
-
-      <!-- ALL COURSES -->
-      <div class="mb-2">
-
-        <!-- Toggle -->
-        <button id="coursesToggle"
+      <div class="mb-2"><button id="coursesToggle"
           class="w-full px-4 py-3.5 flex items-center justify-between rounded-xl hover:bg-blue-50 group text-[#233fff]">
-
-          <div class="flex items-center gap-3 font-semibold">
-            <i class="fas fa-book-open"></i>
-            <span>All Courses</span>
-          </div>
-
-          <i id="coursesArrow" class="fas fa-chevron-down transition-transform duration-300"></i>
+          <div class="flex items-center gap-3 font-semibold"><i class="fas fa-book-open"></i><span>All Courses</span>
+          </div><i id="coursesArrow" class="fas fa-chevron-down transition-transform duration-300"></i>
         </button>
-
-        <!-- CHILD MENU -->
         <div id="coursesMenu"
           class="mt-1 mb-3 ml-6 pl-5 border-l-2 border-gray-100 space-y-1 overflow-hidden transition-all duration-300 max-h-[500px]">
-
           <a href="/courses/mern-full-stack-development"
             class="group flex items-center gap-3 py-2.5 px-3 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-[#233fff]">
-            <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div>
-            <i class="fas fa-code text-gray-400 group-hover:text-[#233fff]"></i>
-            MERN Full Stack Development
-          </a>
-
-          <a href="/courses/flutter-hybrid-app-development"
+            <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div><i
+              class="fa-brands fa-react"></i> Full Stack Web Development (MERN)
+          </a><a href="/courses/flutter-hybrid-app-development"
             class="group flex items-center gap-3 py-2.5 px-3 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-[#233fff]">
-            <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div>
-            <i class="fas fa-mobile-alt text-gray-400 group-hover:text-[#233fff]"></i>
-            Flutter Hybrid App Development
-          </a>
-
-          <a href="/courses/mastering-generative-AI"
+            <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div><svg
+              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="w-5 h-5 fill-current">
+              <path
+                d="M525.5 300.3L387.7 438.1L525.5 576L368 576C331.9 539.9 285.9 493.9 230.1 438.1L368 300.3L525.5 300.3zM368 64L112 320L190.8 398.8L525.5 64L368 64z" />
+            </svg> Flutter App Development
+          </a><a href="/courses/mastering-generative-AI"
             class="group flex items-center gap-3 py-2.5 px-3 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-[#233fff]">
-            <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div>
-            <i class="fas fa-robot text-gray-400 group-hover:text-[#233fff]"></i>
-            Mastering Generative AI
-          </a>
-
-          <a href="/courses/php"
+            <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div><i
+              class="fa-solid fa-brain"></i> Data Analytics with Generative AI
+          </a><a href="/courses/php"
             class="group flex items-center gap-3 py-2.5 px-3 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-[#233fff]">
-            <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div>
-            <i class="fas fa-database text-gray-400 group-hover:text-[#233fff]"></i>
-            PHP
+            <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div><i
+              class="fa-brands fa-php"></i> PHP Web Development with Laravel
           </a>
-
         </div>
       </div>
-
-      <!-- OTHER MENU -->
       <a href="/placements"
-        class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
-        <i class="fas fa-briefcase text-gray-400 group-hover:text-[#233fff]"></i>
-        Placements
-      </a>
-
+        class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold"><i
+          class="fas fa-briefcase"></i> Placements</a>
       <a href="/hire-from-us"
-        class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
-        <i class="fas fa-user-plus text-gray-400 group-hover:text-[#233fff]"></i>
-        Hire From Us
-      </a>
-
-   
-
+        class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold"><i
+          class="fas fa-user-plus"></i> Hire From Us</a>
       <a href="campus-training"
-        class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
-        <i class="fas fa-graduation-cap text-gray-400 group-hover:text-[#233fff]"></i>
-        Campus Training
-      </a>
-
+        class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold"><i
+          class="fas fa-graduation-cap"></i> Campus Training</a>
       <a href="/contact"
-        class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
-        <i class="fas fa-phone text-gray-400 group-hover:text-[#233fff]"></i>
-        Contact Us
-      </a>
+        class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold"><i
+          class="fas fa-phone"></i> Contact Us</a>
       <a href="/about"
-        class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
-        <i class="fas fa-circle-info text-gray-400 group-hover:text-[#233fff]"></i>
-        About Us
-      </a>
-
+        class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold"><i
+          class="fas fa-circle-info"></i> About Us</a>
     </div>
   </aside>
+  <script>(function () { const sidebar = document.getElementById("sidebar"), overlay = document.getElementById("overlay"), openBtn = document.getElementById("openSidebarBtn"), closeBtn = document.getElementById("closeSidebarBtn"); let isOpen = !0; openBtn.onclick = () => { sidebar.classList.remove("translate-x-full"); overlay.classList.remove("hidden"); }; function closeSidebar() { sidebar.classList.add("translate-x-full"); overlay.classList.add("hidden"); } closeBtn.onclick = closeSidebar; overlay.onclick = closeSidebar; document.getElementById("coursesToggle").onclick = () => { isOpen = !isOpen; const menu = document.getElementById("coursesMenu"), arrow = document.getElementById("coursesArrow"); if (isOpen) { menu.classList.remove("max-h-0"); menu.classList.add("max-h-[500px]"); arrow.classList.remove("rotate-180"); } else { menu.classList.remove("max-h-[500px]"); menu.classList.add("max-h-0"); arrow.classList.add("rotate-180"); } }; })();</script>
 
-  <!-- JS -->
-  <script id="sidebar-js-01">
-    const sidebar = document.getElementById("sidebar");
-    const overlay = document.getElementById("overlay");
-    const openBtn = document.getElementById("openSidebarBtn");
-    const closeBtn = document.getElementById("closeSidebarBtn");
-
-    const toggleBtn = document.getElementById("coursesToggle");
-    const menu = document.getElementById("coursesMenu");
-    const arrow = document.getElementById("coursesArrow");
-
-    let isOpen = true;
-
-    // Sidebar open
-    openBtn.onclick = () => {
-      sidebar.classList.remove("translate-x-full");
-      overlay.classList.remove("hidden");
-    };
-
-    // Sidebar close
-    function closeSidebar() {
-      sidebar.classList.add("translate-x-full");
-      overlay.classList.add("hidden");
-    }
-
-    closeBtn.onclick = closeSidebar;
-    overlay.onclick = closeSidebar;
-
-    // Collapse toggle
-    toggleBtn.onclick = () => {
-      isOpen = !isOpen;
-
-      if (isOpen) {
-        menu.classList.remove("max-h-0");
-        menu.classList.add("max-h-[500px]");
-        arrow.classList.remove("rotate-180");
-      } else {
-        menu.classList.remove("max-h-[500px]");
-        menu.classList.add("max-h-0");
-        arrow.classList.add("rotate-180");
-      }
-    };
-  </script>
-
-  <!-- ======================= SECTION 1: HERO (exactly as original) ======================= -->
+  <!-- HERO SECTION unchanged except spacing -->
   <div class="w-full bg-white border-b border-gray-100 pt-24 pb-20 relative overflow-hidden">
     <div
       class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#f0f4ff] to-transparent opacity-60 pointer-events-none">
     </div>
-    <div
-      class="absolute -top-24 -right-24 w-96 h-96 bg-[#233fff] rounded-full filter blur-[120px] opacity-10 pointer-events-none">
-    </div>
-
     <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between relative z-10">
       <div class="w-full md:w-1/2 text-center md:text-left mb-12 md:mb-0">
         <div
           class="inline-flex items-center space-x-2 bg-[#f0f4ff] text-[#233fff] px-4 py-2 rounded-full text-sm font-semibold mb-6">
-          <!-- MessageCircle icon -->
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path
               d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-          </svg>
-          <span>We are 24/7 available</span>
+          </svg><span>We are 24/7 available</span>
         </div>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-5">
-          Let's connect & <br />
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#233fff] to-blue-400">
-            build the future.
-          </span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-5">Let's connect &
+          <br /><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#233fff] to-blue-400">build the
+            future.</span>
         </h1>
-        <p class="text-lg text-gray-500 max-w-md mx-auto md:mx-0 leading-relaxed">
-          Whether you want to learn, hire, or collaborate — our team of career guides and experts are just a click away.
-        </p>
+        <p class="text-lg text-gray-500 max-w-md mx-auto md:mx-0 leading-relaxed">Whether you want to learn, hire, or
+          collaborate — our team of career guides and experts are just a click away.</p>
       </div>
-
-      <div class="w-full md:w-1/2 flex justify-center md:justify-end">
-        <svg viewBox="0 0 450 350" class="w-full max-w-md h-auto" xmlns="http://www.w3.org/2000/svg">
+      <div class="w-full md:w-1/2 flex justify-center md:justify-end"><svg viewBox="0 0 450 350"
+          class="w-full max-w-md h-auto">
           <defs>
-            <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <filter id="softShadow">
               <feDropShadow dx="0" dy="8" stdDeviation="12" flood-opacity="0.08" />
             </filter>
           </defs>
-          <style>
-            @keyframes floating {
-
-              0%,
-              100% {
-                transform: translateY(0);
-              }
-
-              50% {
-                transform: translateY(-12px);
-              }
-            }
-
-            .floating-anim {
-              animation: floating 4s ease-in-out infinite;
-            }
-          </style>
           <ellipse cx="225" cy="280" rx="120" ry="25" fill="#e2e8f0" opacity="0.4" />
           <g class="floating-anim">
             <rect x="125" y="80" width="200" height="150" rx="20" fill="white" filter="url(#softShadow)" />
@@ -379,204 +455,277 @@
             <rect x="250" y="160" width="60" height="25" rx="6" fill="#233fff" opacity="0.1" />
             <circle cx="225" cy="185" r="35" fill="#233fff" filter="url(#softShadow)" />
             <path d="M215 180 L205 185 L215 190 M235 180 L245 185 L235 190 M228 175 L222 195" stroke="white"
-              stroke-width="2.5" stroke-linecap="round" fill="none" />
+              stroke-width="2.5" fill="none" />
           </g>
           <g class="floating-anim" style="animation-delay: 1.5s">
             <circle cx="100" cy="150" r="18" fill="white" filter="url(#softShadow)" />
-            <path d="M95 150 L105 150 M100 145 L100 155" stroke="#233fff" stroke-width="2.5" stroke-linecap="round" />
+            <path d="M95 150 L105 150 M100 145 L100 155" stroke="#233fff" stroke-width="2.5" />
           </g>
-          <g class="floating-anim" style="animation-delay: 0.8s">
-            <circle cx="350" cy="120" r="22" fill="white" filter="url(#softShadow)" />
-            <circle cx="350" cy="120" r="8" fill="#fbbf24" opacity="0.8" />
-          </g>
-          <g class="floating-anim" style="animation-delay: 2.2s">
-            <circle cx="370" cy="220" r="15" fill="white" filter="url(#softShadow)" />
-            <circle cx="370" cy="220" r="6" fill="#34d399" opacity="0.8" />
-          </g>
-        </svg>
-      </div>
+        </svg></div>
     </div>
   </div>
 
-  <!-- ======================= SECTION 2: FORM + CONTACT CARDS ======================= -->
+  <!-- ========== FORM + CONTACT CARDS (INDIAN CONTEXT + FOOTER EMAILS/PHONES) ========== -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-20">
     <div class="flex flex-col lg:flex-row gap-8 items-stretch">
-      <!-- Left: Message Form -->
+      <!-- Left Form with Indian placeholders -->
       <div class="w-full lg:w-[45%] flex flex-col">
         <div
           class="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 p-8 sm:p-10 flex-grow">
           <h3 class="text-xl font-bold text-gray-800 mb-6">Send a direct message</h3>
           <form id="contactForm" class="space-y-6">
-            <div>
-              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Mobile
-                Number</label>
-              <input type="tel" id="mobile" name="mobile" placeholder="e.g. 9170446729"
+            <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Mobile
+                Number</label><input type="tel" id="mobile" name="mobile" placeholder="9876543210"
                 class="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#233fff]/20 focus:border-[#233fff] transition-all"
-                required>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Full Name</label>
-              <input type="text" id="fullName" name="fullName" placeholder="John Doe"
+                required></div>
+            <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Full
+                Name</label><input type="text" id="fullName" name="fullName" placeholder="Rahul Sharma"
                 class="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#233fff]/20 focus:border-[#233fff] transition-all"
-                required>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Email
-                Address</label>
-              <input type="email" id="email" name="email" placeholder="john@example.com"
+                required></div>
+            <div><label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Email
+                Address</label><input type="email" id="email" name="email" placeholder="rahul@example.com"
                 class="w-full px-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#233fff]/20 focus:border-[#233fff] transition-all"
-                required>
-            </div>
+                required></div>
             <div class="pt-2">
-              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Inquiry
-                Type</label>
-              <div class="flex flex-wrap gap-2.5" id="inquiryPillsContainer">
-                <!-- pills injected via js but we define inline for simplicity -->
+              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">
+                Inquiry Type
+              </label>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-10">
+
+                <!-- Hire Learners -->
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="radio" name="inquiryType" value="hire-learners"
+                    class="w-5 h-5 border-gray-400 text-[#233fff] focus:ring-[#233fff]">
+                  <span class="text-gray-700 text-xs ">Hire Learners</span>
+                </label>
+
+                <!-- Work at Hindtech learning point -->
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="radio" name="inquiryType" value="work-at-itvedant"
+                    class="w-5 h-5 border-gray-400 text-[#233fff] focus:ring-[#233fff]">
+                  <span class="text-gray-700 text-xs ">Work at Hindtech</span>
+                </label>
+
+                <!-- Course Inquiry -->
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="radio" name="inquiryType" value="course-inquiry"
+                    class="w-5 h-5 border-gray-400 text-[#233fff] focus:ring-[#233fff]">
+                  <span class="text-gray-700 text-xs ">Course Inquiry</span>
+                </label>
+
+                <!-- Corporate Training -->
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="radio" name="inquiryType" value="corporate-training"
+                    class="w-5 h-5 border-gray-400 text-[#233fff] focus:ring-[#233fff]">
+                  <span class="text-gray-700 text-xs ">Corporate Training</span>
+                </label>
               </div>
-              <input type="hidden" id="inquiryType" value="course">
             </div>
             <button type="submit"
               class="w-full py-4 text-white font-semibold rounded-xl flex items-center justify-center space-x-2 transition-all hover:opacity-90 mt-4"
-              style="background-color: #233fff;">
-              <span>Submit Details</span>
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
+              style="background-color: #233fff;"><span>Submit Details</span><svg class="w-4 h-4" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor">
                 <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
-              </svg>
-            </button>
+              </svg></button>
           </form>
         </div>
       </div>
 
-      <!-- Right: Contact Cards Grid -->
-      <div class="w-full lg:w-[55%] flex flex-col">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 flex-grow">
-          <!-- Reception Desk Card -->
+      <!-- Right Contact Cards with footer-aligned emails & numbers -->
+      <div class="w-full lg:w-full flex flex-col">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6 flex-grow">
+          <!-- 1. Reception Desk (enriched) -->
           <div
             class="bg-white rounded-2xl p-6 border border-gray-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-md transition-all flex flex-col h-full relative group overflow-hidden">
             <div
-              class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#233fff]/10 to-transparent group-hover:via-[#233fff] transition-all">
+              class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#233fff]/15 to-transparent group-hover:via-[#233fff] transition-all duration-300">
             </div>
             <div class="flex justify-between mb-4">
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-blue-50 text-[#233fff]"><svg
-                  class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-blue-50 text-[#233fff]">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                   <path
                     d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18ZM6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2 M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2 M10 6h4 M10 10h4 M10 14h4 M10 18h4" />
-                </svg></div>
+                </svg>
+              </div>
             </div>
             <h3 class="text-lg font-bold text-gray-900 mb-1">Reception Desk</h3>
-            <p class="text-sm font-medium text-gray-500 mb-5">General Inquiries</p>
-            <div class="mt-auto space-y-3 pt-4 border-t border-gray-50">
-              <div class="flex items-center text-sm font-semibold"><svg class="w-4 h-4 mr-3 text-gray-400"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path
-                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-                </svg> +91-9170446729 <a href="https://wa.me/9170446729" class="ml-auto text-[#25D366]"
-                  target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+            <p class="text-sm font-medium text-gray-500 mb-3">General Inquiries & Campus Support</p>
+            <!-- new enriched content: description + details -->
+            <div class="space-y-2.5 mb-4 text-sm text-gray-600">
+              <p class="leading-relaxed desc-clamp">Your first point of contact for admissions info, fee inquiries,
+                campus tours, and general assistance. </p>
+
+            </div>
+            <div class="mt-auto space-y-3 pt-4 border-t border-gray-100">
+              <div class="flex items-center text-sm font-semibold">
+                <a href="tel:+919557878427" class="flex items-center group/link">
+                  <svg class="w-4 h-4 mr-3 text-gray-400 transition group-hover/link:text-[#233fff]" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor">
+                    <path
+                      d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg> +91 9557878427
+                </a>
+                <a href="https://wa.me/9557878427" class="ml-auto text-[#25D366] hover:opacity-80 transition"
+                  target="_blank" rel="noopener noreferrer">
+                  <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
                     <path
                       d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                  </svg></a></div>
-              <div class="flex items-center text-sm text-gray-500"><svg class="w-4 h-4 mr-3 text-gray-400"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  </svg>
+                </a>
+              </div>
+              <a href="mailto:info@hindtechlearningpoint.com"
+                class="flex items-center text-sm text-gray-500 hover:text-[#233fff] transition">
+                <svg class="w-4 h-4 mr-3 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                   <path d="M22 6l-10 7L2 6" />
-                </svg> info@company.com</div>
+                </svg> info@hindtechlearningpoint.com
+              </a>
             </div>
           </div>
-          <!-- Counselor Card -->
+
+          <!-- 2. Counselor (enriched) -->
           <div
             class="bg-white rounded-2xl p-6 border border-gray-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-md transition-all flex flex-col h-full relative group overflow-hidden">
             <div
-              class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-500/10 to-transparent group-hover:via-emerald-500 transition-all">
+              class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent group-hover:via-emerald-500 transition-all duration-300">
             </div>
             <div class="flex justify-between mb-4">
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-emerald-50 text-emerald-600"><svg
-                  class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-emerald-50 text-emerald-600">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                   <path d="M22 10v6M2 10l10-5 10 5-10 5zM6 12v5c3 3 9 3 12 0v-5" />
-                </svg></div>
+                </svg>
+              </div>
             </div>
             <h3 class="text-lg font-bold text-gray-900 mb-1">Counselor</h3>
-            <p class="text-sm font-medium text-gray-500 mb-5">Course & Admissions</p>
-            <div class="mt-auto space-y-3 pt-4 border-t border-gray-50">
-              <div class="flex items-center text-sm font-semibold"><svg class="w-4 h-4 mr-3 text-gray-400"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path
-                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-                </svg> +91-9170446729 <a href="https://wa.me/919170446729" class="ml-auto text-[#25D366]"
-                  target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+            <p class="text-sm font-medium text-gray-500 mb-3">Course & Admissions Guidance</p>
+            <div class="space-y-2.5 mb-4 text-sm text-gray-600">
+              <p class="leading-relaxed desc-clamp">Expert academic counselors help you choose the right program, career
+                pathways, scholarships, and enrollment process.</p>
+
+
+            </div>
+            <div class="mt-auto space-y-3 pt-4 border-t border-gray-100">
+              <div class="flex items-center text-sm font-semibold">
+                <a href="tel:+916307738600" class="flex items-center group/link">
+                  <svg class="w-4 h-4 mr-3 text-gray-400 transition group-hover/link:text-emerald-600"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path
+                      d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg> +91 6307738600
+                </a>
+                <a href="https://wa.me/6307738600" class="ml-auto text-[#25D366] hover:opacity-80 transition"
+                  target="_blank" rel="noopener noreferrer">
+                  <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
                     <path
                       d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                  </svg></a></div>
-              <div class="flex items-center text-sm text-gray-500"><svg class="w-4 h-4 mr-3 text-gray-400"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  </svg>
+                </a>
+              </div>
+              <a href="mailto:info@hindtechlearningpoint.com"
+                class="flex items-center text-sm text-gray-500 hover:text-emerald-600 transition">
+                <svg class="w-4 h-4 mr-3 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                   <path d="M22 6l-10 7L2 6" />
-                </svg> admissions@company.com</div>
+                </svg> admissions@hindtechlearningpoint.com
+              </a>
             </div>
           </div>
-          <!-- HR Department Card -->
+
+          <!-- 3. HR Department (enriched) -->
           <div
             class="bg-white rounded-2xl p-6 border border-gray-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-md transition-all flex flex-col h-full relative group overflow-hidden">
             <div
-              class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-500/10 to-transparent group-hover:via-purple-500 transition-all">
+              class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-500/20 to-transparent group-hover:via-purple-500 transition-all duration-300">
             </div>
             <div class="flex justify-between mb-4">
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-purple-50 text-purple-600"><svg
-                  class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-purple-50 text-purple-600">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                   <path
                     d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16M6 14h.01M6 18h.01M18 14h.01M18 18h.01M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" />
-                </svg></div>
+                </svg>
+              </div>
             </div>
             <h3 class="text-lg font-bold text-gray-900 mb-1">HR Department</h3>
-            <p class="text-sm font-medium text-gray-500 mb-5">Careers & Hiring</p>
-            <div class="mt-auto space-y-3 pt-4 border-t border-gray-50">
-              <div class="flex items-center text-sm font-semibold"><svg class="w-4 h-4 mr-3 text-gray-400"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path
-                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-                </svg> +91-9170446729 <a href="https://wa.me/9170446729" class="ml-auto text-[#25D366]"
-                  target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+            <p class="text-sm font-medium text-gray-500 mb-3">Careers, Hiring & Internships</p>
+            <div class="space-y-2.5 mb-4 text-sm text-gray-600">
+              <p class="leading-relaxed">Join the HindTech family! We're hiring faculty, trainers, tech support, and
+                admin roles. </p>
+
+
+            </div>
+            <div class="mt-auto space-y-3 pt-4 border-t border-gray-100">
+              <div class="flex items-center text-sm font-semibold">
+                <a href="tel:+917905320279" class="flex items-center group/link">
+                  <svg class="w-4 h-4 mr-3 text-gray-400 transition group-hover/link:text-purple-600"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path
+                      d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg> +91 7905320279
+                </a>
+                <a href="https://wa.me/7905320279" class="ml-auto text-[#25D366] hover:opacity-80 transition"
+                  target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"
+                    class="w-5 h-5">
                     <path
                       d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                  </svg></a></div>
-              <div class="flex items-center text-sm text-gray-500"><svg class="w-4 h-4 mr-3 text-gray-400"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  </svg></a>
+              </div>
+              <a href="mailto:info@hindtechitsolutions.com"
+                class="flex items-center text-sm text-gray-500 hover:text-purple-600 transition">
+                <svg class="w-4 h-4 mr-3 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                   <path d="M22 6l-10 7L2 6" />
-                </svg> hr@company.com</div>
+                </svg> careers@hindtechlearningpoint.com
+              </a>
             </div>
           </div>
-          <!-- Ankit Sir Card (with badge) -->
+
+          <!-- 4. Ankit Sir - Lead Industry (enriched) -->
           <div
             class="bg-white rounded-2xl p-6 border border-gray-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-md transition-all flex flex-col h-full relative group overflow-hidden">
             <div
-              class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-400/20 to-transparent group-hover:via-amber-400 transition-all">
+              class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-400/30 to-transparent group-hover:via-amber-400 transition-all duration-300">
             </div>
-            <div class="flex justify-between mb-4">
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-amber-50 text-amber-600"><svg
-                  class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <div class="flex justify-between mb-4 items-start">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-amber-50 text-amber-600">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                   <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" />
-                </svg></div><span
-                class="px-2 py-1 rounded-md text-[10px] font-bold bg-amber-50 text-amber-600 border border-amber-100 uppercase tracking-wide">Urgent
-                Escalations Only</span>
+                </svg>
+              </div>
+              <span
+                class="px-2.5 py-1 text-center flex items-center justify-center rounded-md text-[11px] font-bold bg-amber-100 text-amber-700 border border-amber-200 uppercase tracking-wide shadow-sm">
+                Urgent Calls Only</span>
             </div>
             <h3 class="text-lg font-bold text-gray-900 mb-1">Ankit Sir</h3>
-            <p class="text-sm font-medium text-gray-500 mb-5">Lead Industry</p>
-            <div class="mt-auto space-y-3 pt-4 border-t border-gray-50">
-              <div class="flex items-center text-sm font-semibold"><svg class="w-4 h-4 mr-3 text-gray-400"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path
-                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-                </svg> +91-9170446729 <a href="https://wa.me/919170446729" class="ml-auto text-[#25D366]"
-                  target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+            <p class="text-sm font-medium text-gray-500 mb-3">Lead Industry & Strategic Partnerships</p>
+            <div class="space-y-2.5 mb-4 text-sm text-gray-600">
+              <p class="leading-relaxed">Corporate training, MOU partnerships, placement drives, and high-priority
+                escalations. </p>
+
+            </div>
+            <div class="mt-auto space-y-3 pt-4 border-t border-gray-100">
+              <div class="flex items-center text-sm font-semibold">
+                <a href="tel:+919170446729" class="flex items-center group/link">
+                  <svg class="w-4 h-4 mr-3 text-gray-400 transition group-hover/link:text-amber-600" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor">
+                    <path
+                      d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg> +91 9170446729
+                </a>
+                <a href="https://wa.me/9170446729" class="ml-auto text-[#25D366] hover:opacity-80 transition"
+                  target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"
+                    class="w-5 h-5">
                     <path
                       d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                  </svg></a></div>
-              <div class="flex items-center text-sm text-gray-500"><svg class="w-4 h-4 mr-3 text-gray-400"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  </svg></a>
+              </div>
+              <a href="mailto:ankit@hindtechitsolutions.com"
+                class="flex items-center text-sm text-gray-500 hover:text-amber-600 transition">
+                <svg class="w-4 h-4 mr-3 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                   <path d="M22 6l-10 7L2 6" />
-                </svg> ankit@company.com</div>
+                </svg> ankit.corp@hindtechlearningpoint.com
+              </a>
             </div>
           </div>
         </div>
@@ -584,7 +733,7 @@
     </div>
   </div>
 
-  <!-- ======================= SECTION 3: LUCKNOW CAMPUS ======================= -->
+  <!-- LUCKNOW CAMPUS (updated contact channels numbers) -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 border-t border-gray-200 pb-20">
     <h2 class="text-3xl font-extrabold text-center text-gray-900 mb-12">Visit Our Campus in Lucknow</h2>
     <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100">
@@ -597,11 +746,11 @@
         <div class="hidden sm:flex items-center space-x-2 text-xs font-bold text-gray-400 uppercase tracking-widest">
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path d="M12 6v6l4 2M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-          </svg><span>9:00 AM - 8:30 PM (Monday to Saturday)</span></div>
+          </svg><span>11:00 AM - 6:00 PM (Monday to Saturday)</span>
+        </div>
       </div>
       <div class="p-6 lg:p-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          <!-- left column -->
           <div class="lg:col-span-3 flex flex-col justify-between h-full">
             <div class="space-y-6">
               <div>
@@ -609,14 +758,13 @@
                     class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" />
                     <circle cx="12" cy="10" r="2" />
-                  </svg> Campus Address</h4>
-                <p class="text-[15px] leading-relaxed text-gray-600 font-medium mb-1">1st Floor, Mohini Mansion, 1,
-                  Naval Kishore Rd, above Baby Hug Showroom, near Cathedral School, Hazratganj, Lucknow, Uttar Pradesh
-                  226001</p>
+                  </svg>Campus Address</h4>
+                <p class="text-[15px] leading-relaxed text-gray-600 font-medium">PARMAR PLAZA, First Floor, Bakshi Ka
+                  Talab, Bargadi Magath, Uttar Pradesh Lucknow 226201</p>
                 <div class="flex items-center text-xs font-semibold text-[#233fff] mt-2"><svg class="w-3 h-3 mr-1.5"
                     viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path d="M12 6v6l4 2M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-                  </svg><span>Mon - Sat | 9:00 AM - 8:30 PM</span></div>
+                  </svg><span>Mon - Sat | 11:00 AM - 06:00 PM</span></div>
               </div>
               <div class="py-4 border-t border-b border-gray-50 space-y-4">
                 <h4 class="flex items-center text-xs font-bold text-gray-400 uppercase tracking-widest"><svg
@@ -626,283 +774,449 @@
                   </svg> Contact Channels</h4>
                 <div class="space-y-3">
                   <div><span class="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Admissions</span><span
-                      class="text-sm font-bold text-gray-800 block">+91-9170446729</span></div>
+                      class="text-sm font-bold text-gray-800 block"> +91 6307738600 </span></div>
+                  <div><span class="text-[10px] uppercase font-bold text-gray-400 tracking-wider"></span><span
+                      class="text-sm font-bold text-gray-800 block"> +91 9557878427</span></div>
                   <div><span class="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Support</span><span
-                      class="text-sm font-bold text-gray-800 block">+91-9170446729</span></div>
+                      class="text-sm font-bold text-gray-800 block">+91 7905320279</span></div>
                   <div><span class="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Corporate</span><span
-                      class="text-sm font-bold text-gray-800 block">+91-9170446729</span></div>
+                      class="text-sm font-bold text-gray-800 block"> +91 9170446729</span></div>
                 </div>
               </div>
             </div>
-            <div class="space-y-3 pt-6 lg:pt-0"><a href="https://wa.me/9170446729" target="_blank"
-                class="w-full flex items-center justify-center space-x-2 py-3.5 px-4 bg-[#e7f9ed] text-[#25D366] rounded-xl font-bold text-sm hover:bg-[#d5f5e0] transition-colors shadow-sm"><svg
+            <div class="space-y-5 p lg:pt-0"><a href="https://wa.me/6307738600" target="_blank"
+                class="w-full flex items-center justify-center space-x-2 py-3.5 px-4 bg-[#e7f9ed] text-[#25D366] rounded-xl font-bold text-sm hover:bg-[#d5f5e0] transition-colors"><svg
                   viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
                   <path
                     d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                </svg><span>Talk to us on WhatsApp</span></a><a href="tel:+9170446729"
-                class="w-full flex items-center justify-center space-x-2 py-3.5 px-4 bg-gray-900 text-white rounded-xl font-bold text-sm hover:bg-black transition-all shadow-md transform hover:-translate-y-0.5"><svg
+                </svg><span>Talk to us on WhatsApp</span></a><a href="tel:+91 6307738600"
+                class="w-full flex items-center justify-center space-x-2 py-3.5 px-4 bg-gray-900 text-white rounded-xl font-bold text-sm hover:bg-black transition-all shadow-md"><svg
                   class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <path
                     d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg><span>Call our Counselor</span></a></div>
           </div>
-          <!-- middle: gallery -->
-          <div class="lg:col-span-5 flex flex-col h-full" id="gallerySection">
+          <!-- gallery + map unchanged but functional -->
+          <div class="lg:col-span-5" id="gallerySection">
             <h4 class="flex items-center text-xs font-bold text-gray-400 uppercase tracking-widest mb-4"><svg
                 class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path d="M15 3h6v6M9 21H3v-6M21 3l-6 6M3 21l6-6" />
-              </svg> Institute Images</h4>
+              </svg>Institute Images</h4>
             <div class="flex-grow flex flex-col">
-              <div
+              <div id="mainImageContainer"
                 class="relative flex-grow rounded-2xl overflow-hidden bg-gray-100 group shadow-lg cursor-pointer mb-4"
-                style="min-height: 360px;" id="mainImageContainer">
-                <img id="mainGalleryImg"
-                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  alt="Institute">
-                <div
-                  class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                style="min-height:360px"><img src="./assets/images/campus-gallary/Reception-Area.png"
+                  id="mainGalleryImg"
+                  class="w-auto h-[360px]  min-height-[360px] object-cover transition-transform duration-700 group-hover:scale-105">
+                <!-- <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 flex items-end p-6">
                   <p id="imgLabel" class="text-white text-sm font-semibold"></p>
+                </div> -->
+                <div id="imgLabel"
+                  class="absolute bottom-3 right-3 bg-black/70 backdrop-blur-sm text-white text-xs md:text-sm font-bold px-3 py-1.5 rounded-lg z-10 uppercase tracking-wide shadow-lg">
+
                 </div>
-                <div
-                  class="absolute top-4 right-4 w-10 h-10 bg-white/20 backdrop-blur text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M15 3h6v6M9 21H3v-6M21 3l-6 6M3 21l6-6" />
-                  </svg></div>
-                <div class="absolute bottom-4 right-4 flex space-x-2"><button id="prevImgBtn"
-                    class="w-9 h-9 bg-white text-black rounded-full flex items-center justify-center shadow-xl hover:bg-gray-100 transition-transform active:scale-95"><svg
+                <div class="absolute bottom-4 right-4 flex space-x-2">
+                  <button id="prevImgBtn"
+                    class=" bg-white text-black rounded-full flex items-center justify-center shadow-xl"><svg
                       class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <path d="M15 18l-6-6 6-6" />
-                    </svg></button><button id="nextImgBtn"
-                    class="w-9 h-9 bg-white text-black rounded-full flex items-center justify-center shadow-xl hover:bg-gray-100 transition-transform active:scale-95"><svg
+                    </svg>
+                  </button><button id="nextImgBtn"
+                    class=" bg-white text-black rounded-full flex items-center justify-center shadow-xl"><svg
                       class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <path d="M9 18l6-6-6-6" />
-                    </svg></button></div>
+                    </svg></button>
+                </div>
               </div>
-              <div class="grid grid-cols-4 gap-3" id="thumbnailsContainer"></div>
+              <div id="thumbnailsContainer" class="grid grid-cols-4 gap-3"></div>
             </div>
           </div>
-          <!-- right column: map -->
-          <div class="lg:col-span-4 flex flex-col h-full">
-            <h4 class="flex items-center text-xs font-bold text-gray-400 uppercase tracking-widest mb-4"><svg
-                class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <div class="lg:col-span-4 relative">
+            <h4 class="flex items-center text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
+              <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" />
                 <circle cx="12" cy="10" r="2" />
-              </svg> Find us on Map</h4>
+              </svg>
+              Find us on Map
+            </h4>
+
             <div
               class="flex-grow rounded-2xl overflow-hidden border border-gray-100 bg-gray-100 shadow-inner relative mb-4"
-              style="min-height: 360px;"><iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.7850233405364!2d80.9421253753597!3d26.846664562776843!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bfd0655555555%3A0x7d06e23730e9d6d!2sHazratganj%2C%20Lucknow%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1713075000000!5m2!1sen!2sin"
-                class="w-full h-full absolute inset-0" allowfullscreen="" loading="lazy"></iframe></div><a
-              href="https://maps.google.com" target="_blank"
-              class="w-full flex items-center justify-center space-x-2 py-3.5 border border-gray-200 rounded-xl font-bold text-sm text-gray-700 hover:bg-gray-50 transition-colors"><span>Get
-                Directions on Maps</span><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              style="min-height:430px">
+
+              <iframe
+                src="https://www.google.com/maps?q=PARMAR+PLAZA,+First+Floor,+Bakshi+Ka+Talab,+Bargadi+Magath,+Uttar+Pradesh+226201&output=embed"
+                class="w-full h-full absolute inset-0" allowfullscreen="" loading="lazy">
+              </iframe>
+
+            </div>
+
+            <a href="https://www.google.com/maps/search/?api=1&query=PARMAR+PLAZA,+First+Floor,+Bakshi+Ka+Talab,+Bargadi+Magath,+Uttar+Pradesh+226201"
+              target="_blank"
+              class="w-full flex items-center justify-center space-x-2 py-3.5 border border-gray-200 rounded-xl font-bold text-sm text-gray-700 hover:bg-gray-50">
+
+              <span>Get Directions on Maps</span>
+
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
-              </svg></a>
+              </svg>
+
+            </a>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- MODAL for image zoom -->
+  <!-- Modal for gallery -->
   <div id="imageModal"
     class="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-6 backdrop-blur-sm hidden"
     onclick="closeModal()">
     <div class="relative bg-white rounded-3xl overflow-hidden shadow-2xl max-w-3xl w-full modal-zoom"
-      onclick="event.stopPropagation()">
-      <button onclick="closeModal()"
-        class="absolute top-4 right-4 z-10 w-10 h-10 bg-white shadow-lg text-black rounded-full flex items-center justify-center hover:bg-gray-100"><svg
+      onclick="event.stopPropagation()"><button onclick="closeModal()"
+        class="absolute top-4 right-4 z-10 w-10 h-10 bg-white shadow-lg text-black rounded-full flex items-center justify-center"><svg
           class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <path d="M18 6L6 18M6 6l12 12" />
         </svg></button>
-      <div class="p-2"><img id="modalImg" class="w-full h-auto rounded-2xl" alt="Expanded">
-        <div class="p-6 text-left">
+      <div class="p-2"><img id="modalImg" class="w-full h-auto rounded-2xl">
+        <div class="p-6">
           <h2 id="modalTitle" class="text-xl font-bold text-gray-900"></h2>
           <p class="text-gray-500 text-sm mt-1">Experience world-class learning at our Lucknow center.</p>
         </div>
       </div>
     </div>
   </div>
-   <button  id="e45" class="whatsapp-float callbackBtn">
-        <i class="fab fa-whatsapp"></i>
-    </button>
-  <!-- FOOTER SECTION (Based on Screenshot) -->
+
+  <!-- Floating WhatsApp -->
+  <button id="e45" class="fixed callbackBtn bottom-5 right-5 z-50 flex items-center justify-center 
+  w-14 h-14 rounded-full text-white text-2xl
+
+  bg-gradient-to-br from-[#25D366] to-[#1ebe5d]
+
+  shadow-[0_10px_25px_rgba(37,211,102,0.4)]
+  hover:shadow-[0_15px_35px_rgba(37,211,102,0.6)]
+  backdrop-blur-md
+  transition-all duration-300
+  hover:scale-110 active:scale-95
+  before:content-[''] before:absolute before:inset-0 before:rounded-full
+  before:bg-[#25D366]/40 before:animate-ping before:-z-10
+">
+    <i class="fab fa-whatsapp"></i>
+  </button>
+
+  <!-- FOOTER (unchanged but consistent) -->
   <footer class="pt-20 pb-10">
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-
-        <!-- Col 1: Brand Info -->
         <div class="space-y-6">
-          <div class="flex items-center gap-2">
-            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white">
-              H</div>
-            <span class="text-2xl font-black text-white tracking-tighter uppercase">Hindtech</span>
-          </div>
+          <div class="flex items-center"><img src="./assets/images/home/bt_logo.png" alt="Hindtech"
+              class="h-8 object-contain" /></div>
           <div class="space-y-4 text-sm font-medium">
-            <p class="uppercase text-xs tracking-widest text-blue-500 font-black">Address: Hindtech
-              Education Lucknow</p>
-            <p class="leading-relaxed">1st Floor, Mohini Mansion, 1, Naval Kishore Rd, above Baby Hug
-              Showroom, near Cathedral School, Hazratganj, Lucknow, Uttar Pradesh 226001</p>
-            <p>Pan India Branches</p>
-            <p><span class="text-white">EMAIL ID:</span> mail@hindtech.com</p>
-            <p><span class="text-white">CONTACT:</span> +91 9170446729</p>
+            <p class="uppercase text-xs tracking-widest text-blue-500 font-black">Address: Hindtech IT Solutions |
+              Hindtech Learning Point Lucknow</p>
+            <p class="leading-relaxed">PARMAR PLAZA, First Floor, Bakshi Ka Talab, Bargadi Magath, Uttar Pradesh Lucknow
+              226201
+            </p>
+            <div class="space-y-2">
+              <p class="text-white font-semibold">EMAIL ID:</p><a href="mailto:info@hindtechitsolutions.com"
+                class="flex items-center gap-2 hover:text-blue-500"><i class="fa-solid fa-envelope text-blue-500"></i>
+                info@hindtechitsolutions.com</a><a href="mailto:info@hindtechlearningpoint.com"
+                class="flex items-center gap-2 hover:text-blue-500"><i class="fa-solid fa-envelope text-blue-500"></i>
+                info@hindtechlearningpoint.com</a>
+            </div>
+            <div class="space-y-2">
+              <p class="text-white font-semibold">CONTACT:</p>
+              <div class="flex flex-wrap gap-x-2"><a href="tel:+916307738600" class="hover:text-blue-500">+91
+                  6307738600</a><span>|</span><a href="tel:+919557878427" class="hover:text-blue-500">+91 9557878427</a>
+              </div>
+              <div class="flex flex-wrap gap-x-2"><a href="tel:+917905320279" class="hover:text-blue-500">+91
+                  7905320279</a><span>|</span><a href="tel:+919170446729" class="hover:text-blue-500">+91 9170446729</a>
+              </div>
+            </div>
           </div>
-          <div class="flex gap-3">
-            <a href="https://www.facebook.com/HindtechLucknow/?hl=en" target="_blank" class="social-icon"><i
-                class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/hindtechlucknow/?hl=en" target="_blank" class="social-icon"><i
-                class="fab fa-instagram"></i></a>
-            <a href="https://www.linkedin.com/company/hindtech-lucknow" target="_blank" class="social-icon"><i
-                class="fab fa-linkedin-in"></i></a>
-            <a href="https://www.youtube.com/@HindtechLucknow" target="_blank" class="social-icon"><i
-                class="fab fa-youtube"></i></a>
+          <div class="flex gap-3"><a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a><a href="#"
+              class="social-icon"><i class="fab fa-instagram"></i></a><a href="#" class="social-icon"><i
+                class="fab fa-linkedin-in"></i></a><a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
           </div>
         </div>
-
         <!-- Col 2: Quick Links -->
         <div>
           <h3 class="footer-heading">Quick Links</h3>
 
-          <div class="text-sm font-bold space-y-2">
+          <div class="text-sm font-bold space-y-3">
 
-            <a href="/placements" class="group footer-link flex items-center gap-2">
+            <a href="/placements" target="_blank" class="group footer-link flex items-center gap-2">
               <i class="fas fa-briefcase text-gray-400 group-hover:text-[#233fff]"></i>
               Placements
             </a>
 
-            <a href="/hire-from-us" class="group footer-link flex items-center gap-2">
+            <a href="/hire-from-us" target="_blank" class="group footer-link flex items-center gap-2">
               <i class="fas fa-user-plus text-gray-400 group-hover:text-[#233fff]"></i>
               Hire From Us
             </a>
 
-            <a href="/campus-training" class="group footer-link flex items-center gap-2">
+            <a href="/campus-training" target="_blank" class="group footer-link flex items-center gap-2 ">
               <i class="fas fa-graduation-cap text-gray-400 group-hover:text-[#233fff]"></i>
               Campus Training
             </a>
 
-          
 
-            <a href="/contact" class="group footer-link flex items-center gap-2">
+
+            <a href="/contact" target="_blank" class="group footer-link flex items-center gap-2 ">
               <i class="fas fa-phone text-gray-400 group-hover:text-[#233fff]"></i>
               Contact Us
             </a>
 
-            <a href="/about" class="group footer-link flex items-center gap-2">
+            <a href="/about" target="_blank" class="group footer-link flex items-center gap-2 ">
               <i class="fas fa-circle-info text-gray-400 group-hover:text-[#233fff]"></i>
               About Us
             </a>
-
-
           </div>
         </div>
 
         <!-- Col 3: Our Courses -->
         <div>
           <h3 class="footer-heading">Our Courses</h3>
-          <div class="text-sm font-bold">
-            <a href="/courses/mern-full-stack-development" class="footer-link">Mern Full Stack
-              Development</a>
-            <a href="/courses/flutter-hybrid-app-development" class="footer-link">Flutter Hybrid App
-              Development</a>
-            <a href="/courses/mastering-generative-AI" class="footer-link">Mastering Generative AI</a>
-            <a href="/courses/php" class="footer-link">Mastering
-              PHP Laravel</a>
+          <div class="text-sm font-bold space-y-3">
+
+            <a href="./courses/mern-full-stack-development" target="_blank"
+              class="footer-link flex items-center  group">
+              Full Stack Web Development (MERN)
+            </a>
+
+            <a href="./courses/mastering-generative-AI" target="_blank" class="footer-link flex items-center   group">
+              <!-- AI (brain icon) -->
+
+              Data Analytics with Generative AI
+            </a>
+
+            <a href="./courses/flutter-hybrid-app-development" target="_blank"
+              class="footer-link flex items-center   group">
+              <!-- Flutter -->
+
+              Flutter App Development
+            </a>
+
+            <a href="./courses/php" target="_blank" class="footer-link flex items-center   group">
+              <!-- Laravel -->
+
+              PHP Web Development with Laravel
+            </a>
+
           </div>
         </div>
-
-        <!-- Col 4: India's Leading -->
-        <div class="bg-slate-800/50 p-8 rounded-3xl border border-slate-700/50">
-          <h3 class="text-xl font-black text-white mb-4">India's Leading and trusted career transforming
-            institute</h3>
-          <p class="text-sm mb-8 leading-relaxed">Raise the bar of your career with the certification from one
-            of the prestigious organizations</p>
-          <a href="#"
-            class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-black py-4 px-6 rounded-xl text-sm transition-all group">
-            Inquire Now <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-          </a>
+        <div class="bg-slate-800/50 p-8 rounded-3xl">
+          <h3 class="text-xl font-black text-white mb-4">India's Leading and trusted career transforming institute</h3>
+          <p class="text-sm mb-8">Raise the bar of your career with the certification from one of the prestigious
+            organizations</p><button id="footerInquireBtn"
+            class="open-inquire-btn inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-black py-4 px-6 rounded-xl">Inquire
+            Now <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i></button>
         </div>
-
       </div>
-
-      <!-- Bottom Copyright -->
       <div
         class="pt-8 border-t border-slate-800 text-center text-xs font-bold text-slate-500 uppercase tracking-widest">
-        Copyright © Hindtech Education Pvt. Ltd. 2022-2026 | Terms | Placement | Privacy | Refund
-      </div>
+        Copyright © Hindtech IT Solutions. 2020-2026</div>
     </div>
   </footer>
+
+
+
+  <div id="inquiryModal" class="fixed inset-0 z-50 hidden  items-center justify-center p-4 modal-transition"
+    style="background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px);">
+    <div
+      class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300 scale-95 opacity-0"
+      id="modalContainer">
+      <!-- Modal Header with blue theme -->
+      <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+            </path>
+          </svg>
+          <h2 class="text-xl font-bold text-white tracking-tight">Inquire Now</h2>
+        </div>
+        <button id="closeModalBtn" class="text-white hover:bg-white/20 rounded-full p-1.5 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body: Form -->
+      <div class="px-6 py-5 bg-white">
+        <!-- global status message (success / error from API) -->
+        <div id="formStatusMessage" class="mb-4 text-sm rounded-lg hidden transition-all"></div>
+
+        <form id="inquiryForm" novalidate>
+          <!-- Mobile Number Field -->
+          <div class="mb-5">
+            <label class="block text-gray-700 font-medium mb-1.5 text-sm"><i class="fas fa-phone"></i> Mobile Number
+              <span class="text-red-500">*</span></label>
+            <input type="tel" id="mobile" name="mobile"
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-400 focus:border-brand-500 outline-none transition"
+              placeholder="Enter 10-digit Mobile Number" autocomplete="off">
+            <div id="mobileError" class="text-red-500 text-xs mt-1 hidden"></div>
+          </div>
+
+          <!-- Full Name Field -->
+          <div class="mb-5">
+            <label class="block text-gray-700 font-medium mb-1.5 text-sm"><i class="fas fa-user"></i> Full Name <span
+                class="text-red-500">*</span></label>
+            <input type="text" id="fullName" name="fullName"
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-400 focus:border-brand-500 outline-none transition"
+              placeholder="Your Name">
+            <div id="nameError" class="text-red-500 text-xs mt-1 hidden"></div>
+          </div>
+
+          <!-- Email Field -->
+          <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-1.5 text-sm"> <i class="fa-regular fa-envelope"></i> Email
+              <span class="text-red-500">*</span></label>
+            <input type="email" id="email" name="email"
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-400 focus:border-brand-500 outline-none transition"
+              placeholder="e.g. yourname@gmail.com">
+            <div id="emailError" class="text-red-500 text-xs mt-1 hidden"></div>
+          </div>
+
+          <!-- Submit Button with loader integration -->
+          <button type="submit" id="submitBtn"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl transition duration-200 flex items-center justify-center gap-2 shadow-md">
+            <span id="submitText">Submit Inquiry</span>
+            <span id="submitLoader" class="hidden">
+              <div class="spinner"></div>
+            </span>
+          </button>
+        </form>
+
+        <!-- <div class="mt-4 text-center text-xs text-gray-400 border-t pt-3">
+                    🔒 We'll never share your details. Simulated API + Local DB storage.
+                </div> -->
+      </div>
+    </div>
+  </div>
+
+
+
   <script>
-    // IMAGES DATA (unsplash)
+    // Gallery Data
     const imagesData = [
-      { url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800', label: 'Reception Desk at Lucknow Branch' },
-      { url: 'https://images.unsplash.com/photo-1517502884422-41eaead166d4?auto=format&fit=crop&q=80&w=800', label: 'Student Lounge Area' },
-      { url: 'https://images.unsplash.com/photo-1522071823990-b9978ec34b6b?auto=format&fit=crop&q=80&w=800', label: 'Advanced Coding Lab' },
-      { url: 'https://images.unsplash.com/photo-1577412647305-991150c7d163?auto=format&fit=crop&q=80&w=800', label: 'Meeting Room' }
+      { url: './assets/images/campus-gallary/Front View of Our Institute.png', label: 'Front View of Our Institute' },
+      { url: './assets/images/campus-gallary/Institute Entrance.png', label: 'Institute Entrance' },
+      { url: './assets/images/campus-gallary/Reception-Area.png', label: 'Reception Area' },
+      { url: './assets/images/campus-gallary/Counselling-Area.png', label: 'Counselling Area' },
+      { url: './assets/images/campus-gallary/Classroom 2.png', label: 'Classroom 1' },
+      { url: './assets/images/campus-gallary/Classroom 1.png', label: 'Classroom 2' },
+      { url: './assets/images/campus-gallary/Workstation-Lab Area.png', label: 'Workstation-Lab Area' },
+      { url: './assets/images/campus-gallary/Director’s-Cabin.png', label: 'Director’s-Cabin' },
+
     ];
+
+    // Default First Image
     let currentIndex = 0;
     const mainImg = document.getElementById('mainGalleryImg');
     const imgLabelSpan = document.getElementById('imgLabel');
-    const modalImg = document.getElementById('modalImg');
-    const modalTitle = document.getElementById('modalTitle');
+    const modalImgElem = document.getElementById('modalImg');
+    const modalTitleElem = document.getElementById('modalTitle');
+    const containerThumb = document.getElementById('thumbnailsContainer');
+
+    // Update Gallery
     function updateGallery() {
       mainImg.src = imagesData[currentIndex].url;
       imgLabelSpan.innerText = imagesData[currentIndex].label;
-      // update thumb active border
+
       document.querySelectorAll('.thumb-img').forEach((thumb, idx) => {
-        if (idx === currentIndex) thumb.classList.add('border-[#233fff]', 'scale-95', 'opacity-100'); else thumb.classList.remove('border-[#233fff]', 'scale-95', 'opacity-100');
+        if (idx === currentIndex) {
+          thumb.classList.add('border-[#233fff]', 'scale-95');
+          thumb.classList.remove('opacity-60');
+        } else {
+          thumb.classList.remove('border-[#233fff]', 'scale-95');
+          thumb.classList.add('opacity-60');
+        }
       });
     }
-    function openModal() {
-      modalImg.src = imagesData[currentIndex].url;
-      modalTitle.innerText = imagesData[currentIndex].label;
-      document.getElementById('imageModal').classList.remove('hidden');
-    }
-    window.closeModal = function () { document.getElementById('imageModal').classList.add('hidden'); };
-    // Build thumbnails
-    const container = document.getElementById('thumbnailsContainer');
+
+    // Create Thumbnails
     imagesData.forEach((img, i) => {
       const btn = document.createElement('button');
-      btn.className = `aspect-video rounded-lg overflow-hidden border-2 transition-all thumb-img ${i === 0 ? 'border-[#233fff] scale-95' : 'border-transparent opacity-60'}`;
-      btn.innerHTML = `<img src="${img.url}" class="w-full h-full object-cover">`;
-      btn.addEventListener('click', () => { currentIndex = i; updateGallery(); });
-      container.appendChild(btn);
-    });
-    document.getElementById('prevImgBtn').addEventListener('click', () => { currentIndex = (currentIndex - 1 + imagesData.length) % imagesData.length; updateGallery(); });
-    document.getElementById('nextImgBtn').addEventListener('click', () => { currentIndex = (currentIndex + 1) % imagesData.length; updateGallery(); });
-    document.getElementById('mainImageContainer').addEventListener('click', openModal);
-    updateGallery();
 
-    // INQUIRY PILLS
-    const inquiryOptions = [
-      { id: 'hire', label: 'Hire Learners' }, { id: 'work', label: 'Work with us' },
-      { id: 'course', label: 'Course Inquiry' }, { id: 'corporate', label: 'Corporate Training' }
-    ];
-    let selectedInquiry = 'course';
-    const pillsDiv = document.getElementById('inquiryPillsContainer');
-    const inquiryHidden = document.getElementById('inquiryType');
-    function renderPills() {
-      pillsDiv.innerHTML = '';
-      inquiryOptions.forEach(opt => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.innerText = opt.label;
-        btn.className = `px-4 py-2 rounded-full text-sm font-medium transition-all border ${selectedInquiry === opt.id ? 'bg-[#233fff] text-white border-[#233fff]' : 'bg-white text-gray-600 border-gray-200'}`;
-        btn.addEventListener('click', () => { selectedInquiry = opt.id; inquiryHidden.value = opt.id; renderPills(); });
-        pillsDiv.appendChild(btn);
+      btn.className = `
+      aspect-video rounded-lg overflow-hidden border-2
+      transition-all duration-300 thumb-img
+      ${i === 0 ? 'border-[#233fff] scale-95' : 'border-transparent opacity-60'}
+    `;
+
+      btn.innerHTML = `
+      <img src="${img.url}" class="w-full h-full object-cover" />
+    `;
+
+      btn.addEventListener('click', () => {
+        currentIndex = i;
+        updateGallery();
+        resetAutoSlide();
       });
+
+      containerThumb.appendChild(btn);
+    });
+
+    // Next Slide
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % imagesData.length;
+      updateGallery();
     }
-    renderPills();
-    // FORM SUBMIT
-    document.getElementById('contactForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const mobile = document.getElementById('mobile').value;
-      const fullName = document.getElementById('fullName').value;
-      const email = document.getElementById('email').value;
-      alert(`Thank you ${fullName}! Our team will contact you soon regarding ${selectedInquiry}.`);
+
+    // Previous Slide
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + imagesData.length) % imagesData.length;
+      updateGallery();
+    }
+
+    // Buttons
+    document.getElementById('nextImgBtn').addEventListener('click', () => {
+      nextSlide();
+      resetAutoSlide();
+    });
+
+    document.getElementById('prevImgBtn').addEventListener('click', () => {
+      prevSlide();
+      resetAutoSlide();
+    });
+
+    // Auto Slide Every 4 Seconds
+    let autoSlide = setInterval(nextSlide, 4000);
+
+    function resetAutoSlide() {
+      clearInterval(autoSlide);
+      autoSlide = setInterval(nextSlide, 4000);
+    }
+
+    setTimeout(() => {
+      updateGallery()
+    }, 4000)
+    // Open Modal
+    document.getElementById('mainImageContainer').addEventListener('click', () => {
+      modalImgElem.src = imagesData[currentIndex].url;
+      modalTitleElem.innerText = imagesData[currentIndex].label;
+
+      document.getElementById('imageModal').classList.remove('hidden');
+    });
+
+    // Close Modal
+    window.closeModal = () => {
+      document.getElementById('imageModal').classList.add('hidden');
+    };
+
+    // Show First Image By Default
+    window.addEventListener('DOMContentLoaded', () => {
+      updateGallery();
     });
   </script>
-  <script src="/assets/js/main.js"></script>
-  <script src="/assets/js/auto-responsive.js"></script>
+  <script src="./assets/js/popup.js"></script>
+  <script src="./assets/js/main.js"></script>
+  <script src="./assets/js/auto-responsive.js"></script>
+
 </body>
 
 </html>

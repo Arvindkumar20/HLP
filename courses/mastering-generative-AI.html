@@ -74,88 +74,421 @@
 <body class="bg-[#f8fafc] text-slate-900 antialiased">
   <!-- ========== HEADER (exactly as provided, with sidebar integration) ========== -->
   <header class="w-full bg-white shadow-sm fixed top-0 z-50 border-b border-gray-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 h-16 md:h-20 h-20 flex justify-between items-center">
       <div class="flex items-center gap-3 cursor-pointer">
-        <div class="relative w-9 h-11 flex items-center justify-center border-[3.5px] border-theme-black">
-          <div class="absolute w-full h-1 bg-white"></div>
-          <div class="absolute w-1 h-full bg-theme-black"></div>
-        </div>
-        <a href="/" class="flex flex-col justify-center mt-1">
-          <span
-            class="text-2xl sm:text-3xl font-extrabold tracking-tight text-theme-black leading-none uppercase">HINDTECH</span>
-          <span class="text-[0.60rem] sm:text-xs font-bold tracking-[0.25em] text-theme-black mt-1 uppercase">Learning
-            Point</span>
+
+        <a href="/" class="flex justify-center sm:justify-start mt-1">
+          <div class="w-[40vw] max-w-[260px] min-w-[110px]">
+            <img src="../assets/images/Web_logo.png" alt="Hindtech Learning Point" class="w-full h-auto object-contain">
+          </div>
         </a>
       </div>
       <div class="flex items-center gap-6 sm:gap-8">
         <!-- EXPLORE COURSES DROPDOWN (hover) -->
-        <div class="demo-container hidden lg:block">
-          <div class="dropdown-wrapper">
-            <button
-              class="lg:flex items-center gap-2 text-theme-black font-bold hover:text-theme-blue transition-colors">
-              <i class="fa-solid fa-book-open-reader text-lg"></i>
-              <span>Explore Courses</span>
-            </button>
-            <div class="courses-dropdown">
-              <div class="course-list">
-                <a href="/courses/mern-full-stack-development" class="course-item">
-                  <div>
-                    <div class="course-name">MERN Full Stack Development</div>
-                    <div class="course-duration"><span class="blue-dot"><i class="fa-regular fa-clock"></i></span>
-                      Duration: 6 Months</div>
-                  </div>
-                  <i class="fa-solid fa-angle-right"></i>
-                </a>
-                <a href="/courses/flutter-hybrid-app-development" class="course-item">
-                  <div>
-                    <div class="course-name">Flutter Hybrid App Development
-                    </div>
-                    <div class="course-duration"><span class="blue-dot"><i class="fa-regular fa-clock"></i></span>
-                      Duration: 8-10 Months</div>
-                  </div>
-                  <i class="fa-solid fa-angle-right"></i>
-                </a>
-                <a href="/courses/mastering-generative-AI" class="course-item">
-                  <div>
-                    <div class="course-name">Mastering Generative AI</div>
-                    <div class="course-duration"><span class="blue-dot"><i class="fa-regular fa-clock"></i></span>
-                      Duration: 8-10 Months</div>
-                  </div>
-                  <i class="fa-solid fa-angle-right"></i>
-                </a>
-                <a href="/courses/php" class="course-item">
-                  <div>
-                    <div class="course-name">Mastering PHP LaravelI</div>
-                    <div class="course-duration"><span class="blue-dot"><i class="fa-regular fa-clock"></i></span>
-                      Duration: 8-10 Months</div>
-                  </div>
-                  <i class="fa-solid fa-angle-right"></i>
-                </a>
+        <!-- main card / navbar simulation -->
 
-              </div>
-              <div class="dropdown-cta">
-                <div class="guidance-text">Looking for Guidance ?</div>
-                <button class="callback-btn" id="callbackDropdownBtn">Request A Call Back <i
-                    class="fa-solid fa-phone"></i></button>
+        <div class="">
+          <!-- Navbar simulation with perfect padding/margin alignment -->
+          <div class="">
+
+            <!-- MAIN COMPONENT: Explore Courses dropdown with perfect spacing -->
+            <div class="demo-container hidden lg:block relative">
+              <div class="dropdown-wrapper group relative">
+                <!-- Explore Courses Button -->
+
+                <button
+                  class="lg:flex items-center gap-2 text-theme-black font-bold hover:text-theme-blue transition-colors">
+                  <i class="fa-solid fa-book-open-reader text-lg"></i>
+                  <span>Explore Courses</span>
+                </button>
+
+                <!-- <button
+                                    class="flex items-center gap-2 text-gray-800 font-bold hover:text-indigo-700 transition-colors duration-200 focus:outline-none py-1.5 px-1">
+                                    <i class="fa-solid fa-book-open-reader text-lg"></i>
+                                    <span>Explore Courses</span>
+                                    <i
+                                        class="fa-solid fa-chevron-down text-xs text-gray-500 group-hover:text-indigo-600 transition-all duration-200"></i>
+                                </button> -->
+                <!-- Dropdown Panel (courses list) - refined spacing -->
+                <div
+                  class="courses-dropdown absolute top-full -left-20 mt-3 w-80 bg-white rounded-2xl shadow-2xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 translate-y-2 z-50 overflow-visible">
+                  <div class="course-list p-3 space-y-1.5">
+
+                    <!-- MERN Course Item with proper icon -->
+                    <div class="course-item relative group/submenu overflow-visible">
+                      <a href="/courses/mern-full-stack-development"
+                        class="course-link flex items-center justify-between p-2 rounded-xl bg-white hover:bg-green-50/60 transition-all duration-150">
+                        <div class="flex items-start gap-3">
+                          <div class="text-green-600 text-lg w-6 pt-0.5"><i class="fab fa-react"></i></div>
+                          <div>
+                            <div class="course-name font-extrabold text-gray-800">Full Stack
+                              Web Development (MERN)</div>
+                            <!-- <div
+                                                            class="course-duration flex items-center gap-1.5 text-xs text-gray-500 mt-1">
+                                                            <span class="text-indigo-500"><i
+                                                                    class="fa-regular fa-clock"></i></span>
+                                                            <span>Duration: 6 Months</span>
+                                                        </div> -->
+                          </div>
+                        </div>
+                        <i
+                          class="fa-solid fa-angle-right text-gray-400 group-hover/submenu:text-indigo-600 group-hover/submenu:translate-x-1 transition-all"></i>
+                      </a>
+                      <!-- POPUP: Summer + Apprenticeship -->
+                      <div
+                        class="submenu-panel absolute left-full top-0 ml-2 w-64 bg-white rounded-xl shadow-xl border border-indigo-100/70 p-3 z-50 opacity-0 invisible group-hover/submenu:opacity-100 group-hover/submenu:visible group-hover/submenu:translate-x-0 translate-x-2 transition-all duration-200">
+                        <div class="space-y-3">
+                          <a href="/courses/mern-full-stack-development">
+                            <div class="flex items-start gap-3 p-1.5 rounded-lg hover:bg-amber-50 transition">
+                              <div
+                                class="w-7 h-7 rounded-full bg-amber-100 flex items-center justify-center text-amber-600">
+                                <i class="fa-solid fa-sun"></i>
+                              </div>
+                              <div>
+                                <div class="font-bold text-gray-800 text-sm">Summer
+                                  Training</div>
+                                <div class="text-xs text-gray-500 flex items-center gap-1 mt-0.5">
+                                  <i class="fa-regular fa-calendar-alt"></i> Duration:
+                                  30-45
+                                  days
+                                </div>
+                                <!-- <div class="text-[11px] text-gray-400">Live projects +
+                                                                mentorship</div> -->
+                              </div>
+                            </div>
+                          </a>
+                          <a href="/courses/mern-full-stack-development">
+                            <div class="flex items-start gap-3 p-1.5 rounded-lg hover:bg-indigo-50 transition">
+                              <div
+                                class="w-7 h-7 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
+                                <i class="fa-solid fa-briefcase"></i>
+                              </div>
+                              <div>
+                                <div class="font-bold text-gray-800 text-sm">
+                                  Apprenticeship
+                                </div>
+                                <div class="text-xs text-gray-500 flex items-center gap-1 mt-0.5">
+                                  <i class="fa-regular fa-clock"></i> Duration: 6-8
+                                  months
+                                </div>
+                                <!-- <div class="text-[11px] text-gray-400">Paid real‑world
+                                                                training</div> -->
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Flutter Course Item -->
+                    <div class="course-item relative group/submenu overflow-visible">
+                      <a href="/courses/flutter-hybrid-app-development"
+                        class="course-link flex items-center justify-between p-2 rounded-xl bg-white hover:bg-blue-50/60 transition-all duration-150">
+                        <div class="flex items-start gap-3">
+                          <div class="text-blue-500 text-lg w-6 pt-0.5"><svg xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 640 640"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                              <path
+                                d="M525.5 300.3L387.7 438.1L525.5 576L368 576C331.9 539.9 285.9 493.9 230.1 438.1L368 300.3L525.5 300.3zM368 64L112 320L190.8 398.8L525.5 64L368 64z"
+                                fill="blue" />
+                            </svg></div>
+                          <div>
+                            <div class="course-name font-extrabold text-gray-800">Flutter
+                              App Development (iOS & android)</div>
+                            <!-- <div
+                                                            class="course-duration flex items-center gap-1.5 text-xs text-gray-500 mt-1">
+                                                            <span class="text-indigo-500"><i
+                                                                    class="fa-regular fa-clock"></i></span>
+                                                            <span>Duration: 8-10 Months</span>
+                                                        </div> -->
+                          </div>
+                        </div>
+                        <i
+                          class="fa-solid fa-angle-right text-gray-400 group-hover/submenu:text-indigo-600 group-hover/submenu:translate-x-1 transition-all"></i>
+                      </a>
+                      <a href="/courses/flutter-hybrid-app-development">
+                        <div
+                          class="submenu-panel absolute left-full top-0 ml-2 w-64 bg-white rounded-xl shadow-xl border border-indigo-100/70 p-3 z-50 opacity-0 invisible group-hover/submenu:opacity-100 group-hover/submenu:visible group-hover/submenu:translate-x-0 translate-x-2 transition-all duration-200">
+                          <div class="space-y-3">
+                            <div class="flex items-start gap-3 p-1.5 rounded-lg hover:bg-amber-50">
+                              <div
+                                class="w-7 h-7 rounded-full bg-amber-100 flex items-center justify-center text-amber-600">
+                                <i class="fa-solid fa-sun"></i>
+                              </div>
+                              <div>
+                                <div class="font-bold text-gray-800 text-sm">Summer
+                                  Training</div>
+                                <div class="text-xs text-gray-500"><i class="fa-regular fa-calendar-alt mr-1"></i>
+                                  Duration: 30-45 Days</div>
+                              </div>
+                            </div>
+                      </a>
+                      <a href="/courses/flutter-hybrid-app-development">
+                        <div class="flex items-start gap-3 p-1.5 rounded-lg hover:bg-indigo-50">
+                          <div
+                            class="w-7 h-7 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
+                            <i class="fa-solid fa-briefcase"></i>
+                          </div>
+                          <div>
+                            <div class="font-bold text-gray-800 text-sm">Apprenticeship
+                            </div>
+                            <div class="text-xs text-gray-500"><i class="fa-regular fa-clock mr-1"></i> Duration: 6-8
+                              months</div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Generative AI Course Item -->
+                <div class="course-item relative group/submenu overflow-visible">
+                  <a href="/courses/mastering-generative-AI"
+                    class="course-link flex items-center justify-between p-2 rounded-xl bg-white hover:bg-orange-50/60 transition-all duration-150">
+                    <div class="flex items-start gap-3">
+                      <div class="text-orange-600 text-lg w-6 pt-0.5"><i class="fa-solid fa-brain"></i></div>
+                      <div>
+                        <div class="course-name font-extrabold text-gray-800">Data Analytics
+                          with Generative AI</div>
+                        <!-- <div
+                                                            class="course-duration flex items-center gap-1.5 text-xs text-gray-500 mt-1">
+                                                            <span class="text-indigo-500"><i
+                                                                    class="fa-regular fa-clock"></i></span>
+                                                            <span>Duration: 8-10 Months</span>
+                                                        </div> -->
+                      </div>
+                    </div>
+                    <i
+                      class="fa-solid fa-angle-right text-gray-400 group-hover/submenu:text-indigo-600 group-hover/submenu:translate-x-1 transition-all"></i>
+                  </a>
+                  <a href="/courses/mastering-generative-AI">
+                    <div
+                      class="submenu-panel absolute left-full top-0 ml-2 w-64 bg-white rounded-xl shadow-xl border border-indigo-100/70 p-3 z-50 opacity-0 invisible group-hover/submenu:opacity-100 group-hover/submenu:visible group-hover/submenu:translate-x-0 translate-x-2 transition-all duration-200">
+                      <div class="space-y-3">
+                        <div class="flex items-start gap-3 p-1.5 rounded-lg hover:bg-amber-50">
+                          <div
+                            class="w-7 h-7 rounded-full bg-amber-100 flex items-center justify-center text-amber-600">
+                            <i class="fa-solid fa-sun"></i>
+                          </div>
+                          <div>
+                            <div class="font-bold text-gray-800 text-sm">Summer
+                              Training</div>
+                            <div class="text-xs text-gray-500"><i class="fa-regular fa-calendar-alt"></i>
+                              Duration:
+                              30-45 Days
+                            </div>
+                          </div>
+                        </div>
+
+                  </a>
+                  <a href="/courses/mastering-generative-AI">
+                    <div class="flex items-start gap-3 p-1.5 rounded-lg hover:bg-indigo-50">
+                      <div class="w-7 h-7 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
+                        <i class="fa-solid fa-briefcase"></i>
+                      </div>
+                      <div>
+                        <div class="font-bold text-gray-800 text-sm">Apprenticeship
+                        </div>
+                        <div class="text-xs text-gray-500"><i class="fa-regular fa-clock mr-1"></i> Duration: 6-8
+                          months
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
               </div>
             </div>
+
+            <!-- PHP Laravel Course Item -->
+            <div class="course-item relative group/submenu overflow-visible">
+              <a href="/courses/php"
+                class="course-link flex items-center justify-between p-2 rounded-xl bg-white hover:bg-red-50/60 transition-all duration-150">
+                <div class="flex items-start gap-3">
+                  <div class="text-red-500 text-lg w-6 pt-0.5"><i class="fab fa-php"></i>
+                  </div>
+                  <div>
+                    <div class="course-name font-extrabold text-gray-800">PHP Web Development with
+                      Laravel</div>
+                    <!-- <div
+                                                            class="course-duration flex items-center gap-1.5 text-xs text-gray-500 mt-1">
+                                                            <span class="text-indigo-500"><i
+                                                                    class="fa-regular fa-clock"></i></span>
+                                                            <span>Duration: 8-10 Months</span>
+                                                        </div> -->
+                  </div>
+                </div>
+                <i
+                  class="fa-solid fa-angle-right text-gray-400 group-hover/submenu:text-indigo-600 group-hover/submenu:translate-x-1 transition-all"></i>
+              </a>
+              <a href="/courses/php">
+                <div
+                  class="submenu-panel absolute left-full top-0 ml-2 w-64 bg-white rounded-xl shadow-xl border border-indigo-100/70 p-3 z-50 opacity-0 invisible group-hover/submenu:opacity-100 group-hover/submenu:visible group-hover/submenu:translate-x-0 translate-x-2 transition-all duration-200">
+                  <div class="space-y-3">
+                    <div class="flex items-start gap-3 p-1.5 rounded-lg hover:bg-amber-50">
+                      <div class="w-7 h-7 rounded-full bg-amber-100 flex items-center justify-center text-amber-600">
+                        <i class="fa-solid fa-sun"></i>
+                      </div>
+                      <div>
+                        <div class="font-bold text-gray-800 text-sm">Summer
+                          Training</div>
+                        <div class="text-xs text-gray-500"><i class="fa-regular fa-calendar-alt"></i> Duration:
+                          30-45 Days
+                        </div>
+                      </div>
+                    </div>
+                    <a href="./courses/php">
+                      <div class="flex items-start gap-3 p-1.5 rounded-lg hover:bg-indigo-50">
+                        <div
+                          class="w-7 h-7 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
+                          <i class="fa-solid fa-user-graduate"></i>
+                        </div>
+                        <div>
+                          <div class="font-bold text-gray-800 text-sm">
+                            Apprenticeship
+                          </div>
+                          <div class="text-xs text-gray-500"> <i class="fa-regular fa-clock mr-1"></i>Duration:
+                            6-8
+                            months
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Dropdown CTA with consistent padding -->
+          <div
+            class="dropdown-cta border-t border-gray-100 px-4 py-3.5 bg-gray-50/80 rounded-b-2xl flex items-center justify-between flex-wrap gap-2">
+            <div class="guidance-text flex items-center gap-1.5 text-sm font-medium text-gray-700">
+              <i class="fa-regular fa-message text-blue-500"></i>
+              <span>Looking for Guidance ?</span>
+            </div>
+            <button
+              class="callback-btn bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded-full shadow-md transition-all flex items-center gap-2"
+              id="callbackDropdownBtn">
+              Request A Call Back <i class="fa-solid fa-phone"></i>
+            </button>
           </div>
         </div>
-
-        <!-- Get Career Guidance Button -->
-        <button
-          class="hidden sm:flex items-center gap-3 bg-theme-blue text-white px-7 py-2.5 rounded-full font-bold shadow-md hover:shadow-lg transition-all">
-          <i class="fa-solid fa-graduation-cap"></i>
-          <span>Get Career Guidance</span>
-        </button>
-
-        <!-- HAMBURGER BUTTON (opens sidebar) -->
-        <button id="openSidebarBtn"
-          class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-transparent text-theme-black hover:border-theme-black">
-          <i class="fa-solid fa-bars-staggered text-xl"></i>
-        </button>
-
       </div>
+    </div>
+
+
+    </div>
+
+
+    </div>
+
+    <script>
+      (function () {
+        // Callback functionality
+        const callbackBtn = document.getElementById('callbackDropdownBtn');
+        if (callbackBtn) {
+          callbackBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert("📞 Thanks for your interest! A career advisor will contact you within 24 hours.");
+          });
+        }
+
+        // SMART POPUP POSITIONING to avoid overflow (works on all screen sizes)
+        const courseItems = document.querySelectorAll('.course-item');
+
+        function initSmartPopupPlacement() {
+          courseItems.forEach(item => {
+            const submenu = item.querySelector('.submenu-panel');
+            if (!submenu) return;
+
+            // remove old listeners to avoid duplicates
+            item.removeEventListener('mouseenter', handleMouseEnter);
+            item.removeEventListener('mouseleave', handleMouseLeave);
+
+            function handleMouseEnter() {
+              setTimeout(() => {
+                const rect = item.getBoundingClientRect();
+                const viewportWidth = window.innerWidth;
+                if (submenu) {
+                  // reset inline styles to get natural width
+                  submenu.style.left = '';
+                  submenu.style.right = '';
+                  submenu.style.marginLeft = '';
+                  submenu.style.marginRight = '';
+                  // Force reflow to measure correctly
+                  submenu.style.visibility = 'hidden';
+                  submenu.style.display = 'block';
+                  const subRect = submenu.getBoundingClientRect();
+                  submenu.style.visibility = '';
+                  submenu.style.display = '';
+
+                  const potentialRightEdge = rect.right + subRect.width + 16;
+                  if (potentialRightEdge > viewportWidth) {
+                    submenu.style.left = 'auto';
+                    submenu.style.right = '100%';
+                    submenu.style.marginLeft = '0px';
+                    submenu.style.marginRight = '8px';
+                  } else {
+                    submenu.style.left = '100%';
+                    submenu.style.right = 'auto';
+                    submenu.style.marginLeft = '8px';
+                    submenu.style.marginRight = '0px';
+                  }
+                }
+              }, 10);
+            }
+
+            function handleMouseLeave() {
+              if (submenu) {
+                submenu.style.left = '';
+                submenu.style.right = '';
+                submenu.style.marginLeft = '';
+                submenu.style.marginRight = '';
+                submenu.style.transform = '';
+              }
+            }
+
+            item.addEventListener('mouseenter', handleMouseEnter);
+            item.addEventListener('mouseleave', handleMouseLeave);
+          });
+        }
+
+        // reset on resize
+        let resizeTimer;
+        window.addEventListener('resize', function () {
+          if (resizeTimer) clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(() => {
+            document.querySelectorAll('.submenu-panel').forEach(panel => {
+              panel.style.left = '';
+              panel.style.right = '';
+              panel.style.marginLeft = '';
+              panel.style.marginRight = '';
+            });
+          }, 150);
+        });
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initSmartPopupPlacement);
+        } else {
+          initSmartPopupPlacement();
+        }
+
+        console.log('✅ Interactive Course Explorer | Proper icons, clean spacing, summer(3-4) & apprenticeship(6-8)');
+      })();
+    </script>
+    <!-- Get Career Guidance Button -->
+    <button id="callbackDropdownBtn"
+      class="open-inquire-btn hidden sm:flex items-center gap-3 bg-theme-blue text-white px-2 sm:px-7 py-2.5 rounded-full font-bold shadow-md hover:shadow-lg transition-all">
+      <i class="fa-solid fa-graduation-cap"></i>
+      <span class="text-xs md:text-base">Get Career Guidance</span>
+    </button>
+
+    <!-- HAMBURGER BUTTON (opens sidebar) -->
+    <button id="openSidebarBtn"
+      class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-transparent text-theme-black hover:border-theme-black">
+      <i class="fa-solid fa-bars-staggered text-xl"></i>
+    </button>
+
+    </div>
     </div>
   </header>
 
@@ -166,14 +499,15 @@
 
 
 
-
   <!-- SIDEBAR -->
   <aside id="sidebar"
     class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform translate-x-full transition-all duration-300 ease-out flex flex-col">
 
     <!-- HEADER -->
     <div class="flex items-center justify-between px-6 py-5 border-b border-gray-100">
-      <h2 class="text-xl font-bold text-[#233fff]">Menu</h2>
+      <a href="/">
+        <h2 class="text-xl font-bold text-[#233fff]"><i class="fas fa-home"></i></h2>
+      </a>
       <button id="closeSidebarBtn" class="py-1 px-3  bg-gray-50 hover:bg-red-50 hover:text-red-500 rounded-full">
         <i class="fas fa-times"></i>
       </button>
@@ -201,45 +535,51 @@
         <div id="coursesMenu"
           class="mt-1 mb-3 ml-6 pl-5 border-l-2 border-gray-100 space-y-1 overflow-hidden transition-all duration-300 max-h-[500px]">
 
-          <a href="/courses/mern-full-stack-development"
+          <a href="./mern-full-stack-development"
             class="group flex items-center gap-3 py-2.5 px-3 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-[#233fff]">
             <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div>
-            <i class="fas fa-code text-gray-400 group-hover:text-[#233fff]"></i>
-            MERN Full Stack Development
+            <i class="fa-brands fa-react text-gray-400 group-hover:text-[#233fff]"></i>
+            Full Stack Web Development (MERN)
           </a>
 
-          <a href="/courses/flutter-hybrid-app-development"
+          <a href="./flutter-hybrid-app-development"
             class="group flex items-center gap-3 py-2.5 px-3 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-[#233fff]">
             <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div>
-            <i class="fas fa-mobile-alt text-gray-400 group-hover:text-[#233fff]"></i>
-            Flutter Hybrid App Development
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"
+              class="w-5 h-5 text-gray-400 group-hover:text-[#233fff] fill-current transition-colors duration-300">
+              <path
+                d="M525.5 300.3L387.7 438.1L525.5 576L368 576C331.9 539.9 285.9 493.9 230.1 438.1L368 300.3L525.5 300.3zM368 64L112 320L190.8 398.8L525.5 64L368 64z" />
+            </svg>
+            Flutter App Development
           </a>
 
-          <a href="/courses/mastering-generative-AI"
+          <a href="../courses/mastering-generative-AI"
             class="group flex items-center gap-3 py-2.5 px-3 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-[#233fff]">
             <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div>
-            <i class="fas fa-robot text-gray-400 group-hover:text-[#233fff]"></i>
-            Mastering Generative AI
+            <i class="fa-solid fa-brain text-gray-400 group-hover:text-[#233fff]"></i>
+
+            Data Analytics with Generative AI
           </a>
 
-          <a href="/courses/php"
+          <a href="../courses/php"
             class="group flex items-center gap-3 py-2.5 px-3 text-sm text-gray-600 rounded-lg hover:bg-blue-50 hover:text-[#233fff]">
             <div class="w-1.5 h-1.5 bg-gray-300 rounded-full group-hover:bg-[#233fff]"></div>
-            <i class="fas fa-database text-gray-400 group-hover:text-[#233fff]"></i>
-            PHP
+            <i class="fa-brands fa-php text-gray-400 group-hover:text-[#233fff]"></i>
+
+            PHP Web Development with Laravel
           </a>
 
         </div>
       </div>
 
       <!-- OTHER MENU -->
-      <a href="/placements"
+      <a href="../placements"
         class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
         <i class="fas fa-briefcase text-gray-400 group-hover:text-[#233fff]"></i>
         Placements
       </a>
 
-      <a href="/hire-from-us"
+      <a href="../hire-from-us"
         class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
         <i class="fas fa-user-plus text-gray-400 group-hover:text-[#233fff]"></i>
         Hire From Us
@@ -247,18 +587,18 @@
 
 
 
-      <a href="/campus-training"
+      <a href="../campus-training"
         class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
         <i class="fas fa-graduation-cap text-gray-400 group-hover:text-[#233fff]"></i>
         Campus Training
       </a>
 
-      <a href="/contact"
+      <a href="../contact"
         class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
         <i class="fas fa-phone text-gray-400 group-hover:text-[#233fff]"></i>
         Contact Us
       </a>
-      <a href="/about"
+      <a href="../about.html"
         class="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-[#233fff] font-semibold">
         <i class="fas fa-circle-info text-gray-400 group-hover:text-[#233fff]"></i>
         About Us
@@ -369,11 +709,10 @@
             class="text-slate-900 font-bold underline decoration-blue-600 decoration-2">Modern AI Tools</span> to
           automate insights and build intelligent business models.
         </p>
-      <div class="flex flex-col sm:flex-row gap-4 sm:gap-5 pt-4 w-full">
-  
-  <!-- Start Learning -->
-  <button id="startLearningBtn"
-    class="group w-full sm:flex-1 justify-center relative
+        <div class="flex flex-col sm:flex-row gap-4 sm:gap-5 pt-4 w-full">
+
+          <!-- Start Learning -->
+          <button id="startLearningBtn" class="group w-full sm:flex-1 justify-center relative
            px-6 sm:px-8 lg:px-10
            py-3 sm:py-4 lg:py-5
            rounded-xl sm:rounded-2xl
@@ -383,16 +722,14 @@
            transition-all hover:scale-105 active:scale-95
            flex items-center gap-2 sm:gap-3
            overflow-hidden bg-blue-600">
-    
-    Start Learning 
-    <i data-lucide="arrow-right"
-       class="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform">
-    </i>
-  </button>
 
-  <!-- View Syllabus -->
-  <button id="heroViewSyllabusBtn"
-    class="w-full sm:flex-1 justify-center
+            Start Learning
+            <i data-lucide="arrow-right" class="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform">
+            </i>
+          </button>
+
+          <!-- View Syllabus -->
+          <button id="heroViewSyllabusBtn" class="w-full sm:flex-1 justify-center
            px-6 sm:px-8 lg:px-10
            py-3 sm:py-4 lg:py-5
            rounded-xl sm:rounded-2xl
@@ -403,26 +740,25 @@
            transition-all
            flex items-center gap-2 sm:gap-3
            bg-white shadow-sm text-slate-700">
-    
-    <i data-lucide="download"
-       class="w-4 h-4 sm:w-5 sm:h-5 text-blue-600">
-    </i> 
-    View Syllabus
-  </button>
 
-</div>
-        <div class="flex items-center gap-6 pt-6 border-t border-slate-200">
+            <i data-lucide="download" class="w-4 h-4 sm:w-5 sm:h-5 text-blue-600">
+            </i>
+            View Syllabus
+          </button>
+
+        </div>
+        <div class="flex items-center gap-6 pt-6 border-t border-slate-100">
           <div class="flex -space-x-3">
             <div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden shadow-sm"><img
-                src="https://i.pravatar.cc/100?img=11" class="w-full h-full object-cover"></div>
+                src="../assets/images/placements/abhi.png" alt="student"></div>
             <div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden shadow-sm"><img
-                src="https://i.pravatar.cc/100?img=12" class="w-full h-full object-cover"></div>
+                src="../assets/images/placements/kirti.png" alt="student"></div>
             <div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden shadow-sm"><img
-                src="https://i.pravatar.cc/100?img=13" class="w-full h-full object-cover"></div>
+                src="../assets/images/placements/ujjal.png" alt="student"></div>
             <div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden shadow-sm"><img
-                src="https://i.pravatar.cc/100?img=14" class="w-full h-full object-cover"></div>
+                src="../assets/images/placements/Adnan Saifi.png" alt="student"></div>
           </div>
-          <p class="text-sm font-bold text-slate-500 italic">Upskilling 4,000+ AI Specialists</p>
+          <p class="text-sm font-bold text-slate-500 italic">Trusted by 5,000+ Full Stack Engineers</p>
         </div>
       </div>
 
@@ -498,58 +834,66 @@
   </section>
 
   <!-- STATS SECTION -->
-<section class="py-20 sm:py-20 px-4 sm:px-6">
-  <div class="max-w-7xl mx-auto">
-    
-    <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-      
-      <!-- Card -->
-      <div class="group p-8 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 text-center">
-        <div class="inline-flex p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-blue-50 text-blue-600 mb-5 sm:mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
-          <i data-lucide="users" class="w-6 h-6 sm:w-7 sm:h-7"></i>
-        </div>
-        <div class="text-2xl sm:text-3xl font-black mb-2 text-slate-800 tracking-tight">4K+</div>
-        <div class="text-slate-400 uppercase text-[9px] sm:text-[10px] tracking-[0.2em] font-bold">
-          Data Analysts
-        </div>
-      </div>
+  <section class="py-20 bg-gray-100 sm:py-20 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto">
 
-      <!-- Card -->
-      <div class="group p-8 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 text-center">
-        <div class="inline-flex p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-blue-50 text-blue-600 mb-5 sm:mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
-          <i data-lucide="brain-circuit" class="w-6 h-6 sm:w-7 sm:h-7"></i>
-        </div>
-        <div class="text-2xl sm:text-3xl font-black mb-2 text-slate-800 tracking-tight">AI Ready</div>
-        <div class="text-slate-400 uppercase text-[9px] sm:text-[10px] tracking-[0.2em] font-bold">
-          Elite Curriculum
-        </div>
-      </div>
+      <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
 
-      <!-- Card -->
-      <div class="group p-8 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 text-center">
-        <div class="inline-flex p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-blue-50 text-blue-600 mb-5 sm:mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
-          <i data-lucide="code" class="w-6 h-6 sm:w-7 sm:h-7"></i>
+        <!-- Card -->
+        <div
+          class="group p-8 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 text-center">
+          <div
+            class="inline-flex p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-blue-50 text-blue-600 mb-5 sm:mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
+            <i data-lucide="users" class="w-6 h-6 sm:w-7 sm:h-7"></i>
+          </div>
+          <div class="text-2xl sm:text-3xl font-black mb-2 text-slate-800 tracking-tight">4K+</div>
+          <div class="text-slate-400 uppercase text-[9px] sm:text-[10px] tracking-[0.2em] font-bold">
+            Data Analysts
+          </div>
         </div>
-        <div class="text-2xl sm:text-3xl font-black mb-2 text-slate-800 tracking-tight">SQL/GenAI</div>
-        <div class="text-slate-400 uppercase text-[9px] sm:text-[10px] tracking-[0.2em] font-bold">
-          Hybrid Mastery
-        </div>
-      </div>
 
-      <!-- Card -->
-      <div class="group p-8 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 text-center">
-        <div class="inline-flex p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-blue-50 text-blue-600 mb-5 sm:mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
-          <i data-lucide="award" class="w-6 h-6 sm:w-7 sm:h-7"></i>
+        <!-- Card -->
+        <div
+          class="group p-8 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 text-center">
+          <div
+            class="inline-flex p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-blue-50 text-blue-600 mb-5 sm:mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
+            <i data-lucide="brain-circuit" class="w-6 h-6 sm:w-7 sm:h-7"></i>
+          </div>
+          <div class="text-2xl sm:text-3xl font-black mb-2 text-slate-800 tracking-tight">AI Ready</div>
+          <div class="text-slate-400 uppercase text-[9px] sm:text-[10px] tracking-[0.2em] font-bold">
+            Elite Curriculum
+          </div>
         </div>
-        <div class="text-2xl sm:text-3xl font-black mb-2 text-slate-800 tracking-tight">Global</div>
-        <div class="text-slate-400 uppercase text-[9px] sm:text-[10px] tracking-[0.2em] font-bold">
-          Certifications
-        </div>
-      </div>
 
+        <!-- Card -->
+        <div
+          class="group p-8 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 text-center">
+          <div
+            class="inline-flex p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-blue-50 text-blue-600 mb-5 sm:mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
+            <i data-lucide="code" class="w-6 h-6 sm:w-7 sm:h-7"></i>
+          </div>
+          <div class="text-2xl sm:text-3xl font-black mb-2 text-slate-800 tracking-tight">SQL/GenAI</div>
+          <div class="text-slate-400 uppercase text-[9px] sm:text-[10px] tracking-[0.2em] font-bold">
+            Hybrid Mastery
+          </div>
+        </div>
+
+        <!-- Card -->
+        <div
+          class="group p-8 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 text-center">
+          <div
+            class="inline-flex p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-blue-50 text-blue-600 mb-5 sm:mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
+            <i data-lucide="award" class="w-6 h-6 sm:w-7 sm:h-7"></i>
+          </div>
+          <div class="text-2xl sm:text-3xl font-black mb-2 text-slate-800 tracking-tight">Global</div>
+          <div class="text-slate-400 uppercase text-[9px] sm:text-[10px] tracking-[0.2em] font-bold">
+            Certifications
+          </div>
+        </div>
+
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <!-- TRAINING PROGRAMS (VERTICALS) -->
   <section class="py-20 px-6 bg-white">
@@ -638,7 +982,8 @@
   </section>
 
   <!-- FLAGSHIP MOBILE REELS (AI IMAGE GENERATOR) -->
-  <section class="py-32 px-3 sm:px-6 bg-slate-900 text-white rounded-md md:rounded-[4rem] mx-6 mb-12 overflow-hidden relative shadow-2xl">
+  <section
+    class="py-32 px-3 sm:px-6 bg-slate-900 text-white rounded-md md:rounded-[4rem] mx-6 mb-12 overflow-hidden relative shadow-2xl">
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_#2563eb15,_transparent_50%)]"></div>
     <div class="max-w-7xl mx-auto relative z-10">
       <div class="text-center mb-16">
@@ -975,9 +1320,21 @@
     </div>
   </section>
 
-   <button id="e45" class="whatsapp-float callbackBtn">
-        <i class="fab fa-whatsapp"></i>
-    </button>
+  <button id="e45" class="fixed callbackBtn bottom-5 right-5 z-50 flex items-center justify-center 
+  w-14 h-14 rounded-full text-white text-2xl
+
+  bg-gradient-to-br from-[#25D366] to-[#1ebe5d]
+
+  shadow-[0_10px_25px_rgba(37,211,102,0.4)]
+  hover:shadow-[0_15px_35px_rgba(37,211,102,0.6)]
+  backdrop-blur-md
+  transition-all duration-300
+  hover:scale-110 active:scale-95
+  before:content-[''] before:absolute before:inset-0 before:rounded-full
+  before:bg-[#25D366]/40 before:animate-ping before:-z-10
+">
+    <i class="fab fa-whatsapp"></i>
+  </button>
 
 
 
@@ -989,18 +1346,68 @@
         <!-- Col 1: Brand Info -->
         <div class="space-y-6">
           <div class="flex items-center gap-2">
-            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white">
-              H</div>
-            <span class="text-2xl font-black text-white tracking-tighter uppercase">Hindtech</span>
+            <div class="flex items-center">
+              <img src="../assets/images/home/bt_logo.png" alt="Hindtech" class="h-8 object-contain" />
+            </div>
           </div>
-          <div class="space-y-4 text-sm font-medium">
-            <p class="uppercase text-xs tracking-widest text-blue-500 font-black">Address: Hindtech
-              Education Lucknow</p>
-            <p class="leading-relaxed">1st Floor, Mohini Mansion, 1, Naval Kishore Rd, above Baby Hug
-              Showroom, near Cathedral School, Hazratganj, Lucknow, Uttar Pradesh 226001</p>
-            <p>Pan India Branches</p>
-            <p><span class="text-white">EMAIL ID:</span> mail@hindtech.com</p>
-            <p><span class="text-white">CONTACT:</span> +91 9170446729</p>
+          <div class="space-y-4  text-sm font-medium">
+
+            <!-- Address -->
+            <p class="uppercase text-xs tracking-widest text-blue-500 font-black">
+              Address: Hindtech IT Solutions | Hindtech Learning Point Lucknow
+            </p>
+
+            <p class="leading-relaxed">
+              PARMAR PLAZA, First Floor, Bakshi Ka Talab, Bargadi Magath, Uttar Pradesh Lucknow 226201
+            </p>
+
+            <!-- Emails -->
+            <div class="space-y-2">
+              <p class="text-white font-semibold">EMAIL ID:</p>
+
+              <a href="mailto:info@hindtechitsolutions.com"
+                class="flex items-center gap-2 hover:text-blue-500 transition">
+                <i class="fa-solid fa-envelope text-blue-500"></i>
+                info@hindtechitsolutions.com
+              </a>
+
+              <a href="mailto:info@hindtechlearningpoint.com"
+                class="flex items-center gap-2 hover:text-blue-500 transition">
+                <i class="fa-solid fa-envelope text-blue-500"></i>
+                info@hindtechlearningpoint.com
+              </a>
+            </div>
+
+            <!-- Contact Numbers -->
+            <div class="space-y-2">
+              <p class="text-white font-semibold">CONTACT:</p>
+
+              <div class="flex">
+
+                <a href="tel:+916307738600" class="flex items-center gap-2 hover:text-blue-500 transition">
+                  <i class="fa-solid fa-phone text-blue-500"></i>
+                  +91 6307738600
+                </a>
+                <span class="px-2">|</span>
+                <a href="tel:+919557878427" class="flex items-center gap-2 hover:text-blue-500 transition">
+
+                  +91 9557878427
+                </a>
+              </div>
+              <div class="flex">
+                <a href="tel:+917905320279" class="flex items-center gap-2 hover:text-blue-500 transition">
+                  <i class="fa-solid fa-phone text-blue-500"></i>
+                  +91 7905320279
+                </a>
+                <span class="px-2">|</span>
+                <a href="tel:+919170446729" class="flex items-center gap-2 hover:text-blue-500 transition">
+
+                  +91 9170446729
+                </a>
+
+              </div>
+            </div>
+
           </div>
           <div class="flex gap-3">
             <a href="https://www.facebook.com/HindtechLucknow/?hl=en" target="_blank" class="social-icon"><i
@@ -1018,50 +1425,66 @@
         <div>
           <h3 class="footer-heading">Quick Links</h3>
 
-          <div class="text-sm font-bold space-y-2">
+          <div class="text-sm font-bold space-y-3">
 
-            <a href="../placements" class="group footer-link flex items-center gap-2">
+            <a href="/placements" target="_blank" class="group footer-link flex items-center gap-2">
               <i class="fas fa-briefcase text-gray-400 group-hover:text-[#233fff]"></i>
               Placements
             </a>
 
-            <a href="../hire-from-us" class="group footer-link flex items-center gap-2">
+            <a href="/hire-from-us" target="_blank" class="group footer-link flex items-center gap-2">
               <i class="fas fa-user-plus text-gray-400 group-hover:text-[#233fff]"></i>
               Hire From Us
             </a>
 
-            <a href="../campus-training" class="group footer-link flex items-center gap-2">
+            <a href="/campus-training" target="_blank" class="group footer-link flex items-center gap-2 ">
               <i class="fas fa-graduation-cap text-gray-400 group-hover:text-[#233fff]"></i>
               Campus Training
             </a>
 
 
 
-            <a href="../contact" class="group footer-link flex items-center gap-2">
+            <a href="/contact" target="_blank" class="group footer-link flex items-center gap-2 ">
               <i class="fas fa-phone text-gray-400 group-hover:text-[#233fff]"></i>
               Contact Us
             </a>
 
-            <a href="../about" class="group footer-link flex items-center gap-2">
+            <a href="/about" target="_blank" class="group footer-link flex items-center gap-2 ">
               <i class="fas fa-circle-info text-gray-400 group-hover:text-[#233fff]"></i>
               About Us
             </a>
-
-
           </div>
         </div>
 
         <!-- Col 3: Our Courses -->
         <div>
           <h3 class="footer-heading">Our Courses</h3>
-          <div class="text-sm font-bold">
-            <a href="./mern-full-stack-development" class="footer-link">Mern Full Stack
-              Development</a>
-            <a href="./flutter-hybrid-app-development" class="footer-link">Flutter Hybrid App
-              Development</a>
-            <a href="./mastering-generative-AI" class="footer-link">Mastering Generative AI</a>
-            <a href="./php" class="footer-link">Mastering
-              PHP Laravel</a>
+          <div class="text-sm font-bold space-y-3">
+
+            <a href="./courses/mern-full-stack-development" target="_blank"
+              class="footer-link flex items-center  group">
+              Full Stack Web Development (MERN)
+            </a>
+
+            <a href="./courses/mastering-generative-AI" target="_blank" class="footer-link flex items-center   group">
+              <!-- AI (brain icon) -->
+
+              Data Analytics with Generative AI
+            </a>
+
+            <a href="./courses/flutter-hybrid-app-development" target="_blank"
+              class="footer-link flex items-center   group">
+              <!-- Flutter -->
+
+              Flutter App Development
+            </a>
+
+            <a href="./courses/php" target="_blank" class="footer-link flex items-center   group">
+              <!-- Laravel -->
+
+              PHP Web Development with Laravel
+            </a>
+
           </div>
         </div>
 
@@ -1071,10 +1494,10 @@
             institute</h3>
           <p class="text-sm mb-8 leading-relaxed">Raise the bar of your career with the certification from one
             of the prestigious organizations</p>
-          <a href="#"
-            class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-black py-4 px-6 rounded-xl text-sm transition-all group">
+          <button
+            class="open-inquire-btn inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-black py-4 px-6 rounded-xl text-sm transition-all group">
             Inquire Now <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-          </a>
+          </button>
         </div>
 
       </div>
@@ -1082,11 +1505,85 @@
       <!-- Bottom Copyright -->
       <div
         class="pt-8 border-t border-slate-800 text-center text-xs font-bold text-slate-500 uppercase tracking-widest">
-        Copyright © Hindtech Education Pvt. Ltd. 2022-2026 | Terms | Placement | Privacy | Refund
+        Copyright © Hindtech Learning Point. 2020-2026
       </div>
     </div>
   </footer>
+  <div id="inquiryModal" class="fixed inset-0 z-50 hidden  items-center justify-center p-4 modal-transition"
+        style="background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px);">
+        <div class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300 scale-95 opacity-0"
+            id="modalContainer">
+            <!-- Modal Header with blue theme -->
+            <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+                        </path>
+                    </svg>
+                    <h2 class="text-xl font-bold text-white tracking-tight">Inquire Now</h2>
+                </div>
+                <button id="closeModalBtn" class="text-white hover:bg-white/20 rounded-full p-1.5 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
 
+            <!-- Modal Body: Form -->
+            <div class="px-6 py-5 bg-white">
+                <!-- global status message (success / error from API) -->
+                <div id="formStatusMessage" class="mb-4 text-sm rounded-lg hidden transition-all"></div>
+
+                <form id="inquiryForm" novalidate>
+                    <!-- Mobile Number Field -->
+                    <div class="mb-5">
+                        <label class="block text-gray-700 font-medium mb-1.5 text-sm"><i class="fas fa-phone"></i>
+                            Mobile Number <span class="text-red-500">*</span></label>
+                        <input type="tel" id="mobile" name="mobile"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-400 focus:border-brand-500 outline-none transition"
+                            placeholder="Enter 10-digit Mobile Number" autocomplete="off">
+                        <div id="mobileError" class="text-red-500 text-xs mt-1 hidden"></div>
+                    </div>
+
+                    <!-- Full Name Field -->
+                    <div class="mb-5">
+                        <label class="block text-gray-700 font-medium mb-1.5 text-sm"><i class="fas fa-user"></i> Full
+                            Name <span class="text-red-500">*</span></label>
+                        <input type="text" id="fullName" name="fullName"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-400 focus:border-brand-500 outline-none transition"
+                            placeholder="Your Name">
+                        <div id="nameError" class="text-red-500 text-xs mt-1 hidden"></div>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-1.5 text-sm"> <i
+                                class="fa-regular fa-envelope"></i> Email <span class="text-red-500">*</span></label>
+                        <input type="email" id="email" name="email"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-400 focus:border-brand-500 outline-none transition"
+                            placeholder="e.g. yourname@gmail.com">
+                        <div id="emailError" class="text-red-500 text-xs mt-1 hidden"></div>
+                    </div>
+
+                    <!-- Submit Button with loader integration -->
+                    <button type="submit" id="submitBtn"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl transition duration-200 flex items-center justify-center gap-2 shadow-md">
+                        <span id="submitText">Submit Inquiry</span>
+                        <span id="submitLoader" class="hidden">
+                            <div class="spinner"></div>
+                        </span>
+                    </button>
+                </form>
+
+                <!-- <div class="mt-4 text-center text-xs text-gray-400 border-t pt-3">
+                    🔒 We'll never share your details. Simulated API + Local DB storage.
+                </div> -->
+            </div>
+        </div>
+    </div>
   <!-- LUCIDE + MODAL + ALERTS JS -->
   <script>
     // Initialize lucide icons after DOM
@@ -1138,19 +1635,10 @@
 
 
 
-        // ========== WHATSAPP CALLBACK ==========
-const phoneNumber = "9170446729";
-const callbackButtons = document.querySelectorAll('.callbackBtn');
-
-callbackButtons.forEach(btn => {
-  btn.addEventListener('click', function(e) {
-    e.preventDefault();
-    const message = "Hello HindTech, I need career guidance. Please call me back.";
-    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
-  });
-});
 
   </script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/popup.js"></script>
 </body>
 
 </html>
