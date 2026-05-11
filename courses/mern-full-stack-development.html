@@ -672,7 +672,7 @@
     <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" id="modalBackdrop"></div>
     <!-- modal card -->
     <div class="relative bg-white w-full max-w-md rounded-[2.5rem] shadow-2xl overflow-hidden modal-fade-in">
-      <button id="closeModalBtn"
+      <button id="closeSyllabusModalBtn"
         class="absolute top-6 right-6 p-2 rounded-full hover:bg-slate-100 text-slate-400 transition-colors">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
@@ -795,7 +795,7 @@
             <div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden shadow-sm"><img
                 src="../assets/images/placements/Adnan Saifi.png" alt="student"></div>
           </div>
-          <p class="text-sm font-bold text-slate-500 italic">Trusted by 5,000+ Full Stack Engineers</p>
+          <p class="text-sm font-bold text-slate-500 italic">Trusted by 1,200+ Full Stack Engineers</p>
         </div>
       </div>
 
@@ -1185,7 +1185,7 @@
         We don't teach you to code, we teach you to <b>think</b>. Every line of code you write is a step toward building
         a real product."</p>
     <div
-  class="flex flex-wrap bg-white justify-center items-center gap-12 py-5 rounded-full border-t border-white/5   hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+  class="flex flex-wrap bg-white justify-center items-center gap-12 py-5 rounded md:rounded-full border-t border-white/5   hover:grayscale-0 hover:opacity-100 transition-all duration-700">
 
   <!-- Skill India -->
   <div class="flex flex-col items-center">
@@ -1408,20 +1408,20 @@
         <div>
           <h3 class="footer-heading">Our Courses</h3>
           <div class="text-sm font-bold space-y-3">
-            <a href="./courses/mern-full-stack-development" target="_blank"
+            <a href="../courses/mern-full-stack-development" target="_blank"
               class="footer-link flex items-center  group">
               Full Stack Web Development (MERN)
             </a>
-            <a href="./courses/mastering-generative-AI" target="_blank" class="footer-link flex items-center   group">
+            <a href="../courses/mastering-generative-AI" target="_blank" class="footer-link flex items-center   group">
               <!-- AI (brain icon) -->
               Data Analytics with Generative AI
             </a>
-            <a href="./courses/flutter-hybrid-app-development" target="_blank"
+            <a href="../courses/flutter-hybrid-app-development.html" target="_blank"
               class="footer-link flex items-center   group">
               <!-- Flutter -->
               Flutter App Development
             </a>
-            <a href="./courses/php" target="_blank" class="footer-link flex items-center   group">
+            <a href="../courses/php" target="_blank" class="footer-link flex items-center   group">
               <!-- Laravel -->
               PHP Web Development with Laravel
             </a>
@@ -1537,7 +1537,7 @@
 
       const modal = document.getElementById('syllabusModal');
       const openModalBtns = document.querySelectorAll('.open-modal-btn');
-      const closeModalBtn = document.getElementById('closeModalBtn');
+      const closeSyllabusModalBtn = document.getElementById('closeSyllabusModalBtn');
       const modalBackdrop = document.getElementById('modalBackdrop');
 
       function openModal() {
@@ -1552,7 +1552,7 @@
       openModalBtns.forEach(btn => {
         btn.addEventListener('click', openModal);
       });
-      if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+      if (closeSyllabusModalBtn) closeSyllabusModalBtn.addEventListener('click', closeModal);
       if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
 
       // download option buttons inside modal (just alert for demo)

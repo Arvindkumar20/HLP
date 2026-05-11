@@ -70,38 +70,38 @@
       border-color: #dc2626;
     }
   </style>
-    <style>
-        /* smooth overlay transition */
-        .modal-transition {
-            transition: opacity 0.2s ease, visibility 0.2s ease;
-        }
+  <style>
+    /* smooth overlay transition */
+    .modal-transition {
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
 
-        /* custom spinner */
-        .spinner {
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top: 2px solid white;
-            width: 18px;
-            height: 18px;
-            animation: spin 0.6s linear infinite;
-            display: inline-block;
-        }
+    /* custom spinner */
+    .spinner {
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 2px solid white;
+      width: 18px;
+      height: 18px;
+      animation: spin 0.6s linear infinite;
+      display: inline-block;
+    }
 
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
 
-            100% {
-                transform: rotate(360deg);
-            }
-        }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
 
-        /* hide scrollbar when modal open? optional */
-        body.modal-open {
-            overflow: hidden;
-        }
-    </style>
+    /* hide scrollbar when modal open? optional */
+    body.modal-open {
+      overflow: hidden;
+    }
+  </style>
 </head>
 
 <body class="antialiased bg-white">
@@ -414,100 +414,7 @@
 
     </div>
 
-    <script>
-      (function () {
-        // Callback functionality
-        const callbackBtn = document.getElementById('callbackDropdownBtn');
-        if (callbackBtn) {
-          callbackBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            alert("📞 Thanks for your interest! A career advisor will contact you within 24 hours.");
-          });
-        }
-
-        // SMART POPUP POSITIONING to avoid overflow (works on all screen sizes)
-        const courseItems = document.querySelectorAll('.course-item');
-
-        function initSmartPopupPlacement() {
-          courseItems.forEach(item => {
-            const submenu = item.querySelector('.submenu-panel');
-            if (!submenu) return;
-
-            // remove old listeners to avoid duplicates
-            item.removeEventListener('mouseenter', handleMouseEnter);
-            item.removeEventListener('mouseleave', handleMouseLeave);
-
-            function handleMouseEnter() {
-              setTimeout(() => {
-                const rect = item.getBoundingClientRect();
-                const viewportWidth = window.innerWidth;
-                if (submenu) {
-                  // reset inline styles to get natural width
-                  submenu.style.left = '';
-                  submenu.style.right = '';
-                  submenu.style.marginLeft = '';
-                  submenu.style.marginRight = '';
-                  // Force reflow to measure correctly
-                  submenu.style.visibility = 'hidden';
-                  submenu.style.display = 'block';
-                  const subRect = submenu.getBoundingClientRect();
-                  submenu.style.visibility = '';
-                  submenu.style.display = '';
-
-                  const potentialRightEdge = rect.right + subRect.width + 16;
-                  if (potentialRightEdge > viewportWidth) {
-                    submenu.style.left = 'auto';
-                    submenu.style.right = '100%';
-                    submenu.style.marginLeft = '0px';
-                    submenu.style.marginRight = '8px';
-                  } else {
-                    submenu.style.left = '100%';
-                    submenu.style.right = 'auto';
-                    submenu.style.marginLeft = '8px';
-                    submenu.style.marginRight = '0px';
-                  }
-                }
-              }, 10);
-            }
-
-            function handleMouseLeave() {
-              if (submenu) {
-                submenu.style.left = '';
-                submenu.style.right = '';
-                submenu.style.marginLeft = '';
-                submenu.style.marginRight = '';
-                submenu.style.transform = '';
-              }
-            }
-
-            item.addEventListener('mouseenter', handleMouseEnter);
-            item.addEventListener('mouseleave', handleMouseLeave);
-          });
-        }
-
-        // reset on resize
-        let resizeTimer;
-        window.addEventListener('resize', function () {
-          if (resizeTimer) clearTimeout(resizeTimer);
-          resizeTimer = setTimeout(() => {
-            document.querySelectorAll('.submenu-panel').forEach(panel => {
-              panel.style.left = '';
-              panel.style.right = '';
-              panel.style.marginLeft = '';
-              panel.style.marginRight = '';
-            });
-          }, 150);
-        });
-
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', initSmartPopupPlacement);
-        } else {
-          initSmartPopupPlacement();
-        }
-
-        console.log('✅ Interactive Course Explorer | Proper icons, clean spacing, summer(3-4) & apprenticeship(6-8)');
-      })();
-    </script>
+ 
     <!-- Get Career Guidance Button -->
     <button id="callbackDropdownBtn"
       class="open-inquire-btn hidden sm:flex items-center gap-3 bg-theme-blue text-white px-2 sm:px-7 py-2.5 rounded-full font-bold shadow-md hover:shadow-lg transition-all">
@@ -690,8 +597,8 @@
     <div class="absolute inset-0 bg-black/70 backdrop-blur-md" id="modalBackdrop"></div>
     <div
       class="relative bg-white w-full max-w-md rounded-[2.5rem] shadow-2xl overflow-hidden transform transition-all duration-300 scale-95 opacity-0 border-t-4 border-red-600"
-      id="modalContainer">
-      <button id="closeModalBtn" class="absolute top-6 right-6 p-2 rounded-full hover:bg-slate-100 text-slate-400 z-10">
+      id="syllabusModalContainer">
+      <button id="closeSyllabusModalBtn" class="absolute top-6 right-6 p-2 rounded-full hover:bg-slate-100 text-slate-400 z-10">
         <i data-lucide="x" style="width: 20px; height: 20px;"></i>
       </button>
       <div class="p-10">
@@ -810,7 +717,7 @@
               <div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden shadow-sm"><img
                   src="../assets/images/placements/Adnan Saifi.png" alt="student"></div>
             </div>
-            <p class="text-sm font-bold text-slate-500 italic">Trusted by 5,000+ Full Stack Engineers</p>
+            <p class="text-sm font-bold text-slate-500 italic">Trusted by 1,200+ Full Stack Engineers</p>
           </div>
         </div>
 
@@ -978,7 +885,7 @@
                     data-lucide="monitor" style="width: 24px; height: 24px;"></i></div>
               </div>
 
-              <div class="text-4xl md:text-6xl font-black mb-10 tracking-tighter italic">₹8,999</div>
+              <div class="text-4xl md:text-6xl font-black mb-10 tracking-tighter italic">₹6,000</div>
               <div class="space-y-4 mb-12 flex-grow">
                 <div class="flex items-center gap-3 font-bold text-slate-700"><i data-lucide="check-circle"
                     style="width:18px; color:#dc2626;"></i> Core PHP & MySQL</div>
@@ -1013,7 +920,7 @@
                 <div class="w-12 h-12 bg-red-600 text-white rounded-2xl flex items-center justify-center"><i
                     data-lucide="trophy" style="width: 24px; height: 24px;"></i></div>
               </div>
-              <div class="text-4xl md:text-6xl font-black mb-10 tracking-tighter italic">₹16,999</div>
+              <div class="text-4xl md:text-6xl font-black mb-10 tracking-tighter italic">₹25,000</div>
               <div class="space-y-4 mb-12 flex-grow">
                 <div class="flex items-center gap-3 font-bold text-white/80"><i data-lucide="check-circle-2"
                     style="width:18px; color:#dc2626;"></i> Laravel 11 Architecture</div>
@@ -1054,7 +961,7 @@
             <div
               class="relative aspect-[4/3] rounded-[2rem] sm:rounded-[3rem] overflow-hidden border-4 sm:border-8 border-white shadow-2xl">
 
-              <img src="https://images.unsplash.com/photo-1540317580384-e5d43616b9aa?auto=format&fit=crop&q=80&w=1200"
+              <img src="../assets/images/hire-from-us/recent-placement/appshree/5.png"
                 alt="Placement Success"
                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
 
@@ -1066,7 +973,7 @@
                   Success Story
                 </div>
                 <h4 class="text-xl sm:text-2xl lg:text-4xl font-black italic uppercase tracking-tight">
-                  Campus Drive 2024
+                  Campus Drive 2026
                 </h4>
               </div>
             </div>
@@ -1098,13 +1005,21 @@
 
             <h2
               class="text-2xl sm:text-3xl lg:text-5xl font-black text-black leading-tight italic uppercase tracking-tight">
-              Recruitment by <span class="text-red-600">WebInnovators Inc.</span>
+              Recruitment by <span class="text-red-600">Appshree Ventures</span>
             </h2>
 
             <p
               class="text-slate-500 font-medium text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">
-              In our latest recruitment drive, WebInnovators Inc. hired over 15 students from our Laravel batch for
-              specialized Backend Development roles.
+              In our latest recruitment drive, Appshree Ventures hired over 15 students from our Laravel batch for
+              <span class="font-medium text-gray-800"> specialized Video Editor</span>,
+              <span class="font-medium text-gray-800"> Graphic Designer</span>,
+              <span class="font-medium text-gray-800"> Sales Executive</span>,
+              <span class="font-medium text-gray-800"> Shopify Dev</span>,
+              <span class="font-medium text-gray-800">
+                Client Coordinator</span> roles.
+
+
+
             </p>
 
             <!-- INFO CARDS -->
@@ -1124,7 +1039,7 @@
                   Drive Date
                 </span>
                 <span class="text-lg sm:text-xl font-bold text-black italic">
-                  March 2024
+                  March 2026
                 </span>
               </div>
 
@@ -1275,25 +1190,25 @@
           <h3 class="footer-heading">Our Courses</h3>
           <div class="text-sm font-bold space-y-3">
 
-            <a href="./courses/mern-full-stack-development" target="_blank"
+            <a href="../courses/mern-full-stack-development" target="_blank"
               class="footer-link flex items-center  group">
               Full Stack Web Development (MERN)
             </a>
 
-            <a href="./courses/mastering-generative-AI" target="_blank" class="footer-link flex items-center   group">
+            <a href="../courses/mastering-generative-AI" target="_blank" class="footer-link flex items-center   group">
               <!-- AI (brain icon) -->
 
               Data Analytics with Generative AI
             </a>
 
-            <a href="./courses/flutter-hybrid-app-development" target="_blank"
+            <a href="../courses/flutter-hybrid-app-development" target="_blank"
               class="footer-link flex items-center   group">
               <!-- Flutter -->
 
               Flutter App Development
             </a>
 
-            <a href="./courses/php" target="_blank" class="footer-link flex items-center   group">
+            <a href="../courses/php" target="_blank" class="footer-link flex items-center   group">
               <!-- Laravel -->
 
               PHP Web Development with Laravel
@@ -1323,7 +1238,7 @@
       </div>
     </div>
   </footer>
-  <div id="inquiryModal" class="fixed inset-0 z-50 hidden  items-center justify-center p-4 modal-transition"
+  <div id="inquiryModal" class="fixed  inset-0 z-50 hidden  items-center justify-center p-4 modal-transition"
     style="background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px);">
     <div
       class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300 scale-95 opacity-0"
@@ -1402,27 +1317,27 @@
   <script>
     // ---------- MODAL LOGIC ----------
     const modal = document.getElementById('syllabusModal');
-    const modalContainer = document.getElementById('modalContainer');
+    const syllabusModalContainer = document.getElementById('syllabusModalContainer');
     const modalBackdrop = document.getElementById('modalBackdrop');
-    const closeModalBtn = document.getElementById('closeModalBtn');
+    const closeSyllabusModalBtn = document.getElementById('closeSyllabusModalBtn');
     const openModalHero = document.getElementById('openModalHeroBtn');
     const downloadSummerBtn = document.querySelector('.downloadSummerBtn'); // not exist in this version but we add from summer card? Actually no direct download from summer card but we have syllabus btn hero. We'll attach to any element that should open modal. Also the cards might have syllabus download? In original react there were download buttons inside cards, but in this design we only have hero "Syllabus" button and we also want the modal to open from any future btn. We'll add also from the "Syllabus" button only but we can also open from any trigger if needed. For consistency, we attach openModal to openModalHeroBtn and also to any .download-syllabus class? Let's just use openModalHeroBtn.
     // Also the original component had "Download Summer Syllabus" and "Download Internship Syllabus" inside training cards, but in current design we replaced those with Register Now/Join Internship. However we should keep the modal accessible: The hero "Syllabus" button and also maybe additional triggers? To match the exact original, but the new design didn't have those download buttons inside cards. The user request: convert given react component, which includes two download buttons inside each card? Actually looking at the provided react code: In the training modules section, there were no download buttons in the cards, only "Register Now" and "Join Internship". The modal was opened via "Syllabus" button in hero, and also from the "Syllabus" button only. So we keep as is: openModalHeroBtn triggers modal.
     // Also we need to handle downloadOption buttons alert.
     function openModal() {
       modal.classList.remove('opacity-0', 'invisible', 'pointer-events-none');
-      modalContainer.classList.remove('scale-95', 'opacity-0');
-      modalContainer.classList.add('scale-100', 'opacity-100', 'modal-open');
+      syllabusModalContainer.classList.remove('scale-95', 'opacity-0');
+      syllabusModalContainer.classList.add('scale-100', 'opacity-100', 'modal-open');
       document.body.style.overflow = 'hidden';
     }
     function closeModal() {
       modal.classList.add('opacity-0', 'invisible', 'pointer-events-none');
-      modalContainer.classList.add('scale-95', 'opacity-0');
-      modalContainer.classList.remove('scale-100', 'opacity-100');
+      syllabusModalContainer.classList.add('scale-95', 'opacity-0');
+      syllabusModalContainer.classList.remove('scale-100', 'opacity-100');
       document.body.style.overflow = '';
     }
     if (openModalHeroBtn) openModalHeroBtn.addEventListener('click', openModal);
-    if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+    if (closeSyllabusModalBtn) closeSyllabusModalBtn.addEventListener('click', closeModal);
     if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
 
     // Download options inside modal
@@ -1448,9 +1363,10 @@
     lucide.createIcons();
 
   </script>
-  <script src="../assets/js/auto-responsive.js"></script>
-  <script src="../assets/js/main.js"></script>
   <script src="../assets/js/popup.js"></script>
+
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/auto-responsive.js"></script>
 
 </body>
 

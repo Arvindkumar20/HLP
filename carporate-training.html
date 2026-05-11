@@ -3,370 +3,396 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Placements Gallery | Real Data + Pagination</title>
-    <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Tailwind CSS CDN -->
+    <title>AI Image Generator Reels | with Scroll Navigation</title>
+    <!-- Tailwind CSS v3 -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* brand color & custom styles (matching original UI) */
-        :root {
-            --brand: #2563eb;
-            --brand-dark: #1e40af;
+        /* hide scrollbar but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
         }
-        .bg-brand { background-color: var(--brand); }
-        .bg-brand\/10 { background-color: rgba(37, 99, 235, 0.1); }
-        .text-brand { color: var(--brand); }
-        .border-brand\/20 { border-color: rgba(37, 99, 235, 0.2); }
-        .bg-brand-dark { background-color: var(--brand-dark); }
-        .hover\:bg-brand:hover { background-color: var(--brand); }
-        .group:hover .group-hover\:border-brand\/20 { border-color: rgba(37, 99, 235, 0.2); }
-        
-        /* "Placed" ribbon */
-        .placed-ribbon {
-            position: absolute;
-            top: 20px;
-            right: -28px;
-            background: #10b981;
-            color: white;
-            font-size: 11px;
-            font-weight: 800;
-            padding: 4px 40px;
-            transform: rotate(45deg);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            z-index: 2;
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
-        
-        /* filter active state */
-        .filter-tab.active {
-            background-color: var(--brand) !important;
-            color: white !important;
-            border-color: var(--brand) !important;
+        /* reel video cards */
+        .reel-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
-        /* pagination buttons */
-        .page-btn.active-page {
-            background-color: var(--brand);
-            color: white;
-            border-color: var(--brand);
+        .reel-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 35px -12px rgba(0,0,0,0.5);
         }
-        .page-btn.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            pointer-events: none;
+        .reel-video {
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
-        
-        .transition-all {
+        .reel-card:hover .reel-video {
+            transform: scale(1.03);
+        }
+        .play-btn-reel {
+            backdrop-filter: blur(12px);
+            cursor: pointer;
             transition: all 0.2s ease;
         }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .play-btn-reel:hover {
+            background: rgba(255,255,255,0.35);
+            transform: scale(1.08);
+        }
+        /* text readability gradient */
+        .reel-gradient {
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.1) 100%);
+        }
+        video {
+            pointer-events: none;  /* clicks go to play button overlay */
+        }
+        .reel-card .play-btn-reel {
+            pointer-events: auto;
+        }
+        .reel-social-icons, .reel-bottom-info {
+            pointer-events: none;
+        }
+        .reel-social-icons > div, .reel-social-icons button {
+            pointer-events: auto; /* optional interactivity for like buttons */
+        }
+        /* navigation buttons */
+        .scroll-nav-btn {
+            transition: all 0.2s ease;
+            backdrop-filter: blur(8px);
+        }
+        .scroll-nav-btn:hover {
+            background: rgba(35, 63, 255, 0.8);
+            transform: scale(1.05);
+        }
+        /* responsive adjustments */
+        @media (max-width: 768px) {
+            .scroll-nav-btn {
+                width: 36px;
+                height: 36px;
+            }
+            .scroll-nav-btn svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-white antialiased">
 
-    <!-- Placement Grid Section (fully functional with pagination & filters) -->
-    <section class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <!-- Header: dynamic total count (based on unique students) -->
-            <div class="mb-12">
-                <div class="flex items-center justify-center gap-3 mb-4">
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900">Recent Placements</h2>
-                    <span id="totalCountBadge" class="bg-gray-200 text-gray-700 text-sm font-bold px-3 py-1 rounded-full">0</span>
-                </div>
-                <p class="text-gray-500 font-medium">Meet our achievers who started from scratch and now leading top companies.</p>
-            </div>
-
-            <!-- Filter Buttons (All, Flutter, MERN) -->
-            <div class="flex flex-wrap justify-center gap-3 mb-16" id="filterContainer">
-                <button data-filter="all" class="filter-tab active px-6 py-2.5 rounded-full text-sm font-bold border border-gray-200 transition-all">All Placements</button>
-                <button data-filter="Flutter Development" class="filter-tab bg-white hover:bg-gray-100 px-6 py-2.5 rounded-full text-sm font-bold border border-gray-200 text-gray-600 transition-all">Flutter Development</button>
-                <button data-filter="Mern Web Dev" class="filter-tab bg-white hover:bg-gray-100 px-6 py-2.5 rounded-full text-sm font-bold border border-gray-200 text-gray-600 transition-all">MERN Development</button>
-            </div>
-
-            <!-- Students Grid (dynamic, 8 items per page) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="studentsGrid"></div>
-
-            <!-- Pagination Controls (fully functional: prev, next, page numbers) -->
-            <div class="mt-16 flex items-center justify-center gap-3 flex-wrap" id="paginationContainer">
-                <!-- JS will inject pagination UI here -->
-            </div>
+  <!-- FLAGSHIP MOBILE REELS (AI IMAGE GENERATOR) - with left/right navigation buttons -->
+  <section
+    class="py-32 px-3 sm:px-6 bg-slate-900 text-white rounded-md md:rounded-[4rem] mx-6 mb-12 overflow-hidden relative shadow-2xl">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_#2563eb15,_transparent_50%)]"></div>
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="text-center mb-16">
+        <div
+          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-[10px] font-bold uppercase tracking-widest border border-blue-500/20 mb-4">
+          <i data-lucide="smartphone" size="14"></i> Student Project Series
         </div>
-    </section>
+        <h2 class="text-5xl font-black tracking-tight italic uppercase mb-4">AI Image Generator <span
+            class="text-blue-500">Reels</span></h2>
+        <p class="text-slate-400 font-medium text-lg italic max-w-2xl mx-auto">Watch the development of our flagship AI
+          project in mobile-first format.</p>
+      </div>
 
-    <script>
-        // ---------- CLEAN & REAL PLACEMENT DATA (no duplicates, unique IDs) ----------
-        // Based on provided info: 4 Flutter students + 1 MERN student (Ganga Prashad)
-        // All image paths use your ./assets/images/placements/ folder
-        const rawData = [
-            {
-                id: 1,
-                name: "Ujjawal Yadav",
-                course: "Flutter Development",
-                image: "./assets/images/placements/ujjal.png",
-                companyLogo: "https://upload.wikimedia.org/wikipedia/commons/c/cd/Accenture.svg",
-                companyAlt: "Accenture",
-                logoClass: "h-4 w-auto",
-                ribbonText: "Placed"
-            },
-            {
-                id: 2,
-                name: "Kirti Gupta",
-                course: "Flutter Development",
-                image: "./assets/images/placements/kirti.png",
-                companyLogo: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Tata_Consultancy_Services_Logo.svg",
-                companyAlt: "TCS",
-                logoClass: "h-6 w-auto",
-                ribbonText: "Placed"
-            },
-            {
-                id: 3,
-                name: "Aryan Yadav",
-                course: "Flutter Development",
-                image: "./assets/images/placements/aryan.png",
-                companyLogo: "https://upload.wikimedia.org/wikipedia/commons/9/95/Infosys_logo.svg",
-                companyAlt: "Infosys",
-                logoClass: "h-4 w-auto",
-                ribbonText: "Placed"
-            },
-            {
-                id: 4,
-                name: "Abhishek Yadav",
-                course: "Flutter Development",
-                image: "./assets/images/placements/abhi.png",
-                companyLogo: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Wipro_Primary_Logo_Color_RGB.svg",
-                companyAlt: "Wipro",
-                logoClass: "h-8 w-auto",
-                ribbonText: "Placed"
-            },
-            {
-                id: 5,
-                name: "Ganga Prashad",
-                course: "Mern Web Dev",
-                image: "./assets/images/placements/ganga.png",
-                companyLogo: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Wipro_Primary_Logo_Color_RGB.svg",
-                companyAlt: "Wipro",
-                logoClass: "h-8 w-auto",
-                ribbonText: "Placed"
+      <!-- Relative wrapper for scroll container + navigation buttons -->
+      <div class="relative">
+        <!-- Horizontal scrollable reels -->
+        <div id="reelsScrollContainer"
+          class="flex overflow-x-auto pb-10 gap-8 no-scrollbar snap-x snap-mandatory px-4 lg:px-20 scroll-smooth">
+          
+          <!-- REEL 1 - Prompt Engineering -->
+          <div class="flex-shrink-0 w-[280px] h-[500px] bg-black rounded-[2.5rem] border-[6px] border-slate-800 shadow-2xl relative overflow-hidden snap-center group reel-card">
+            <video class="reel-video absolute inset-0 w-full h-full object-cover" 
+                   poster="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=400&h=700"
+                   preload="metadata" playsinline muted loop>
+              <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 reel-gradient pointer-events-none"></div>
+            <div class="absolute top-0 left-0 w-full h-8 flex justify-between items-center px-6 z-30">
+              <span class="text-[10px] font-bold text-white/80">9:41</span>
+              <div class="flex gap-1"><div class="w-3 h-2 bg-white/50 rounded-sm"></div><div class="w-5 h-2 bg-white rounded-sm"></div></div>
+            </div>
+            <div class="absolute right-3 bottom-24 flex flex-col gap-5 z-20 reel-social-icons">
+              <div class="flex flex-col items-center gap-1"><div class="p-2 rounded-full bg-white/10 backdrop-blur-md cursor-pointer transition hover:bg-white/20"><i data-lucide="heart" size="20" class="text-white"></i></div><span class="text-[8px] font-bold">4.2k</span></div>
+              <div class="flex flex-col items-center gap-1"><div class="p-2 rounded-full bg-white/10 backdrop-blur-md cursor-pointer transition hover:bg-white/20"><i data-lucide="message-circle" size="20" class="text-white"></i></div><span class="text-[8px] font-bold">128</span></div>
+              <div class="flex flex-col items-center gap-1"><div class="p-2 rounded-full bg-white/10 backdrop-blur-md cursor-pointer transition hover:bg-white/20"><i data-lucide="share-2" size="20" class="text-white"></i></div><span class="text-[8px] font-bold">Share</span></div>
+            </div>
+            <div class="absolute bottom-6 left-6 right-16 z-20 reel-bottom-info">
+              <div class="flex items-center gap-2 mb-2"><div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white border border-white/20"><i data-lucide="sparkles" size="16"></i></div><span class="text-xs font-black uppercase tracking-widest">Reel #01</span></div>
+              <h4 class="text-lg font-black leading-tight mb-1">Prompt Engineering</h4>
+              <p class="text-[10px] text-white/60 font-medium">@Intern_AI_Project • Original Audio</p>
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center z-30 opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <div class="play-btn-reel w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shadow-lg" data-reel-index="0">
+                <i data-lucide="play-circle" size="40" fill="white" class="text-white ml-0.5"></i>
+              </div>
+            </div>
+          </div>
+          
+          <!-- REEL 2 - Stable Diffusion -->
+          <div class="flex-shrink-0 w-[280px] h-[500px] bg-black rounded-[2.5rem] border-[6px] border-slate-800 shadow-2xl relative overflow-hidden snap-center group reel-card">
+            <video class="reel-video absolute inset-0 w-full h-full object-cover" 
+                   poster="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&q=80&w=400&h=700"
+                   preload="metadata" playsinline muted loop>
+              <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 reel-gradient pointer-events-none"></div>
+            <div class="absolute top-0 left-0 w-full h-8 flex justify-between items-center px-6 z-30"><span class="text-[10px] font-bold text-white/80">9:41</span><div class="flex gap-1"><div class="w-3 h-2 bg-white/50 rounded-sm"></div><div class="w-5 h-2 bg-white rounded-sm"></div></div></div>
+            <div class="absolute right-3 bottom-24 flex flex-col gap-5 z-20 reel-social-icons">
+              <div class="flex flex-col items-center gap-1"><div class="p-2 rounded-full bg-white/10 backdrop-blur-md cursor-pointer hover:bg-white/20"><i data-lucide="heart" size="20"></i></div><span class="text-[8px] font-bold">3.1k</span></div>
+              <div class="flex flex-col items-center gap-1"><div class="p-2 rounded-full bg-white/10 backdrop-blur-md cursor-pointer hover:bg-white/20"><i data-lucide="message-circle" size="20"></i></div><span class="text-[8px] font-bold">97</span></div>
+              <div class="flex flex-col items-center gap-1"><div class="p-2 rounded-full bg-white/10 backdrop-blur-md cursor-pointer hover:bg-white/20"><i data-lucide="share-2" size="20"></i></div><span class="text-[8px] font-bold">Share</span></div>
+            </div>
+            <div class="absolute bottom-6 left-6 right-16 z-20 reel-bottom-info">
+              <div class="flex items-center gap-2 mb-2"><div class="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center border border-white/20"><i data-lucide="cpu" size="16"></i></div><span class="text-xs font-black uppercase tracking-widest">Reel #02</span></div>
+              <h4 class="text-lg font-black leading-tight mb-1">Stable Diffusion</h4>
+              <p class="text-[10px] text-white/60 font-medium">@Intern_AI_Project • Original Audio</p>
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center z-30 opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <div class="play-btn-reel w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shadow-lg" data-reel-index="1">
+                <i data-lucide="play-circle" size="40"></i>
+              </div>
+            </div>
+          </div>
+          
+          <!-- REEL 3 - Style Logic -->
+          <div class="flex-shrink-0 w-[280px] h-[500px] bg-black rounded-[2.5rem] border-[6px] border-slate-800 shadow-2xl relative overflow-hidden snap-center group reel-card">
+            <video class="reel-video absolute inset-0 w-full h-full object-cover" 
+                   poster="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&q=80&w=400&h=700"
+                   preload="metadata" playsinline muted loop>
+              <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFunflies.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 reel-gradient pointer-events-none"></div>
+            <div class="absolute top-0 left-0 w-full h-8 flex justify-between items-center px-6 z-30"><span class="text-[10px] font-bold">9:41</span><div class="flex gap-1"><div class="w-3 h-2 bg-white/50 rounded-sm"></div><div class="w-5 h-2 bg-white rounded-sm"></div></div></div>
+            <div class="absolute right-3 bottom-24 flex flex-col gap-5 z-20">
+              <div class="flex flex-col items-center gap-1"><div class="p-2 rounded-full bg-white/10 backdrop-blur-md cursor-pointer hover:bg-white/20"><i data-lucide="heart" size="20"></i></div><span class="text-[8px] font-bold">5.5k</span></div>
+              <div class="flex flex-col items-center gap-1"><div class="p-2 rounded-full bg-white/10 backdrop-blur-md cursor-pointer hover:bg-white/20"><i data-lucide="message-circle" size="20"></i></div><span class="text-[8px] font-bold">210</span></div>
+              <div class="flex flex-col items-center gap-1"><div class="p-2 rounded-full bg-white/10 backdrop-blur-md cursor-pointer hover:bg-white/20"><i data-lucide="share-2" size="20"></i></div><span class="text-[8px] font-bold">Share</span></div>
+            </div>
+            <div class="absolute bottom-6 left-6 right-16 z-20">
+              <div class="flex items-center gap-2 mb-2"><div class="w-8 h-8 rounded-full bg-pink-600 flex items-center justify-center border border-white/20"><i data-lucide="palette" size="16"></i></div><span class="text-xs font-black uppercase tracking-widest">Reel #03</span></div>
+              <h4 class="text-lg font-black leading-tight mb-1">Style Logic</h4>
+              <p class="text-[10px] text-white/60 font-medium">@Intern_AI_Project • Original Audio</p>
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center z-30 opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <div class="play-btn-reel w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shadow-lg" data-reel-index="2">
+                <i data-lucide="play-circle" size="40"></i>
+              </div>
+            </div>
+          </div>
+          
+          <!-- REEL 4 - Upscaling AI -->
+          <div class="flex-shrink-0 w-[280px] h-[500px] bg-black rounded-[2.5rem] border-[6px] border-slate-800 shadow-2xl relative overflow-hidden snap-center group reel-card">
+            <video class="reel-video absolute inset-0 w-full h-full object-cover" 
+                   poster="https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?auto=format&fit=crop&q=80&w=400&h=700"
+                   preload="metadata" playsinline muted loop>
+              <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 reel-gradient pointer-events-none"></div>
+            <div class="absolute top-0 left-0 w-full h-8 flex justify-between items-center px-6 z-30"><span class="text-[10px] font-bold">9:41</span><div class="flex gap-1"><div class="w-3 h-2 bg-white/50 rounded-sm"></div><div class="w-5 h-2 bg-white rounded-sm"></div></div></div>
+            <div class="absolute right-3 bottom-24 flex flex-col gap-5 z-20">
+              <div class="flex flex-col items-center gap-1"><div class="p-2 rounded-full bg-white/10 backdrop-blur-md cursor-pointer hover:bg-white/20"><i data-lucide="heart" size="20"></i></div><span class="text-[8px] font-bold">2.9k</span></div>
+              <div class="flex flex-col items-center gap-1"><div class="p-2 rounded-full bg-white/10 backdrop-blur-md cursor-pointer hover:bg-white/20"><i data-lucide="message-circle" size="20"></i></div><span class="text-[8px] font-bold">76</span></div>
+              <div class="flex flex-col items-center gap-1"><div class="p-2 rounded-full bg-white/10 backdrop-blur-md cursor-pointer hover:bg-white/20"><i data-lucide="share-2" size="20"></i></div><span class="text-[8px] font-bold">Share</span></div>
+            </div>
+            <div class="absolute bottom-6 left-6 right-16 z-20">
+              <div class="flex items-center gap-2 mb-2"><div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center border border-white/20"><i data-lucide="layers" size="16"></i></div><span class="text-xs font-black uppercase tracking-widest">Reel #04</span></div>
+              <h4 class="text-lg font-black leading-tight mb-1">Upscaling AI</h4>
+              <p class="text-[10px] text-white/60 font-medium">@Intern_AI_Project • Original Audio</p>
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center z-30 opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <div class="play-btn-reel w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shadow-lg" data-reel-index="3">
+                <i data-lucide="play-circle" size="40"></i>
+              </div>
+            </div>
+          </div>
+          
+          <!-- REEL 5 - Mobile App UI -->
+          <div class="flex-shrink-0 w-[280px] h-[500px] bg-black rounded-[2.5rem] border-[6px] border-slate-800 shadow-2xl relative overflow-hidden snap-center group reel-card">
+            <video class="reel-video absolute inset-0 w-full h-full object-cover" 
+                   poster="https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&q=80&w=400&h=700"
+                   preload="metadata" playsinline muted loop>
+              <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCar.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 reel-gradient pointer-events-none"></div>
+            <div class="absolute top-0 left-0 w-full h-8 flex justify-between items-center px-6 z-30"><span class="text-[10px] font-bold">9:41</span><div class="flex gap-1"><div class="w-3 h-2 bg-white/50 rounded-sm"></div><div class="w-5 h-2 bg-white rounded-sm"></div></div></div>
+            <div class="absolute right-3 bottom-24 flex flex-col gap-5 z-20">
+              <div class="flex flex-col items-center gap-1"><div class="p-2 rounded-full bg-white/10 backdrop-blur-md cursor-pointer hover:bg-white/20"><i data-lucide="heart" size="20"></i></div><span class="text-[8px] font-bold">6.7k</span></div>
+              <div class="flex flex-col items-center gap-1"><div class="p-2 rounded-full bg-white/10 backdrop-blur-md cursor-pointer hover:bg-white/20"><i data-lucide="message-circle" size="20"></i></div><span class="text-[8px] font-bold">312</span></div>
+              <div class="flex flex-col items-center gap-1"><div class="p-2 rounded-full bg-white/10 backdrop-blur-md cursor-pointer hover:bg-white/20"><i data-lucide="share-2" size="20"></i></div><span class="text-[8px] font-bold">Share</span></div>
+            </div>
+            <div class="absolute bottom-6 left-6 right-16 z-20">
+              <div class="flex items-center gap-2 mb-2"><div class="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center border border-white/20"><i data-lucide="smartphone" size="16"></i></div><span class="text-xs font-black uppercase tracking-widest">Reel #05</span></div>
+              <h4 class="text-lg font-black leading-tight mb-1">Mobile App UI</h4>
+              <p class="text-[10px] text-white/60 font-medium">@Intern_AI_Project • Original Audio</p>
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center z-30 opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <div class="play-btn-reel w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shadow-lg" data-reel-index="4">
+                <i data-lucide="play-circle" size="40"></i>
+              </div>
+            </div>
+          </div>
+          
+          <!-- REEL 6 - User History -->
+          <div class="flex-shrink-0 w-[280px] h-[500px] bg-black rounded-[2.5rem] border-[6px] border-slate-800 shadow-2xl relative overflow-hidden snap-center group reel-card">
+            <video class="reel-video absolute inset-0 w-full h-full object-cover" 
+                   poster="https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=400&h=700"
+                   preload="metadata" playsinline muted loop>
+              <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 reel-gradient pointer-events-none"></div>
+            <div class="absolute top-0 left-0 w-full h-8 flex justify-between items-center px-6 z-30"><span class="text-[10px] font-bold">9:41</span><div class="flex gap-1"><div class="w-3 h-2 bg-white/50 rounded-sm"></div><div class="w-5 h-2 bg-white rounded-sm"></div></div></div>
+            <div class="absolute right-3 bottom-24 flex flex-col gap-5 z-20">
+              <div class="flex flex-col items-center gap-1"><div class="p-2 rounded-full bg-white/10 backdrop-blur-md cursor-pointer hover:bg-white/20"><i data-lucide="heart" size="20"></i></div><span class="text-[8px] font-bold">1.8k</span></div>
+              <div class="flex flex-col items-center gap-1"><div class="p-2 rounded-full bg-white/10 backdrop-blur-md cursor-pointer hover:bg-white/20"><i data-lucide="message-circle" size="20"></i></div><span class="text-[8px] font-bold">44</span></div>
+              <div class="flex flex-col items-center gap-1"><div class="p-2 rounded-full bg-white/10 backdrop-blur-md cursor-pointer hover:bg-white/20"><i data-lucide="share-2" size="20"></i></div><span class="text-[8px] font-bold">Share</span></div>
+            </div>
+            <div class="absolute bottom-6 left-6 right-16 z-20">
+              <div class="flex items-center gap-2 mb-2"><div class="w-8 h-8 rounded-full bg-orange-600 flex items-center justify-center border border-white/20"><i data-lucide="fast-forward" size="16"></i></div><span class="text-xs font-black uppercase tracking-widest">Reel #06</span></div>
+              <h4 class="text-lg font-black leading-tight mb-1">User History</h4>
+              <p class="text-[10px] text-white/60 font-medium">@Intern_AI_Project • Original Audio</p>
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center z-30 opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <div class="play-btn-reel w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shadow-lg" data-reel-index="5">
+                <i data-lucide="play-circle" size="40"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEFT NAVIGATION BUTTON -->
+        <button id="scrollLeftBtn" 
+          class="scroll-nav-btn absolute left-2 top-1/2 -translate-y-1/2 z-40 w-12 h-12 rounded-full bg-slate-800/80 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-lg hover:bg-blue-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <i data-lucide="chevron-left" size="28" class="text-white"></i>
+        </button>
+
+        <!-- RIGHT NAVIGATION BUTTON -->
+        <button id="scrollRightBtn" 
+          class="scroll-nav-btn absolute right-2 top-1/2 -translate-y-1/2 z-40 w-12 h-12 rounded-full bg-slate-800/80 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-lg hover:bg-blue-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <i data-lucide="chevron-right" size="28" class="text-white"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // init lucide icons for all (including dynamic buttons)
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+      
+      // --- Reel video play/pause logic (same as before) ---
+      const reels = document.querySelectorAll('.reel-card');
+      reels.forEach((reel, idx) => {
+        const video = reel.querySelector('video');
+        const playBtnDiv = reel.querySelector('.play-btn-reel');
+        if (!video || !playBtnDiv) return;
+        
+        const getIconElem = () => playBtnDiv.querySelector('i');
+        const updateIcon = (isPlaying) => {
+          const iconElem = getIconElem();
+          if (iconElem) {
+            const newIconName = isPlaying ? 'pause-circle' : 'play-circle';
+            iconElem.setAttribute('data-lucide', newIconName);
+            if (typeof lucide !== 'undefined') {
+              lucide.createIcons({ elements: [iconElem] });
             }
-        ];
-
-        // You can easily add more students here (e.g., extra MERN developers) — just push new objects.
-        // For demonstration we keep 5 students. Pagination will show 1 page (since <8). 
-        // To test 2 pages, uncomment next lines or add 3 more students.
-        // rawData.push({ id:6, name:"Riya Mehta", course:"Mern Web Dev", image:"./assets/images/placements/riya.png", companyLogo:"https://upload.wikimedia.org/wikipedia/commons/c/cd/Accenture.svg", companyAlt:"Accenture", logoClass:"h-4 w-auto", ribbonText:"Placed" });
-        // rawData.push({ id:7, name:"Siddharth Roy", course:"Flutter Development", image:"./assets/images/placements/sid.png", companyLogo:"https://upload.wikimedia.org/wikipedia/commons/9/95/Infosys_logo.svg", companyAlt:"Infosys", logoClass:"h-4 w-auto", ribbonText:"Placed" });
-        // rawData.push({ id:8, name:"Anjali Singh", course:"Mern Web Dev", image:"./assets/images/placements/anjali.png", companyLogo:"https://upload.wikimedia.org/wikipedia/commons/b/b1/Tata_Consultancy_Services_Logo.svg", companyAlt:"TCS", logoClass:"h-6 w-auto", ribbonText:"Placed" });
-        // rawData.push({ id:9, name:"Rahul Verma", course:"Flutter Development", image:"./assets/images/placements/rahul.png", companyLogo:"https://upload.wikimedia.org/wikipedia/commons/a/a0/Wipro_Primary_Logo_Color_RGB.svg", companyAlt:"Wipro", logoClass:"h-8 w-auto", ribbonText:"Placed" });
-
-        // ----- PAGINATION STATE -----
-        let currentPage = 1;
-        const itemsPerPage = 8;    // exactly 8 students per page
-        let currentFilter = "all";   // 'all', 'Flutter Development', 'Mern Web Dev'
-        let filteredStudents = [...rawData];   // will be updated on filter change
-
-        // Helper: update filtered list based on currentFilter
-        function updateFilteredList() {
-            if (currentFilter === "all") {
-                filteredStudents = [...rawData];
-            } else {
-                filteredStudents = rawData.filter(student => student.course === currentFilter);
+          }
+        };
+        updateIcon(false);
+        
+        playBtnDiv.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (!video.paused) {
+            video.pause();
+            updateIcon(false);
+            return;
+          }
+          // pause all other reels
+          reels.forEach(otherReel => {
+            const otherVideo = otherReel.querySelector('video');
+            const otherBtn = otherReel.querySelector('.play-btn-reel');
+            if (otherVideo && otherVideo !== video && !otherVideo.paused) {
+              otherVideo.pause();
+              if (otherBtn) {
+                const otherIcon = otherBtn.querySelector('i');
+                if (otherIcon) {
+                  otherIcon.setAttribute('data-lucide', 'play-circle');
+                  if (typeof lucide !== 'undefined') lucide.createIcons({ elements: [otherIcon] });
+                }
+              }
             }
-            // reset to first page when filter changes
-            currentPage = 1;
-            // update total badge to show filtered count? Or total raw count? We'll show total raw count in badge (original style)
-            // But we keep badge = total number of placements in system (raw length)
-            const totalBadge = document.getElementById('totalCountBadge');
-            if (totalBadge) totalBadge.innerText = rawData.length + '+';
-            // also update "showing X of Y" text inside pagination later
-            renderCurrentPage();
-            renderPaginationControls();
-        }
-
-        // Build a single student card (with company logo, exactly as original design)
-        function generateCardHTML(student) {
-            return `
-                <div class="bg-white rounded-[2rem] shadow-sm border border-gray-100 p-8 flex flex-col items-start relative overflow-hidden group hover:shadow-xl transition-all placement-card" data-course="${student.course}">
-                    <div class="placed-ribbon">${student.ribbonText}</div>
-                    <div class="w-32 h-32 rounded-full border-4 border-gray-50 overflow-hidden mb-6 group-hover:scale-105 transition-transform">
-                        <img src="${student.image}" alt="${student.name}" class="w-full h-full object-cover" onerror="this.src='https://i.pravatar.cc/150?u=fallback${student.id}'">
-                    </div>
-                    <span class="text-[10px] font-bold text-brand bg-brand/10 px-4 py-1.5 rounded-full uppercase mb-3">${student.course}</span>
-                    <h4 class="text-xl font-extrabold text-gray-900 mb-6">${student.name}</h4>
-                    <div class="mt-auto w-full flex flex-col items-start">
-                        <div class="h-10 px-4 bg-gray-50 rounded-xl flex items-center justify-center border border-gray-100 group-hover:border-brand/20 transition-colors">
-                            <img src="${student.companyLogo}" class="${student.logoClass} grayscale group-hover:grayscale-0 opacity-70 group-hover:opacity-100 transition-all" alt="${student.companyAlt}">
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Render the cards for current page (based on filteredStudents and currentPage)
-        function renderCurrentPage() {
-            const grid = document.getElementById('studentsGrid');
-            if (!grid) return;
-
-            const startIndex = (currentPage - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-            const pageItems = filteredStudents.slice(startIndex, endIndex);
-
-            if (pageItems.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center py-16 text-gray-500 text-lg">✨ No placements found for this category.</div>`;
-                return;
-            }
-
-            let cardsHtml = '';
-            pageItems.forEach(student => {
-                cardsHtml += generateCardHTML(student);
-            });
-            grid.innerHTML = cardsHtml;
-        }
-
-        // Render pagination buttons (prev, page numbers, next) with dynamic page count
-        function renderPaginationControls() {
-            const totalPages = Math.ceil(filteredStudents.length / itemsPerPage);
-            const container = document.getElementById('paginationContainer');
-            if (!container) return;
-
-            if (totalPages <= 1) {
-                // show simple "1" and no arrows (or disabled)
-                container.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <button class="w-10 h-10 flex items-center justify-center font-bold text-white bg-brand rounded-lg shadow-sm cursor-default">1</button>
-                        <span class="text-gray-400 text-sm">— showing ${filteredStudents.length} of ${filteredStudents.length} —</span>
-                    </div>
-                `;
-                return;
-            }
-
-            // Build pagination HTML
-            let paginationHtml = `<div class="flex items-center gap-2 flex-wrap">`;
-            
-            // Prev button
-            const prevDisabled = currentPage === 1;
-            paginationHtml += `
-                <button id="prevPageBtn" class="page-btn w-10 h-10 flex items-center justify-center font-bold text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 transition ${prevDisabled ? 'disabled' : ''}" ${prevDisabled ? 'disabled' : ''}>
-                    <i class="fas fa-chevron-left text-xs"></i>
-                </button>
-            `;
-            
-            // Page numbers (show max 5 pages with ellipsis if needed)
-            let startPage = Math.max(1, currentPage - 2);
-            let endPage = Math.min(totalPages, currentPage + 2);
-            if (endPage - startPage < 4) {
-                if (startPage === 1) endPage = Math.min(totalPages, startPage + 4);
-                else if (endPage === totalPages) startPage = Math.max(1, endPage - 4);
-            }
-            
-            if (startPage > 1) {
-                paginationHtml += `<button data-page="1" class="page-num w-10 h-10 flex items-center justify-center font-bold text-gray-600 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 transition">1</button>`;
-                if (startPage > 2) paginationHtml += `<span class="px-1 text-gray-400">...</span>`;
-            }
-            
-            for (let i = startPage; i <= endPage; i++) {
-                const activeClass = currentPage === i ? 'active-page bg-brand text-white border-brand' : 'text-gray-600 bg-white border-gray-300 hover:bg-gray-100';
-                paginationHtml += `<button data-page="${i}" class="page-num w-10 h-10 flex items-center justify-center font-bold rounded-lg border transition ${activeClass}">${i}</button>`;
-            }
-            
-            if (endPage < totalPages) {
-                if (endPage < totalPages - 1) paginationHtml += `<span class="px-1 text-gray-400">...</span>`;
-                paginationHtml += `<button data-page="${totalPages}" class="page-num w-10 h-10 flex items-center justify-center font-bold text-gray-600 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 transition">${totalPages}</button>`;
-            }
-            
-            // Next button
-            const nextDisabled = currentPage === totalPages;
-            paginationHtml += `
-                <button id="nextPageBtn" class="page-btn w-10 h-10 flex items-center justify-center font-bold text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 transition ${nextDisabled ? 'disabled' : ''}" ${nextDisabled ? 'disabled' : ''}>
-                    <i class="fas fa-chevron-right text-xs"></i>
-                </button>
-            `;
-            paginationHtml += `<span class="text-gray-500 text-sm ml-2">showing ${filteredStudents.length} student${filteredStudents.length !== 1 ? 's' : ''}</span>`;
-            paginationHtml += `</div>`;
-            
-            container.innerHTML = paginationHtml;
-            
-            // attach event listeners for buttons
-            const prevBtn = document.getElementById('prevPageBtn');
-            if (prevBtn && !prevDisabled) {
-                prevBtn.addEventListener('click', () => {
-                    if (currentPage > 1) {
-                        currentPage--;
-                        renderCurrentPage();
-                        renderPaginationControls();
-                    }
-                });
-            }
-            
-            const nextBtn = document.getElementById('nextPageBtn');
-            if (nextBtn && !nextDisabled) {
-                nextBtn.addEventListener('click', () => {
-                    if (currentPage < totalPages) {
-                        currentPage++;
-                        renderCurrentPage();
-                        renderPaginationControls();
-                    }
-                });
-            }
-            
-            // attach listeners to page number buttons
-            document.querySelectorAll('.page-num').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const page = parseInt(btn.getAttribute('data-page'), 10);
-                    if (!isNaN(page) && page !== currentPage) {
-                        currentPage = page;
-                        renderCurrentPage();
-                        renderPaginationControls();
-                    }
-                });
-            });
-        }
-
-        // ----- FILTER LOGIC -----
-        function initFilters() {
-            const filterBtns = document.querySelectorAll('.filter-tab');
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const filterValue = btn.getAttribute('data-filter');
-                    if (!filterValue) return;
-                    // update active class
-                    filterBtns.forEach(btn => btn.classList.remove('active'));
-                    btn.classList.add('active');
-                    // set current filter
-                    currentFilter = filterValue;
-                    updateFilteredList();  // will reset page, re-render grid & pagination
-                });
-            });
-        }
-
-        // ----- INITIAL SETUP -----
-        document.addEventListener('DOMContentLoaded', () => {
-            // initial filter state (all)
-            currentFilter = "all";
-            updateFilteredList();    // sets filteredStudents, resets page, renders grid & pagination
-            initFilters();
-            
-            // additional fix: if some images are missing, fallback already in place
-            // Also ensure total badge shows total raw placements count
-            const totalCountSpan = document.getElementById('totalCountBadge');
-            if (totalCountSpan) totalCountSpan.innerText = rawData.length + '+';
+          });
+          video.play().then(() => updateIcon(true)).catch(err => { console.warn(err); updateIcon(false); });
         });
-    </script>
-
-    <!-- 
-        ====== PAGINATION & FUNCTIONALITY DETAILS ======
-        ✅ 8 students per page (itemsPerPage = 8)
-        ✅ Next / Prev buttons fully functional
-        ✅ Dynamic page numbers with ellipsis (when many pages)
-        ✅ Filter buttons (All / Flutter / MERN) reset to page 1 and update grid
-        ✅ Company logos restored to original card design
-        ✅ Fixed duplicate Ganga Prashad entries – now shown once
-        ✅ Total count badge shows unique student count
-        ✅ Responsive grid layout preserved
-        ✅ If more than 8 students exist, pagination automatically splits them.
-        ✅ For demo only 5 students -> single page, but if you add 3+ more students, pagination appears.
-        ✅ "showing X students" text updates correctly.
-    -->
+        
+        video.addEventListener('ended', () => updateIcon(false));
+        video.addEventListener('pause', () => {
+          if (video.paused && !video.ended) {
+            const currIcon = getIconElem()?.getAttribute('data-lucide');
+            if (currIcon !== 'play-circle') updateIcon(false);
+          }
+        });
+      });
+      
+      // --- SCROLL NAVIGATION BUTTONS (LEFT / RIGHT) ---
+      const scrollContainer = document.getElementById('reelsScrollContainer');
+      const leftBtn = document.getElementById('scrollLeftBtn');
+      const rightBtn = document.getElementById('scrollRightBtn');
+      
+      if (scrollContainer && leftBtn && rightBtn) {
+        // Function to get scroll amount (width of one reel + gap)
+        const getScrollStep = () => {
+          const firstReel = scrollContainer.querySelector('.reel-card');
+          if (!firstReel) return 300; // fallback
+          const reelWidth = firstReel.offsetWidth;
+          const gap = 32; // gap-8 = 2rem = 32px
+          return reelWidth + gap;
+        };
+        
+        // Scroll Left
+        leftBtn.addEventListener('click', () => {
+          const step = getScrollStep();
+          scrollContainer.scrollBy({ left: -step, behavior: 'smooth' });
+        });
+        
+        // Scroll Right
+        rightBtn.addEventListener('click', () => {
+          const step = getScrollStep();
+          scrollContainer.scrollBy({ left: step, behavior: 'smooth' });
+        });
+        
+        // Optional: Hide buttons when at edges (for better UX)
+        const updateButtonsVisibility = () => {
+          const scrollLeft = scrollContainer.scrollLeft;
+          const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+          leftBtn.style.opacity = scrollLeft <= 10 ? '0.4' : '1';
+          leftBtn.style.pointerEvents = scrollLeft <= 10 ? 'none' : 'auto';
+          rightBtn.style.opacity = maxScroll - scrollLeft <= 10 ? '0.4' : '1';
+          rightBtn.style.pointerEvents = maxScroll - scrollLeft <= 10 ? 'none' : 'auto';
+        };
+        
+        scrollContainer.addEventListener('scroll', updateButtonsVisibility);
+        window.addEventListener('resize', () => {
+          // re-evaluate on resize (optional)
+          updateButtonsVisibility();
+        });
+        setTimeout(updateButtonsVisibility, 100); // initial check
+        updateButtonsVisibility();
+      }
+      
+      // Optional: Book Demo Class Button (from previous section - if exists)
+      const demoBtn = document.getElementById('demoClassBtn');
+      if (demoBtn) {
+        demoBtn.addEventListener('click', () => {
+          alert("🚀 Book your free demo class! Get hands-on with AI projects & Flutter development.");
+        });
+      }
+    });
+  </script>
 </body>
 </html>

@@ -79,83 +79,83 @@
         return 'containers-fixed';
     }
 
-    // function fixGrids(screenState) {
-    //     const grids = document.querySelectorAll('[class*="grid"], .grid');
-    //     grids.forEach(grid => {
-    //         if (screenState.isMobile && grid.classList.contains('mentor-grid-layout')) {
-    //             setStyleIfNeeded(grid, 'gridTemplateColumns', '1fr');
-    //         } else if (screenState.isMobile) {
-    //             const currentGap = parseInt(window.getComputedStyle(grid).gap) || 20;
-    //             if (currentGap > 16) setStyleIfNeeded(grid, 'gap', '16px');
-    //         }
-    //     });
-    //     return 'grids-fixed';
-    // }
+    function fixGrids(screenState) {
+        const grids = document.querySelectorAll('[class*="grid"], .grid');
+        grids.forEach(grid => {
+            if (screenState.isMobile && grid.classList.contains('mentor-grid-layout')) {
+                setStyleIfNeeded(grid, 'gridTemplateColumns', '1fr');
+            } else if (screenState.isMobile) {
+                const currentGap = parseInt(window.getComputedStyle(grid).gap) || 20;
+                if (currentGap > 16) setStyleIfNeeded(grid, 'gap', '16px');
+            }
+        });
+        return 'grids-fixed';
+    }
 
-    // function fixHorizontalSliders(screenState) {
-    //     const sliders = document.querySelectorAll('.feature-slider-container, .placement-slider, .logo-scroll');
-    //     sliders.forEach(slider => {
-    //         let gap, padding;
-    //         if (screenState.isMobile) {
-    //             gap = '12px';
-    //             padding = '0 16px 24px 16px';
-    //         } else if (screenState.isTablet) {
-    //             gap = '20px';
-    //             padding = '0 24px 32px 24px';
-    //         } else {
-    //             gap = '24px';
-    //             padding = '0 40px 40px 40px';
-    //         }
-    //         setStyleIfNeeded(slider, 'gap', gap);
-    //         setStyleIfNeeded(slider, 'padding', padding);
-    //         if (screenState.isMobile || screenState.isTablet) {
-    //             setStyleIfNeeded(slider, 'webkitOverflowScrolling', 'touch');
-    //             setStyleIfNeeded(slider, 'scrollBehavior', 'smooth');
-    //         }
-    //     });
-    //     return 'sliders-fixed';
-    // }
+    function fixHorizontalSliders(screenState) {
+        const sliders = document.querySelectorAll('.feature-slider-container, .placement-slider, .logo-scroll');
+        sliders.forEach(slider => {
+            let gap, padding;
+            if (screenState.isMobile) {
+                gap = '12px';
+                padding = '0 16px 24px 16px';
+            } else if (screenState.isTablet) {
+                gap = '20px';
+                padding = '0 24px 32px 24px';
+            } else {
+                gap = '24px';
+                padding = '0 40px 40px 40px';
+            }
+            setStyleIfNeeded(slider, 'gap', gap);
+            setStyleIfNeeded(slider, 'padding', padding);
+            if (screenState.isMobile || screenState.isTablet) {
+                setStyleIfNeeded(slider, 'webkitOverflowScrolling', 'touch');
+                setStyleIfNeeded(slider, 'scrollBehavior', 'smooth');
+            }
+        });
+        return 'sliders-fixed';
+    }
 
-    // function fixFontSizes(screenState) {
-    //     const fontAdjustments = [
-    //         { selector: 'h1, .text-4xl, .mentor-name-text', mobile: '1.75rem', tablet: '2rem', desktop: '2.5rem' },
-    //         { selector: 'h2, .text-3xl', mobile: '1.5rem', tablet: '1.75rem', desktop: '2rem' },
-    //         { selector: 'h3, .text-2xl', mobile: '1.25rem', tablet: '1.35rem', desktop: '1.5rem' },
-    //         { selector: '.faq-question', mobile: '0.85rem', tablet: '0.9rem', desktop: '0.95rem' },
-    //         { selector: '.stat-chip', mobile: '10px', tablet: '11px', desktop: '12px' }
-    //     ];
-    //     fontAdjustments.forEach(adjustment => {
-    //         const elements = document.querySelectorAll(adjustment.selector);
-    //         let fontSize;
-    //         if (screenState.isMobile) fontSize = adjustment.mobile;
-    //         else if (screenState.isTablet) fontSize = adjustment.tablet;
-    //         else fontSize = adjustment.desktop;
-    //         elements.forEach(el => {
-    //             if (!el.getAttribute('data-auto-font') === 'false') {
-    //                 setStyleIfNeeded(el, 'fontSize', fontSize);
-    //             }
-    //         });
-    //     });
-    //     return 'fonts-fixed';
-    // }
+    function fixFontSizes(screenState) {
+        const fontAdjustments = [
+            { selector: 'h1, .text-4xl, .mentor-name-text', mobile: '1.75rem', tablet: '2rem', desktop: '2.5rem' },
+            { selector: 'h2, .text-3xl', mobile: '1.5rem', tablet: '1.75rem', desktop: '2rem' },
+            { selector: 'h3, .text-2xl', mobile: '1.25rem', tablet: '1.35rem', desktop: '1.5rem' },
+            { selector: '.faq-question', mobile: '0.85rem', tablet: '0.9rem', desktop: '0.95rem' },
+            { selector: '.stat-chip', mobile: '10px', tablet: '11px', desktop: '12px' }
+        ];
+        fontAdjustments.forEach(adjustment => {
+            const elements = document.querySelectorAll(adjustment.selector);
+            let fontSize;
+            if (screenState.isMobile) fontSize = adjustment.mobile;
+            else if (screenState.isTablet) fontSize = adjustment.tablet;
+            else fontSize = adjustment.desktop;
+            elements.forEach(el => {
+                if (!el.getAttribute('data-auto-font') === 'false') {
+                    setStyleIfNeeded(el, 'fontSize', fontSize);
+                }
+            });
+        });
+        return 'fonts-fixed';
+    }
 
-    // function fixSpacing(screenState) {
-    //     const sections = document.querySelectorAll('section, .section, [class*="section"]');
-    //     sections.forEach(section => {
-    //         if (screenState.isMobile && !section.classList.contains('premium-mentor-section')) {
-    //             setStyleIfNeeded(section, 'paddingTop', '40px');
-    //             setStyleIfNeeded(section, 'paddingBottom', '40px');
-    //         } else if (screenState.isTablet) {
-    //             setStyleIfNeeded(section, 'paddingTop', '100px');
-    //             setStyleIfNeeded(section, 'paddingBottom', '60px');
-    //         }
-    //     });
-    //     const roadmapContainer = document.querySelector('.roadmap-container');
-    //     if (roadmapContainer && screenState.isMobile) {
-    //         setStyleIfNeeded(roadmapContainer, 'padding', '40px 0 80px 0');
-    //     }
-    //     return 'spacing-fixed';
-    // }
+    function fixSpacing(screenState) {
+        const sections = document.querySelectorAll('section, .section, [class*="section"]');
+        sections.forEach(section => {
+            if (screenState.isMobile && !section.classList.contains('premium-mentor-section')) {
+                setStyleIfNeeded(section, 'paddingTop', '40px');
+                setStyleIfNeeded(section, 'paddingBottom', '40px');
+            } else if (screenState.isTablet) {
+                setStyleIfNeeded(section, 'paddingTop', '100px');
+                setStyleIfNeeded(section, 'paddingBottom', '60px');
+            }
+        });
+        const roadmapContainer = document.querySelector('.roadmap-container');
+        if (roadmapContainer && screenState.isMobile) {
+            setStyleIfNeeded(roadmapContainer, 'padding', '40px 0 80px 0');
+        }
+        return 'spacing-fixed';
+    }
 
     function fixMedia(screenState) {
         const images = document.querySelectorAll('img:not(.no-auto-responsive)');
@@ -269,11 +269,11 @@
     function fixResponsiveness(screenState) {
         const fixes = [];
         fixes.push(fixContainers(screenState));
-        fixes.push(fixGrids(screenState));
+        // fixes.push(fixGrids(screenState));
         fixes.push(fixHorizontalSliders(screenState));
         fixes.push(fixFontSizes(screenState));
         // fixes.push(fixSpacing(screenState));
-        fixes.push(fixMedia(screenState));
+        // fixes.push(fixMedia(screenState));
         fixes.push(fixNavigation(screenState));
         fixes.push(fixTables(screenState));
         fixes.push(fixAbsoluteElements(screenState));

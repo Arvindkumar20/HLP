@@ -96,6 +96,76 @@
       display: none;
     }
   </style>
+  <style>
+    /* smooth transitions for video cards */
+    .video-card {
+      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.3s ease;
+    }
+
+    .video-card:hover {
+      transform: translateY(-6px);
+    }
+
+    /* ensures videos respect border radius & overlay stacking */
+    .video-element {
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    .group:hover .video-element {
+      transform: scale(1.05);
+    }
+
+    /* custom play button glow + focus */
+    .play-btn {
+      backdrop-filter: blur(12px);
+      transition: all 0.25s ease-out;
+      cursor: pointer;
+    }
+
+    .play-btn:hover {
+      background: rgba(255, 255, 255, 0.35);
+      transform: scale(1.08);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    /* line clamp helper for testimonial text */
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* optional better video loading poster */
+    video::-webkit-media-controls {
+      display: none !important;
+    }
+
+    video {
+      pointer-events: none;
+      /* makes click go through to overlay but keeps poster; we control play with custom btn */
+    }
+
+    /* but we keep pointer events auto on video if we want clicking? Actually we use button for play/pause, so video clicks not needed */
+    .video-card video {
+      pointer-events: none;
+    }
+
+    /* ensure gradient and text remain interactive */
+    .card-overlay {
+      pointer-events: none;
+    }
+
+    .play-btn {
+      pointer-events: auto;
+    }
+
+    /* bottom text block stays visible */
+    .student-info {
+      pointer-events: none;
+    }
+  </style>
   <!-- Lucide Icons (plain JS) -->
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
@@ -414,13 +484,7 @@
     <script>
       (function () {
         // Callback functionality
-        const callbackBtn = document.getElementById('callbackDropdownBtn');
-        if (callbackBtn) {
-          callbackBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            alert("📞 Thanks for your interest! A career advisor will contact you within 24 hours.");
-          });
-        }
+
 
         // SMART POPUP POSITIONING to avoid overflow (works on all screen sizes)
         const courseItems = document.querySelectorAll('.course-item');
@@ -687,7 +751,7 @@
     <div id="modalOverlay" class="absolute inset-0 bg-slate-900/60 backdrop-blur-md"></div>
     <!-- Modal container -->
     <div class="relative bg-white w-full max-w-md rounded-[2.5rem] shadow-2xl overflow-hidden modal-fade-in">
-      <button id="closeModalBtn"
+      <button id="closeSyllabusModalBtn"
         class="absolute top-6 right-6 p-2 rounded-full hover:bg-slate-100 text-slate-400 transition-colors z-10">
         <i data-lucide="x" size="20"></i>
       </button>
@@ -728,7 +792,7 @@
   </div>
 
   <!-- ===================== HERO SECTION ===================== -->
-  <section class="relative min-h-[95vh] pt-28 flex items-center px-6 lg:px-20 overflow-hidden bg-dot-pattern">
+  <section class="relative min-h-[95vh] pt-32 flex items-center px-6 lg:px-20 overflow-hidden bg-dot-pattern">
     <div class="absolute top-0 right-0 w-[50%] h-[50%] bg-[#233fff]/5 blur-[120px] rounded-full"></div>
     <div class="absolute bottom-0 left-0 w-[30%] h-[30%] bg-blue-100/20 blur-[100px] rounded-full"></div>
 
@@ -772,7 +836,7 @@
 
         </div>
 
-       <div class="flex items-center gap-6 pt-6 border-t border-slate-100">
+        <div class="flex items-center gap-6 pt-6 border-t border-slate-100">
           <div class="flex -space-x-3">
             <div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden shadow-sm"><img
                 src="../assets/images/placements/abhi.png" alt="student"></div>
@@ -783,7 +847,7 @@
             <div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden shadow-sm"><img
                 src="../assets/images/placements/Adnan Saifi.png" alt="student"></div>
           </div>
-          <p class="text-sm font-bold text-slate-500 italic">Trusted by 5,000+ Full Stack Engineers</p>
+          <p class="text-sm font-bold text-slate-500 italic">Trusted by 1,200+ Full Stack Engineers</p>
         </div>
       </div>
 
@@ -970,7 +1034,7 @@
             <p
               class="text-[#233fff] font-black text-sm mb-6 uppercase tracking-wider bg-blue-50 inline-block px-3 py-1 rounded-lg self-start">
               Duration: 30 to 45 Days</p>
-            <div class="text-5xl font-black mb-10 text-slate-900">₹14,999</div>
+            <div class="text-5xl font-black mb-10 text-slate-900">₹6,000</div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10 flex-grow">
               <div class="flex items-center gap-3 text-slate-600 font-semibold text-sm"><i data-lucide="check-circle"
                   size="18" class="text-green-500 flex-shrink-0"></i> Live AI-Focused Projects</div>
@@ -1012,7 +1076,7 @@
             <p
               class="text-blue-100 font-black text-xs md:text-sm mb-6 uppercase tracking-wider bg-white/10 inline-block px-3 py-1 rounded-lg backdrop-blur-sm self-start">
               Duration: 6 to 8 Months</p>
-            <div class="text-4xl md:text-5xl font-black mb-10 text-white">₹19,999</div>
+            <div class="text-4xl md:text-5xl font-black mb-10 text-white">₹25,000</div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10 flex-grow">
               <div class="flex items-center gap-3 text-white/90 font-semibold text-sm"><i data-lucide="check-circle-2"
                   size="18" class="text-blue-200 flex-shrink-0"></i> Official NSDC Certificate</div>
@@ -1126,7 +1190,7 @@
 
   <!-- METHODOLOGY SECTION -->
   <section
-    class="py-20 px-6 bg-slate-900 text-white rounded-md md:rounded-[4rem] mx-6 mb-12 overflow-hidden relative shadow-2xl">
+    class="py-16 px-6 bg-slate-900 text-white rounded-md md:rounded-[4rem] mx-6 mb-12 overflow-hidden relative shadow-2xl">
     <div class="absolute inset-0 bg-radial-blue"></div>
     <div class="max-w-4xl mx-auto text-center relative z-10">
       <div class="inline-block p-5 rounded-3xl bg-white/5 border border-white/10 mb-10 shadow-inner"><i
@@ -1137,24 +1201,39 @@
         We don't teach you to code, we teach you to <b>think</b>. Every line of code you write is a step toward building
         a real product."</p>
       <div
-        class="flex flex-wrap justify-center gap-12 pt-8 border-t border-white/5 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+        class="flex flex-wrap bg-white justify-center items-center gap-12 py-5 rounded md:rounded-full border-t border-white/5   hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+
+        <!-- Skill India -->
         <div class="flex flex-col items-center">
-          <div class="text-2xl font-black tracking-tighter">SKILL INDIA</div>
-          <div class="text-[8px] font-bold tracking-[0.3em] text-blue-400">OFFICIAL PARTNER</div>
+          <img src="../assets/images/home/Skill-India-Color-web.png" alt="Skill India Logo"
+            class="h-16 w-auto object-contain">
+
         </div>
+
+        <!-- NSDC -->
         <div class="flex flex-col items-center">
-          <div class="text-2xl font-black tracking-tighter">NSDC</div>
-          <div class="text-[8px] font-bold tracking-[0.3em] text-blue-400">CERTIFIED TRAINING</div>
+          <img src="../assets/images/home/nsdc_logo.png" alt="NSDC Logo" class="h-14 w-auto object-contain">
+
         </div>
+        <!-- MSME -->
         <div class="flex flex-col items-center">
-          <div class="text-2xl font-black tracking-tighter">FLUTTER</div>
-          <div class="text-[8px] font-bold tracking-[0.3em] text-blue-400">ECOSYSTEM READY</div>
+          <img src="../assets/images/home/msme_logo.png" alt="MSME Logo" class="h-14 w-auto object-contain">
+
         </div>
+
+        <!-- ISO -->
+        <div class="flex flex-col items-center">
+          <img src="../assets/images/home/iso_logo.png" alt="ISO Logo" class="h-14 w-auto object-contain">
+
+        </div>
+
       </div>
+
+
     </div>
   </section>
 
-  <!-- STUDENT REVIEWS (SUCCESS STORIES) -->
+  <!-- STUDENT REVIEWS (SUCCESS STORIES) WITH VIDEO INTEGRATION -->
   <section class="py-20 px-6 bg-white relative">
     <div class="max-w-7xl mx-auto">
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
@@ -1169,96 +1248,275 @@
             industry-ready Flutter developers.</p>
         </div>
       </div>
+
+      <!-- Video Testimonial Grid (4 cards, each with video background) -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- review cards dynamic with star rating & play overlay -->
+
+        <!-- Card 1 - Rahul Sharma -->
         <div
-          class="group relative rounded-[2.5rem] overflow-hidden bg-slate-100 aspect-[9/16] shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent z-10"></div><img
-            src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=400"
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+          class="video-card group relative rounded-[2.5rem] overflow-hidden bg-slate-800 aspect-[9/16] shadow-xl hover:shadow-2xl transition-all duration-500">
+          <!-- Video element with poster (placeholder image) and placeholder video source -->
+          <video class="video-element absolute inset-0 w-full h-full object-cover"
+            poster="../assets/images/placements/placed-students-videos/khushi.mp4" preload="metadata" playsinline muted>
+            <!-- REPLACE VIDEO URLS HERE (USER WILL UPDATE) - placeholder sample video -->
+            <source src="../assets/images/placements/placed-students-videos/khushi.mp4" type="video/mp4">
+            Your browser does not support video.
+          </video>
+          <!-- Gradient overlay for readability -->
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/50 to-transparent z-10 pointer-events-none">
+          </div>
+
+          <!-- Play button overlay (appears on hover, always clickable) -->
           <div class="absolute inset-0 flex items-center justify-center z-20">
             <div
-              class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500 cursor-pointer">
-              <i data-lucide="play-circle" size="40" fill="white" class="text-white"></i>
+              class="play-btn w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 cursor-pointer shadow-lg"
+              data-video-index="0">
+              <i data-lucide="play-circle" size="40" fill="white" class="text-white drop-shadow-md"></i>
             </div>
           </div>
-          <div class="absolute bottom-0 left-0 w-full p-8 z-30">
-            <div class="flex items-center gap-1 mb-3"><span class="text-orange-400 text-sm">★★★★★</span></div>
-            <h4 class="text-xl font-black text-white mb-1">Rahul Sharma</h4>
-            <p class="text-blue-300 text-[10px] font-bold uppercase tracking-widest mb-3">Placed at TechCorp</p>
-            <p class="text-white/70 text-sm font-medium leading-relaxed italic line-clamp-2">"From training to my first
-              job as a Flutter dev."</p>
+
+          <!-- Student details & testimonial (bottom overlay) -->
+          <div class="absolute bottom-0 left-0 w-full p-6 z-30 student-info">
+            <div class="flex items-center gap-1 mb-2"><span class="text-amber-400 text-sm">★★★★★</span></div>
+            <h4 class="text-xl font-black text-white mb-0.5">Khushi</h4>
+            <p class="text-blue-300 text-[10px] font-bold uppercase tracking-widest mb-2">Flutter Developer</p>
+            <p class="text-white/80 text-sm font-medium leading-relaxed italic line-clamp-2">"From training to my first
+              job as a Flutter dev. The real-world projects changed my career!"</p>
           </div>
         </div>
+
+        <!-- Card 2 - Priya Verma -->
         <div
-          class="group relative rounded-[2.5rem] overflow-hidden bg-slate-100 aspect-[9/16] shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent z-10"></div><img
-            src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=400"
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+          class="video-card group relative rounded-[2.5rem] overflow-hidden bg-slate-800 aspect-[9/16] shadow-xl hover:shadow-2xl transition-all duration-500">
+          <video class="video-element absolute inset-0 w-full h-full object-cover"
+            poster="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=400"
+            preload="metadata" playsinline muted>
+            <source src="../assets/images/placements/placed-students-videos/lavkush.mp4" type="video/mp4">
+          </video>
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/50 to-transparent z-10 pointer-events-none">
+          </div>
           <div class="absolute inset-0 flex items-center justify-center z-20">
             <div
-              class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500 cursor-pointer">
-              <i data-lucide="play-circle" size="40"></i>
+              class="play-btn w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 cursor-pointer"
+              data-video-index="1">
+              <i data-lucide="play-circle" size="40" class="text-white"></i>
             </div>
           </div>
-          <div class="absolute bottom-0 left-0 w-full p-8 z-30">
-            <div class="flex items-center gap-1 mb-3"><span class="text-orange-400 text-sm">★★★★★</span></div>
-            <h4 class="text-xl font-black text-white mb-1">Priya Verma</h4>
-            <p class="text-blue-300 text-[10px] font-bold uppercase tracking-widest mb-3">Internship Success</p>
-            <p class="text-white/70 text-sm font-medium leading-relaxed italic line-clamp-2">"Real-world projects helped
-              me gain confidence."</p>
+          <div class="absolute bottom-0 left-0 w-full p-6 z-30 student-info">
+            <div class="flex items-center gap-1 mb-2"><span class="text-amber-400 text-sm">★★★★★</span></div>
+            <h4 class="text-xl font-black text-white mb-0.5">Lavkush Yadav</h4>
+            <p class="text-blue-300 text-[10px] font-bold uppercase tracking-widest mb-2">Flutter Developer</p>
+            <p class="text-white/80 text-sm font-medium leading-relaxed italic line-clamp-2">"Real-world projects helped
+              me gain confidence. I got selected as an intern at a top startup."</p>
           </div>
         </div>
+
+        <!-- Card 3 - Amit Patel -->
         <div
-          class="group relative rounded-[2.5rem] overflow-hidden bg-slate-100 aspect-[9/16] shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent z-10"></div><img
-            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=400"
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+          class="video-card group relative rounded-[2.5rem] overflow-hidden bg-slate-800 aspect-[9/16] shadow-xl hover:shadow-2xl transition-all duration-500">
+          <video class="video-element absolute inset-0 w-full h-full object-cover"
+            poster="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=400"
+            preload="metadata" playsinline muted>
+            <source src="../assets/images/placements/placed-students-videos/srfraj.mp4" type="video/mp4">
+          </video>
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/50 to-transparent z-10 pointer-events-none">
+          </div>
           <div class="absolute inset-0 flex items-center justify-center z-20">
             <div
-              class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500 cursor-pointer">
-              <i data-lucide="play-circle" size="40"></i>
+              class="play-btn w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 cursor-pointer"
+              data-video-index="2">
+              <i data-lucide="play-circle" size="40" class="text-white"></i>
             </div>
           </div>
-          <div class="absolute bottom-0 left-0 w-full p-8 z-30">
-            <div class="flex items-center gap-1 mb-3"><span class="text-orange-400 text-sm">★★★★★</span></div>
-            <h4 class="text-xl font-black text-white mb-1">Amit Patel</h4>
-            <p class="text-blue-300 text-[10px] font-bold uppercase tracking-widest mb-3">Junior App Developer</p>
-            <p class="text-white/70 text-sm font-medium leading-relaxed italic line-clamp-2">"The NSDC certification
-              opened many doors."</p>
+          <div class="absolute bottom-0 left-0 w-full p-6 z-30 student-info">
+            <div class="flex items-center gap-1 mb-2"><span class="text-amber-400 text-sm">★★★★★</span></div>
+            <h4 class="text-xl font-black text-white mb-0.5">Saraf Raj</h4>
+            <p class="text-blue-300 text-[10px] font-bold uppercase tracking-widest mb-2">Flutter Developer</p>
+            <p class="text-white/80 text-sm font-medium leading-relaxed italic line-clamp-2">"The NSDC certification
+              opened many doors. Landed my dream job within 2 months!"</p>
           </div>
         </div>
+
+        <!-- Card 4 - Sana Khan -->
         <div
-          class="group relative rounded-[2.5rem] overflow-hidden bg-slate-100 aspect-[9/16] shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent z-10"></div><img
-            src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=400"
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+          class="video-card group relative rounded-[2.5rem] overflow-hidden bg-slate-800 aspect-[9/16] shadow-xl hover:shadow-2xl transition-all duration-500">
+          <video class="video-element absolute inset-0 w-full h-full object-cover"
+            poster="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=400"
+            preload="metadata" playsinline muted>
+            <source src="../assets/images/placements/placed-students-videos/sufiyan.mp4" type="video/mp4">
+          </video>
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/50 to-transparent z-10 pointer-events-none">
+          </div>
           <div class="absolute inset-0 flex items-center justify-center z-20">
             <div
-              class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500 cursor-pointer">
-              <i data-lucide="play-circle" size="40"></i>
+              class="play-btn w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 cursor-pointer"
+              data-video-index="3">
+              <i data-lucide="play-circle" size="40" class="text-white"></i>
             </div>
           </div>
-          <div class="absolute bottom-0 left-0 w-full p-8 z-30">
-            <div class="flex items-center gap-1 mb-3"><span class="text-orange-400 text-sm">★★★★★</span></div>
-            <h4 class="text-xl font-black text-white mb-1">Sana Khan</h4>
-            <p class="text-blue-300 text-[10px] font-bold uppercase tracking-widest mb-3">Freelance Flutter Dev</p>
-            <p class="text-white/70 text-sm font-medium leading-relaxed italic line-clamp-2">"Learning Dart was the best
-              decision for my career."</p>
+          <div class="absolute bottom-0 left-0 w-full p-6 z-30 student-info">
+            <div class="flex items-center gap-1 mb-2"><span class="text-amber-400 text-sm">★★★★★</span></div>
+            <h4 class="text-xl font-black text-white mb-0.5">Sufiyan</h4>
+            <p class="text-blue-300 text-[10px] font-bold uppercase tracking-widest mb-2">Flutter Developer</p>
+            <p class="text-white/80 text-sm font-medium leading-relaxed italic line-clamp-2">"Learning Dart was the best
+              decision for my career. Now earning as a freelancer globally."</p>
           </div>
         </div>
       </div>
+
+      <!-- CTA Banner (no changes needed, stays consistent) -->
       <div
         class="mt-20 p-10 rounded-[3rem] bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
         <div class="space-y-2">
           <h4 class="text-2xl font-black text-slate-900 tracking-tight">Ready to be our next Success Story?</h4>
           <p class="text-slate-500 font-medium">Join our next batch and start your journey with the best mentors.</p>
-        </div><button id="demoClassBtn"
+        </div>
+        <button id="demoClassBtn"
           class="px-10 py-5 rounded-2xl font-black text-white shadow-xl hover:scale-105 transition-all whitespace-nowrap"
           style="background-color:#233fff">Book a Free Demo Class</button>
       </div>
     </div>
   </section>
+
+  <script>
+    // Ensure Lucide icons render after DOM
+    document.addEventListener('DOMContentLoaded', function () {
+      // Initialize Lucide icons globally (for message-square, play-circle and other icons)
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+
+      // ---------- VIDEO PLAY/PAUSE FUNCTIONALITY ----------
+      // Get all video cards, play buttons, and their associated video elements
+      const videoCards = document.querySelectorAll('.video-card');
+
+      // For each card, attach event to the play button (inside that card)
+      videoCards.forEach((card, idx) => {
+        const videoEl = card.querySelector('video');
+        const playBtn = card.querySelector('.play-btn');
+
+        if (!videoEl || !playBtn) return;
+
+        // Store initial state and handle play/pause toggle
+        // Ensure video is not autoplaying by default (muted + no autoplay attribute)
+        // Also, make sure to stop propagation and avoid conflicts
+
+        // Function to update play icon (optional, but we keep same lucide play/pause to improve UX)
+        // We will change the icon dynamically when playing/pausing for better clarity.
+        // Because user might want to pause video again -> we change to 'pause-circle' when playing, 'play-circle' when paused
+        const updateIcon = (isPlaying) => {
+          // Find the <i> element inside playBtn or recreate icon
+          const iconContainer = playBtn.querySelector('i');
+          if (iconContainer) {
+            // Remove old icon and set new lucide data attribute
+            const newIconName = isPlaying ? 'pause-circle' : 'play-circle';
+            // Update the data-lucide attribute and re-render lucide on this element
+            iconContainer.setAttribute('data-lucide', newIconName);
+            // Re-run lucide on this specific element
+            if (typeof lucide !== 'undefined') {
+              lucide.createIcons({ elements: [iconContainer] });
+            } else {
+              // fallback: manually change svg? but lucide will be there
+              console.warn("Lucide not ready");
+            }
+          }
+        };
+
+        // Initialize with play icon (explicit)
+        updateIcon(false);
+
+        // Event listener for play button
+        playBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+
+          // Toggle play/pause
+          if (videoEl.paused) {
+            // When playing any video, it's nice to pause other videos to avoid overlapping audio
+            // But user experience might expect playing only one at a time? optional premium behavior.
+            // Pause all other playing videos to reduce noise (multiple videos playing simultaneously can be chaotic)
+            document.querySelectorAll('.video-card video').forEach(otherVideo => {
+              if (otherVideo !== videoEl && !otherVideo.paused) {
+                otherVideo.pause();
+                // Also reset the button icon of that card
+                const siblingCard = otherVideo.closest('.video-card');
+                if (siblingCard) {
+                  const siblingBtn = siblingCard.querySelector('.play-btn');
+                  if (siblingBtn) {
+                    const siblingIcon = siblingBtn.querySelector('i');
+                    if (siblingIcon) {
+                      siblingIcon.setAttribute('data-lucide', 'play-circle');
+                      if (typeof lucide !== 'undefined') lucide.createIcons({ elements: [siblingIcon] });
+                    }
+                  }
+                }
+              }
+            });
+
+            // Play current video
+            videoEl.play().then(() => {
+              updateIcon(true);
+            }).catch(err => {
+              console.warn('Playback failed:', err);
+              // some browsers require user interaction, but button click already counts
+              // still, fallback show alert? no need. Keep icon as play if error
+              updateIcon(false);
+            });
+          } else {
+            // Pause video
+            videoEl.pause();
+            updateIcon(false);
+          }
+        });
+
+        // Optional: when video ends, reset icon to play-circle
+        videoEl.addEventListener('ended', () => {
+          updateIcon(false);
+        });
+
+        // Also when video is paused externally (e.g., by other video start), reset icon
+        videoEl.addEventListener('pause', () => {
+          // Only change icon if video is ended? but better: check if paused and not ended we also reset to play icon? 
+          // However if user pauses manually by clicking play button, the icon will be updated in the click event.
+          // This catches external pauses like from other video playing logic.
+          if (videoEl.paused && !videoEl.ended) {
+            // Ensure icon matches paused state only if it's not from ended event (ended also triggers pause)
+            // simple check: ended event will also call updateIcon(false) anyway. So just use updateIcon(false) in paused if we are not playing.
+            const currentIconAttr = playBtn.querySelector('i')?.getAttribute('data-lucide');
+            if (currentIconAttr !== 'play-circle') {
+              updateIcon(false);
+            }
+          }
+        });
+      });
+
+      // Also ensure that if any video load error, but no breakage
+      // Optional: manually handle poster if video source not replaced yet (but user will replace later)
+      // Provide demo class button alert (mock)
+      // const demoBtn = document.getElementById('demoClassBtn');
+      // if (demoBtn) {
+      //   demoBtn.addEventListener('click', () => {
+      //     alert("🚀 Book your free demo class! Fill the form or contact our admission team. (This is a demo interaction)");
+      //   });
+      // }
+    });
+
+    // Additional mutation observer for dynamically added icons? Section static so fine.
+    // Re-run lucide when window fully loaded, in case some icons are not rendered
+    window.addEventListener('load', function () {
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+      // Also for any possible .play-btn icons that were updated by JS after load, we want to keep them consistent.
+      // The event listeners already re-render icons on toggle. Good.
+    });
+  </script>
+
+
   <button id="e45" class="fixed callbackBtn bottom-5 right-5 z-50 flex items-center justify-center 
   w-14 h-14 rounded-full text-white text-2xl
 
@@ -1397,25 +1655,25 @@
           <h3 class="footer-heading">Our Courses</h3>
           <div class="text-sm font-bold space-y-3">
 
-            <a href="./courses/mern-full-stack-development" target="_blank"
+            <a href="../courses/mern-full-stack-development" target="_blank"
               class="footer-link flex items-center  group">
               Full Stack Web Development (MERN)
             </a>
 
-            <a href="./courses/mastering-generative-AI" target="_blank" class="footer-link flex items-center   group">
+            <a href="../courses/mastering-generative-AI" target="_blank" class="footer-link flex items-center   group">
               <!-- AI (brain icon) -->
 
               Data Analytics with Generative AI
             </a>
 
-            <a href="./courses/flutter-hybrid-app-development" target="_blank"
+            <a href="../courses/flutter-hybrid-app-development" target="_blank"
               class="footer-link flex items-center   group">
               <!-- Flutter -->
 
               Flutter App Development
             </a>
 
-            <a href="./courses/php" target="_blank" class="footer-link flex items-center   group">
+            <a href="../courses/php" target="_blank" class="footer-link flex items-center   group">
               <!-- Laravel -->
 
               PHP Web Development with Laravel
@@ -1445,81 +1703,82 @@
       </div>
     </div>
   </footer>
- <div id="inquiryModal" class="fixed inset-0 z-50 hidden  items-center justify-center p-4 modal-transition"
-        style="background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px);">
-        <div class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300 scale-95 opacity-0"
-            id="modalContainer">
-            <!-- Modal Header with blue theme -->
-            <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 flex justify-between items-center">
-                <div class="flex items-center gap-2">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
-                        </path>
-                    </svg>
-                    <h2 class="text-xl font-bold text-white tracking-tight">Inquire Now</h2>
-                </div>
-                <button id="closeModalBtn" class="text-white hover:bg-white/20 rounded-full p-1.5 transition">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                        </path>
-                    </svg>
-                </button>
-            </div>
+  <div id="inquiryModal" class="fixed inset-0 z-50 hidden  items-center justify-center p-4 modal-transition"
+    style="background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px);">
+    <div
+      class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300 scale-95 opacity-0"
+      id="modalContainer">
+      <!-- Modal Header with blue theme -->
+      <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+            </path>
+          </svg>
+          <h2 class="text-xl font-bold text-white tracking-tight">Inquire Now</h2>
+        </div>
+        <button id="closeModalBtn" class="text-white hover:bg-white/20 rounded-full p-1.5 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+            </path>
+          </svg>
+        </button>
+      </div>
 
-            <!-- Modal Body: Form -->
-            <div class="px-6 py-5 bg-white">
-                <!-- global status message (success / error from API) -->
-                <div id="formStatusMessage" class="mb-4 text-sm rounded-lg hidden transition-all"></div>
+      <!-- Modal Body: Form -->
+      <div class="px-6 py-5 bg-white">
+        <!-- global status message (success / error from API) -->
+        <div id="formStatusMessage" class="mb-4 text-sm rounded-lg hidden transition-all"></div>
 
-                <form id="inquiryForm" novalidate>
-                    <!-- Mobile Number Field -->
-                    <div class="mb-5">
-                        <label class="block text-gray-700 font-medium mb-1.5 text-sm"><i class="fas fa-phone"></i>
-                            Mobile Number <span class="text-red-500">*</span></label>
-                        <input type="tel" id="mobile" name="mobile"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-400 focus:border-brand-500 outline-none transition"
-                            placeholder="Enter 10-digit Mobile Number" autocomplete="off">
-                        <div id="mobileError" class="text-red-500 text-xs mt-1 hidden"></div>
-                    </div>
+        <form id="inquiryForm" novalidate>
+          <!-- Mobile Number Field -->
+          <div class="mb-5">
+            <label class="block text-gray-700 font-medium mb-1.5 text-sm"><i class="fas fa-phone"></i>
+              Mobile Number <span class="text-red-500">*</span></label>
+            <input type="tel" id="mobile" name="mobile"
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-400 focus:border-brand-500 outline-none transition"
+              placeholder="Enter 10-digit Mobile Number" autocomplete="off">
+            <div id="mobileError" class="text-red-500 text-xs mt-1 hidden"></div>
+          </div>
 
-                    <!-- Full Name Field -->
-                    <div class="mb-5">
-                        <label class="block text-gray-700 font-medium mb-1.5 text-sm"><i class="fas fa-user"></i> Full
-                            Name <span class="text-red-500">*</span></label>
-                        <input type="text" id="fullName" name="fullName"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-400 focus:border-brand-500 outline-none transition"
-                            placeholder="Your Name">
-                        <div id="nameError" class="text-red-500 text-xs mt-1 hidden"></div>
-                    </div>
+          <!-- Full Name Field -->
+          <div class="mb-5">
+            <label class="block text-gray-700 font-medium mb-1.5 text-sm"><i class="fas fa-user"></i> Full
+              Name <span class="text-red-500">*</span></label>
+            <input type="text" id="fullName" name="fullName"
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-400 focus:border-brand-500 outline-none transition"
+              placeholder="Your Name">
+            <div id="nameError" class="text-red-500 text-xs mt-1 hidden"></div>
+          </div>
 
-                    <!-- Email Field -->
-                    <div class="mb-6">
-                        <label class="block text-gray-700 font-medium mb-1.5 text-sm"> <i
-                                class="fa-regular fa-envelope"></i> Email <span class="text-red-500">*</span></label>
-                        <input type="email" id="email" name="email"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-400 focus:border-brand-500 outline-none transition"
-                            placeholder="e.g. yourname@gmail.com">
-                        <div id="emailError" class="text-red-500 text-xs mt-1 hidden"></div>
-                    </div>
+          <!-- Email Field -->
+          <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-1.5 text-sm"> <i class="fa-regular fa-envelope"></i> Email
+              <span class="text-red-500">*</span></label>
+            <input type="email" id="email" name="email"
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-400 focus:border-brand-500 outline-none transition"
+              placeholder="e.g. yourname@gmail.com">
+            <div id="emailError" class="text-red-500 text-xs mt-1 hidden"></div>
+          </div>
 
-                    <!-- Submit Button with loader integration -->
-                    <button type="submit" id="submitBtn"
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl transition duration-200 flex items-center justify-center gap-2 shadow-md">
-                        <span id="submitText">Submit Inquiry</span>
-                        <span id="submitLoader" class="hidden">
-                            <div class="spinner"></div>
-                        </span>
-                    </button>
-                </form>
+          <!-- Submit Button with loader integration -->
+          <button type="submit" id="submitBtn"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl transition duration-200 flex items-center justify-center gap-2 shadow-md">
+            <span id="submitText">Submit Inquiry</span>
+            <span id="submitLoader" class="hidden">
+              <div class="spinner"></div>
+            </span>
+          </button>
+        </form>
 
-                <!-- <div class="mt-4 text-center text-xs text-gray-400 border-t pt-3">
+        <!-- <div class="mt-4 text-center text-xs text-gray-400 border-t pt-3">
                     🔒 We'll never share your details. Simulated API + Local DB storage.
                 </div> -->
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
   <script>
     // Initialize lucide icons
     lucide.createIcons();
@@ -1527,19 +1786,32 @@
     // MODAL logic
     const modal = document.getElementById('syllabusModal');
     const openModalBtns = document.querySelectorAll('#heroDownloadBtn, .summerDownloadBtn, .internshipDownloadBtn');
-    const closeModalBtn = document.getElementById('closeModalBtn');
+    const closeSyllabusModalBtn = document.getElementById('closeSyllabusModalBtn');
     const modalOverlay = document.getElementById('modalOverlay');
 
-    function openModal() {
-      modal.classList.remove('hidden');
+    // function openModal() {
+      // modal.classList.remove('hidden');
+    //   document.body.style.overflow = 'hidden';
+    // }
+    // function closeModal() {
+    //   modal.classList.add('hidden');
+    //   document.body.style.overflow = '';
+    // }
+     function openModal() {
+      modal.classList.remove('opacity-0','hidden', 'invisible', 'pointer-events-none');
+      syllabusModalContainer.classList.remove('scale-95', 'opacity-0');
+      syllabusModalContainer.classList.add('scale-100', 'opacity-100', 'modal-open');
       document.body.style.overflow = 'hidden';
     }
     function closeModal() {
-      modal.classList.add('hidden');
+      modal.classList.add('opacity-0', 'invisible', 'pointer-events-none');
+      syllabusModalContainer.classList.add('scale-95', 'opacity-0');
+      syllabusModalContainer.classList.remove('scale-100', 'opacity-100');
       document.body.style.overflow = '';
     }
+    
     openModalBtns.forEach(btn => btn.addEventListener('click', openModal));
-    if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+    if (closeSyllabusModalBtn) closeSyllabusModalBtn.addEventListener('click', closeModal);
     if (modalOverlay) modalOverlay.addEventListener('click', closeModal);
 
     // Syllabus download option buttons inside modal
@@ -1561,9 +1833,7 @@
 
     // Play video placeholder for review cards
     const playIcons = document.querySelectorAll('.group .cursor-pointer');
-    playIcons.forEach(play => {
-      play.addEventListener('click', () => alert('🎬 Student success story video: “From zero to professional Flutter developer” - coming soon!'));
-    });
+
 
 
 

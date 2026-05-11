@@ -2,7 +2,7 @@
             // ---------- DOM Elements ----------
             const modal = document.getElementById('inquiryModal');
             const modalContainer = document.getElementById('modalContainer');
-            const closeModalBtn2 = document.getElementById('closeModalBtn');
+            const closeModalBtn = document.getElementById('closeModalBtn');
             const form = document.getElementById('inquiryForm');
             const mobileInput = document.getElementById('mobile');
             const fullNameInput = document.getElementById('fullName');
@@ -285,7 +285,7 @@
                 }
             });
             
-            closeModalBtn2.addEventListener('click', closeModal);
+            closeModalBtn.addEventListener('click', closeModal);
             
             // attach open trigger to all existing and future elements with class "open-inquire-btn"
             function bindOpenButtons() {

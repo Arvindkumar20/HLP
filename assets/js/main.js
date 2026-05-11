@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function initModal() {
   const modal = document.getElementById("syllabusModal");
   const overlay = document.getElementById("modalOverlay");
-  const closeBtn = document.getElementById("closeModalBtn");
+  const closeBtn = document.getElementById("closeSyllabusModalBtn");
 
   // OPEN + DOWNLOAD (single listener ⚡)
   document.addEventListener("click", (e) => {
@@ -128,7 +128,7 @@ function initModal() {
 
   // CLOSE
   closeBtn.addEventListener("click", closeModal);
-  overlay.addEventListener("click", closeModal);
+  // overlay.addEventListener("click", closeModal);
 
   function openModal() {
     renderContent(selectedCourse);
